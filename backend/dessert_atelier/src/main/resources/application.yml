@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: dessert_atelier
+  profiles:
+    active:
+      - h2-test
+
+
