@@ -1,6 +1,6 @@
 package com.yangnjo.dessert_atelier.common.dto.address;
 
-import com.yangnjo.dessert_atelier.db.entity.Address;
+import com.yangnjo.dessert_atelier.db.entity.Addresses;
 import com.yangnjo.dessert_atelier.db.entity.Users;
 
 import lombok.AllArgsConstructor;
@@ -24,13 +24,13 @@ public class AddressDto {
 
     private boolean isDefault;
 
-    public static AddressDto toDto(Address address) {
+    public static AddressDto toDto(Addresses address) {
         return new AddressDto(address.getId(), address.getNaming(), address.getPostCode(), address.getDetailAddress(),
                 address.getReceiver(), address.getPhone(), address.isDefault());
     }
 
-    public Address toEntity(Users user) {
-        return Address.createAddress(user, naming, postCode, detailAddress, receiver, phone, isDefault);
+    public Addresses toEntity(Users user) {
+        return Addresses.createAddress(user, naming, postCode, detailAddress, receiver, phone, isDefault);
     }
 
 }

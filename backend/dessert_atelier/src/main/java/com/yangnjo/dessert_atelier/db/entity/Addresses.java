@@ -8,13 +8,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@NoArgsConstructor
-public class Address {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Addresses {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,9 +43,9 @@ public class Address {
     @Column(nullable = false)
     private boolean isDefault;
 
-    public static Address createAddress(Users users, String naming, String postCode, String detailAddress,
+    public static Addresses createAddress(Users users, String naming, String postCode, String detailAddress,
             String receiver, Integer phone, boolean isDefault) {
-        Address address = new Address();
+        Addresses address = new Addresses();
         address.naming = naming;
         address.users = users;
         users.addAddress(address);

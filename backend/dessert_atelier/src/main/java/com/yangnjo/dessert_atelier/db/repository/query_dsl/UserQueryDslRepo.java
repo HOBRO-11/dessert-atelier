@@ -1,4 +1,4 @@
-package com.yangnjo.dessert_atelier.db.repository;
+package com.yangnjo.dessert_atelier.db.repository.query_dsl;
 
 import java.util.List;
 
