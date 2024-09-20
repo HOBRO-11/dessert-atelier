@@ -31,7 +31,7 @@ public class UserJpaService implements UserService {
         boolean existsByEmail = userRepository.existsByEmail(dto.getEmail());
 
         if (existsByEmail) {
-            // TODO
+            // TODO 이미 존재하는 이메일임
             throw new RuntimeException();
         }
 
@@ -67,20 +67,12 @@ public class UserJpaService implements UserService {
 
     @Override
     public boolean modify(UserModifyDto dto) {
-
         Users user = dto.getUser();
         String name = dto.getName();
         String password = dto.getPassword();
         Integer phone = dto.getPhone();
 
-        boolean isModify = userRepository.modify(user, name, password, phone);
-
-        if (isModify == false) {
-            // TODO
-            throw new RuntimeException();
-        }
-
-        return isModify;
+        return userRepository.modify(user, name, password, phone);
     }
 
     @Override

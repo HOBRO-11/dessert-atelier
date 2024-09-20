@@ -1,5 +1,5 @@
 spring:
   profiles:
     active:
-      # - h2-test
-      - dev
+      - h2-test
+      # - dev
