@@ -1,4 +1,4 @@
-package com.yangnjo.dessert_atelier.db.repository.impl;
+package com.yangnjo.dessert_atelier.db.repository.query_dsl.impl;
 
 import static com.querydsl.core.types.Projections.constructor;
 import static com.yangnjo.dessert_atelier.db.entity.QUsers.users;
@@ -11,7 +11,7 @@ import com.querydsl.jpa.impl.JPAUpdateClause;
 import com.yangnjo.dessert_atelier.common.dto.user.UserDto;
 import com.yangnjo.dessert_atelier.db.entity.Users;
 import com.yangnjo.dessert_atelier.db.model.UserStatus;
-import com.yangnjo.dessert_atelier.db.repository.UserQueryDslRepo;
+import com.yangnjo.dessert_atelier.db.repository.query_dsl.UserQueryDslRepo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,6 +20,7 @@ public class UserQueryDslRepoImpl implements UserQueryDslRepo {
 
     private final JPAQueryFactory queryFactory;
 
+    @Deprecated
     @Override
     public boolean modify(Users user, String name, String password, Integer phone) {
         JPAUpdateClause clause = queryFactory.update(users).where(users.eq(user));

@@ -1,7 +1,7 @@
-package com.yangnjo.dessert_atelier.db.repository.impl;
+package com.yangnjo.dessert_atelier.db.repository.query_dsl.impl;
 
 import static com.querydsl.core.types.Projections.constructor;
-import static com.yangnjo.dessert_atelier.db.entity.QAddress.address;
+import static com.yangnjo.dessert_atelier.db.entity.QAddresses.addresses;
 
 import java.util.Optional;
 
@@ -9,7 +9,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.yangnjo.dessert_atelier.common.dto.address.AddressDto;
 import com.yangnjo.dessert_atelier.db.entity.Users;
-import com.yangnjo.dessert_atelier.db.repository.AddressQueryDslRepo;
+import com.yangnjo.dessert_atelier.db.repository.query_dsl.AddressQueryDslRepo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,16 +22,16 @@ public class AddressQueryDslRepoImpl implements AddressQueryDslRepo {
     public Optional<AddressDto> findDefaultAddress(Users user) {
         return Optional.of(
                 queryFactory
-                        .select(constructor(AddressDto.class, address.id, address.naming, address.postCode,
-                                address.detailAddress,
-                                address.receiver, address.phone, address.isDefault))
-                        .from(address)
+                        .select(constructor(AddressDto.class, addresses.id, addresses.naming, addresses.postCode,
+                                addresses.detailAddress,
+                                addresses.receiver, addresses.phone, addresses.isDefault))
+                        .from(addresses)
                         .where(isDefaultAddress().and(isUsers(user)))
                         .fetchOne());
     }
 
     private BooleanExpression isDefaultAddress() {
-        return address.isDefault.isTrue();
+        return addresses.isDefault.isTrue();
     }
 
     private BooleanExpression isUsers(Users user) {
@@ -40,7 +40,7 @@ public class AddressQueryDslRepoImpl implements AddressQueryDslRepo {
             throw new RuntimeException();
         }
 
-        return address.users.eq(user);
+        return addresses.users.eq(user);
     }
 
 }

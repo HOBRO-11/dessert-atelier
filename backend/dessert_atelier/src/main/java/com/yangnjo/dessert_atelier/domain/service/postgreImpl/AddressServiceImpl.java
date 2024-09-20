@@ -10,7 +10,7 @@ import com.yangnjo.dessert_atelier.common.dto.address.AddressDeleteDto;
 import com.yangnjo.dessert_atelier.common.dto.address.AddressDto;
 import com.yangnjo.dessert_atelier.common.dto.address.AddressSaveDto;
 import com.yangnjo.dessert_atelier.common.dto.address.AddressSetDefaultDto;
-import com.yangnjo.dessert_atelier.db.entity.Address;
+import com.yangnjo.dessert_atelier.db.entity.Addresses;
 import com.yangnjo.dessert_atelier.db.entity.Users;
 import com.yangnjo.dessert_atelier.db.repository.AddressRepository;
 import com.yangnjo.dessert_atelier.domain.service.AddressService;
@@ -43,7 +43,7 @@ public class AddressServiceImpl implements AddressService {
 
         checkExistNaming(dto.getUsers(), dto.getNaming());
 
-        Address address = dto.toEntity();
+        Addresses address = dto.toEntity();
         return AddressDto.toDto(addressRepository.save(address));
     }
 
@@ -89,9 +89,9 @@ public class AddressServiceImpl implements AddressService {
     @Override
     @Transactional
     public void setDefaultAddress(AddressSetDefaultDto dto) {
-        List<Address> addresses = dto.getUsers().getAddresses();
+        List<Addresses> addresses = dto.getUsers().getAddresses();
 
-        for (Address address : addresses) {
+        for (Addresses address : addresses) {
             if (address.getId() == dto.getAddressId()) {
                 address.setDefaultAddress();
             } else {

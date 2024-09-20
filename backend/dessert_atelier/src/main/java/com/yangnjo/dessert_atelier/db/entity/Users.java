@@ -13,12 +13,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.OneToMany;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Users extends BaseEntity {
 
     @Column(nullable = false, unique = true)
@@ -39,7 +40,7 @@ public class Users extends BaseEntity {
     private UserStatus userStatus = UserStatus.ACTIVE;
 
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "users")
-    private List<Address> addresses = new ArrayList<>();
+    private List<Addresses> addresses = new ArrayList<>();
 
     public static Users createUser(String email, String password, String name, Integer phone) {
         Users users = new Users();
@@ -50,7 +51,7 @@ public class Users extends BaseEntity {
         return users;
     }
 
-    public void addAddress(Address address){
+    public void addAddress(Addresses address){
         this.addresses.add(address);
     }
 

@@ -12,7 +12,7 @@ import com.yangnjo.dessert_atelier.common.dto.address.AddressDeleteDto;
 import com.yangnjo.dessert_atelier.common.dto.address.AddressDto;
 import com.yangnjo.dessert_atelier.common.dto.address.AddressSaveDto;
 import com.yangnjo.dessert_atelier.common.dto.address.AddressSetDefaultDto;
-import com.yangnjo.dessert_atelier.db.entity.Address;
+import com.yangnjo.dessert_atelier.db.entity.Addresses;
 import com.yangnjo.dessert_atelier.db.entity.Users;
 import com.yangnjo.dessert_atelier.db.repository.AddressRepository;
 import com.yangnjo.dessert_atelier.db.repository.UserRepository;
@@ -48,8 +48,8 @@ public class AddressServiceImplTest {
         usersRepository.save(testUser);
 
         // Given: 테스트 주소 저장 (최대 20개 이하)
-        Address address1 = Address.createAddress(testUser, "Home", "12345", "123 Main St", "John Doe", 12345678, true);
-        Address address2 = Address.createAddress(testUser, "Office", "67890", "456 Elm St", "Jane Doe", 98765432,
+        Addresses address1 = Addresses.createAddress(testUser, "Home", "12345", "123 Main St", "John Doe", 12345678, true);
+        Addresses address2 = Addresses.createAddress(testUser, "Office", "67890", "456 Elm St", "Jane Doe", 98765432,
                 false);
         addressRepository.saveAll(List.of(address1, address2));
 
