@@ -1,12 +1,9 @@
 package com.yangnjo.dessert_atelier.db.repository.impl;
 
+import static com.querydsl.core.types.Projections.constructor;
 import static com.yangnjo.dessert_atelier.db.entity.QUsers.users;
 
 import java.util.List;
-
-import org.springframework.stereotype.Repository;
-
-import static com.querydsl.core.types.Projections.constructor;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -18,7 +15,6 @@ import com.yangnjo.dessert_atelier.db.repository.UserQueryDslRepo;
 
 import lombok.RequiredArgsConstructor;
 
-@Repository
 @RequiredArgsConstructor
 public class UserQueryDslRepoImpl implements UserQueryDslRepo {
 
