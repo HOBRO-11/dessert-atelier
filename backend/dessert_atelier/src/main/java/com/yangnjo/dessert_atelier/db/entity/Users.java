@@ -3,7 +3,6 @@ package com.yangnjo.dessert_atelier.db.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.yangnjo.dessert_atelier.db.model.BaseEntity;
 import com.yangnjo.dessert_atelier.db.model.UserStatus;
 
@@ -25,7 +24,6 @@ public class Users extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @JsonIgnore
     @Column(nullable = false)
     private String password;
 
@@ -37,7 +35,7 @@ public class Users extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private UserStatus userStatus = UserStatus.ACTIVE;
+    private UserStatus userStatus;
 
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "users")
     private List<Addresses> addresses = new ArrayList<>();
@@ -48,21 +46,28 @@ public class Users extends BaseEntity {
         users.password = password;
         users.name = name;
         users.phone = phone;
+        users.userStatus = UserStatus.ACTIVE;
         return users;
     }
 
-    public void addAddress(Addresses address){
+    public void addAddress(Addresses address) {
         this.addresses.add(address);
     }
 
-    public boolean BanUser(Users user) {
-        user.userStatus = UserStatus.BAN;
-        return true;
+    public void BanUser() {
+        this.userStatus = UserStatus.BAN;
     }
 
-    public boolean ActiveUser(Users user) {
-        user.userStatus = UserStatus.BAN;
-        return true;
+    public void ActiveUser(Users user) {
+        this.userStatus = UserStatus.ACTIVE;
+    }
+
+    public void changePassword(String password) {
+        this.password = password;
+    }
+
+    public void changePhone(int phone){
+        this.phone = phone;
     }
 
 }
