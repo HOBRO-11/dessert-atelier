@@ -28,4 +28,12 @@ public class ProductImages {
         pi.imagesUrl = imagesUrl;
         return pi;
     }
+
+    protected void addImageUrls(List<String> imageUrls) {
+        this.imagesUrl.addAll(imageUrls);
+    }
+
+    protected void removeImageUrls(List<String> imageUrls) {
+        this.imagesUrl.removeAll(imageUrls);
+    }
 }
