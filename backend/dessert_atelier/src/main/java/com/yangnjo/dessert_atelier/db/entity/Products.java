@@ -1,5 +1,6 @@
 package com.yangnjo.dessert_atelier.db.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.annotations.JdbcTypeCode;
@@ -9,11 +10,13 @@ import org.springframework.util.StringUtils;
 import com.yangnjo.dessert_atelier.db.model.BaseEntity;
 import com.yangnjo.dessert_atelier.db.model.ProductStatus;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -39,13 +42,16 @@ public class Products extends BaseEntity {
 
     @Column(nullable = false)
     private String thumb;
-    
+
     @Column
     private String comment;
-    
+
     @JdbcTypeCode(SqlTypes.JSON)
     @OneToOne(fetch = FetchType.LAZY)
     private ProductImages images;
+
+    @OneToMany(cascade = CascadeType.REMOVE)
+    private List<Recipes> recipes = new ArrayList<>();
 
     public static Products createProduct(String name, Integer price, Integer quantity, ProductStatus status,
             String thumb, String comment,
@@ -99,17 +105,23 @@ public class Products extends BaseEntity {
         return this.quantity;
     }
 
-    public void addImages(ProductImages images) {
-        List<String> newImages = images.getImagesUrl();
-        this.images.getImagesUrl().addAll(newImages);
+    public void addImages(List<String> newImageUrls) {
+        this.images.addImageUrls(newImageUrls);
     }
 
-    public void removeImages(ProductImages images) {
-        List<String> newImages = images.getImagesUrl();
-        this.images.getImagesUrl().removeAll(newImages);
+    public void removeImages(List<String> images) {
+        this.images.removeImageUrls(images);
     }
 
     public void changeThumb(String thumb) {
         this.thumb = thumb;
+    }
+
+    protected void addRecipes(Recipes recipes) {
+        this.recipes.add(recipes);
+    }
+
+    public void subtractRecipes(Recipes recipes) {
+        this.recipes.remove(recipes);
     }
 }
