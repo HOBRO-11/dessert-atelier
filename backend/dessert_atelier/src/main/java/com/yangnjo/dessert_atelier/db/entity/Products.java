@@ -50,8 +50,11 @@ public class Products extends BaseEntity {
     @OneToOne(fetch = FetchType.LAZY)
     private ProductImages images;
 
-    @OneToMany(cascade = CascadeType.REMOVE)
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "products")
     private List<Recipes> recipes = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "products")
+    private List<Reviews> reviews = new ArrayList<>();
 
     public static Products createProduct(String name, Integer price, Integer quantity, ProductStatus status,
             String thumb, String comment,
@@ -123,5 +126,9 @@ public class Products extends BaseEntity {
 
     public void subtractRecipes(Recipes recipes) {
         this.recipes.remove(recipes);
+    }
+
+    public void addReview(Reviews reviews) {
+        this.reviews.add(reviews);
     }
 }

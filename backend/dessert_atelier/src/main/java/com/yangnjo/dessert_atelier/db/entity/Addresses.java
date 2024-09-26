@@ -24,7 +24,7 @@ public class Addresses {
     @Column(nullable = false)
     private String naming;
 
-    @JoinColumn(name = "users_id")
+    @JoinColumn(name = "user_id")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Users users; // users 테이블의 외래 키로 설정할 수 있습니다.
 

@@ -37,8 +37,17 @@ public class Users extends BaseEntity {
     @Column(nullable = false)
     private UserStatus userStatus;
 
-    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "users")
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "users", orphanRemoval = true)
     private List<Addresses> addresses = new ArrayList<>();
+
+    @OneToMany(mappedBy = "users", orphanRemoval = true)
+    private List<Reviews> reviews = new ArrayList<>();
+
+    @OneToMany(mappedBy = "users", orphanRemoval = true)
+    private List<QnAs> qnAs = new ArrayList<>();
+
+    @OneToMany(mappedBy = "users")
+    private List<Orders> orders = new ArrayList<>();
 
     public static Users createUser(String email, String password, String name, Integer phone) {
         Users users = new Users();
@@ -66,8 +75,28 @@ public class Users extends BaseEntity {
         this.password = password;
     }
 
-    public void changePhone(int phone){
+    public void changePhone(int phone) {
         this.phone = phone;
+    }
+
+    protected void addReview(Reviews reviews) {
+        this.reviews.add(reviews);
+    }
+
+    public void removeReview(Reviews reviews) {
+        this.reviews.remove(reviews);
+    }
+
+    public void addQnA(QnAs qnAs) {
+        this.qnAs.add(qnAs);
+    }
+
+    public void removeQnA(QnAs qnAs) {
+        this.qnAs.remove(qnAs);
+    }
+
+    protected void addOrder(Orders orders) {
+        this.orders.add(orders);
     }
 
 }

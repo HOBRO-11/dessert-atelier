@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum ProductStatus {
 
+    DISCOUNT("DISCOUNT"),
     SALE("SALE"),
     SOLD_OUT("SOLD_OUT"),
     HIDE("HIDE");
