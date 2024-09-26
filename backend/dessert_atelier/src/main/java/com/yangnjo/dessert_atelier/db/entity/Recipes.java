@@ -16,11 +16,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Recipes extends BaseEntity {
 
-    @JoinColumn
+    @JoinColumn(name = "product_id")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Products products;
 
-    @JoinColumn
+    @JoinColumn(name = "component_id")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Components components;
 
