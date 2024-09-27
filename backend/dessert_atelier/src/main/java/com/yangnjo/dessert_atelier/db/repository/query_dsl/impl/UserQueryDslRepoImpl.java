@@ -5,51 +5,31 @@ import static com.yangnjo.dessert_atelier.db.entity.QUsers.users;
 
 import java.util.List;
 
+import org.springframework.data.domain.Sort.Direction;
+
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.querydsl.jpa.impl.JPAUpdateClause;
 import com.yangnjo.dessert_atelier.common.dto.user.UserDto;
-import com.yangnjo.dessert_atelier.db.entity.Users;
 import com.yangnjo.dessert_atelier.db.model.UserStatus;
 import com.yangnjo.dessert_atelier.db.repository.query_dsl.UserQueryDslRepo;
 
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class UserQueryDslRepoImpl implements UserQueryDslRepo {
+public class UserQueryDslRepoImpl implements UserQueryDslRepo  {
 
     private final JPAQueryFactory queryFactory;
 
-    @Deprecated
     @Override
-    public boolean modify(Users user, String name, String password, Integer phone) {
-        JPAUpdateClause clause = queryFactory.update(users).where(users.eq(user));
-
-        if (password != null && !password.isEmpty()) {
-            clause.set(users.password, password);
-        }
-
-        if (name != null && !name.isEmpty()) {
-            clause.set(users.name, name);
-        }
-
-        if (phone != null) {
-            clause.set(users.phone, phone);
-        }
-
-        long affectedRows = clause.execute();
-
-        return affectedRows == 1;
-    }
-
-    @Override
-    public List<UserDto> search(int page, int size, UserStatus userStatus) {
+    public List<UserDto> findByStatus(int page, int size, UserStatus userStatus, Direction direction) {
         return queryFactory
                 .select(constructor(UserDto.class, users.id, users.email, users.name))
                 .from(users)
                 .where(isUserStatus(userStatus))
                 .offset(page * size)
                 .limit(size)
+                .orderBy(sort(direction))
                 .fetch();
     }
 
@@ -64,6 +44,13 @@ public class UserQueryDslRepoImpl implements UserQueryDslRepo {
 
     private BooleanExpression isUserStatus(UserStatus userStatus) {
         return userStatus == null ? null : users.userStatus.eq(userStatus);
+    }
+
+    private OrderSpecifier<Long> sort(Direction direction) {
+        if (direction.isAscending()) {
+            return users.id.asc();
+        }
+        return users.id.desc();
     }
 
 }

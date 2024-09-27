@@ -3,9 +3,14 @@ package com.yangnjo.dessert_atelier.db.repository.query_dsl.impl;
 import static com.yangnjo.dessert_atelier.db.entity.QProducts.products;
 import static com.yangnjo.dessert_atelier.db.entity.QProductImages.productImages;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.data.domain.Sort.Direction;
+
 import static com.querydsl.core.types.Projections.constructor;
+
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.yangnjo.dessert_atelier.common.dto.product.ProductDetailDto;
@@ -21,20 +26,20 @@ public class ProductQueryDslRepoImpl implements ProductQueryDslRepo {
 
     private final JPAQueryFactory queryFactory;
 
-    // TODO 나중에 이름 바꾸기
     @Override
-    public List<ProductSimpleDto> findProductsWithStatus(int page, int size, ProductStatus status) {
+    public List<ProductSimpleDto> findSimpleProductsByStatus(int page, int size, ProductStatus status, Direction direction) {
         return queryFactory
                 .select(constructor(ProductSimpleDto.class, products.id, products.name, products.price, products.thumb))
                 .from(products)
                 .where(isStatus(status))
                 .offset(page * size)
                 .limit(size)
+                .orderBy(sort(direction))
                 .fetch();
     }
 
     @Override
-    public List<ProductDetailDto> findDetailProduct(Long id) {
+    public List<ProductDetailDto> findDetailProducts(Long id, Direction direction) {
         return queryFactory
                 .select(constructor(ProductDetailDto.class, products.id, products.name, products.price,
                         products.quantity, products.status, products.thumb, products.comment,
@@ -42,16 +47,18 @@ public class ProductQueryDslRepoImpl implements ProductQueryDslRepo {
                 .from(products)
                 .leftJoin(products.images, productImages)
                 .where(isProductId(id))
+                .orderBy(sort(direction))
                 .fetch();
     }
 
     @Override
-    public ProductDetailDtoExceptImages findProductExceptImages(Long id) {
+    public ProductDetailDtoExceptImages findProductsExceptImages(Long id, Direction direction) {
         return queryFactory
                 .select(constructor(ProductDetailDtoExceptImages.class, products.id, products.name, products.price,
                         products.quantity, products.status, products.thumb, products.comment))
                 .from(products)
                 .where(isProductId(id))
+                .orderBy(sort(direction))
                 .fetchOne();
     }
 
@@ -65,6 +72,13 @@ public class ProductQueryDslRepoImpl implements ProductQueryDslRepo {
 
     private BooleanExpression isStatus(ProductStatus status) {
         return status == null ? null : products.status.eq(status);
+    }
+
+    private OrderSpecifier<LocalDateTime> sort(Direction direction) {
+        if (direction.isAscending()) {
+            return products.createdAt.asc();
+        }
+        return products.createdAt.desc();
     }
 
 }
