@@ -23,9 +23,6 @@ public class DeliveryCompany {
     public String companyName;
 
     @Column(nullable = false)
-    public String driverName;
-
-    @Column(nullable = false)
-    public int driverPhone;
+    public int Phone;
 
 }

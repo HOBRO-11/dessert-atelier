@@ -1,8 +1,8 @@
 package com.yangnjo.dessert_atelier.db.entity;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
+import com.yangnjo.dessert_atelier.db.model.BaseEntity;
 import com.yangnjo.dessert_atelier.db.model.ReviewOrigin;
 
 import jakarta.persistence.CascadeType;
@@ -11,9 +11,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
@@ -24,11 +21,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Reviews {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Reviews extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)
@@ -45,12 +38,6 @@ public class Reviews {
     @Column(nullable = false)
     private String comment;
 
-    private LocalDateTime reviewUpdatedAt;
-
-    private String react;
-
-    private LocalDateTime reactUpdatedAt;
-
     @Enumerated(EnumType.STRING)
     private ReviewOrigin origin;
 
@@ -62,37 +49,20 @@ public class Reviews {
         users.addReview(reviews);
         reviews.reviewImages = reviewImages;
         reviews.comment = comment;
-        setReviewUpdateAt();
         reviews.origin = origin;
         return reviews;
     }
 
-    
     public void addImages(List<String> newImageUrls) {
         this.reviewImages.addImageUrls(newImageUrls);
-        setReviewUpdateAt();
     }
     
     public void removeImages(List<String> images) {
         this.reviewImages.removeImageUrls(images);
-        setReviewUpdateAt();
     }
     
     public void changeComment(String newComment){
         this.comment = newComment;
-        setReviewUpdateAt();
     }
 
-    public void react(String react){
-        this.react = react;
-        setReactUpdateAt();
-    }
-
-    private void setReviewUpdateAt(){
-        this.reviewUpdatedAt = LocalDateTime.now();
-    }
-
-    private void setReactUpdateAt(){
-        this.reactUpdatedAt = LocalDateTime.now();
-    }
 }
