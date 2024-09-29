@@ -25,9 +25,13 @@ public class Carts {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "display_product_id")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Products products;
+    private DisplayProducts displayProducts;
+
+    @JoinColumn(name = "option_id")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private Options options;
 
     @Column(nullable = false)
     private Integer quantity;
@@ -36,18 +40,13 @@ public class Carts {
     @Column(nullable = false)
     private CartStatus status;
 
-    @JoinColumn(name = "order_code")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Orders orders;
-
-    public static Carts createCart(Products products, Integer quantity, Orders orders, CartStatus status) {
-        Carts carts = new Carts();
-        carts.products = products;
-        carts.quantity = quantity;
-        carts.status = status;
-        carts.orders = orders;
-        orders.addCarts(carts);
-        return carts;
+    public Carts(DisplayProducts displayProducts, Options options, Integer quantity, CartStatus status) {
+        this.displayProducts = displayProducts;
+        displayProducts.addCart(this);
+        this.options = options;
+        options.addCart(this);
+        this.quantity = quantity;
+        this.status = status;
     }
 
     public Integer changeQuantity(int newQuantity) {

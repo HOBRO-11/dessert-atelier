@@ -12,6 +12,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -48,6 +49,9 @@ public class Users extends BaseEntity {
 
     @OneToMany(mappedBy = "users")
     private List<Orders> orders = new ArrayList<>();
+
+    @OneToOne(mappedBy = "users")
+    private Basket basket;
 
     public static Users createUser(String email, String password, String name, Integer phone) {
         Users users = new Users();
