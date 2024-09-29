@@ -12,6 +12,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+// TODO: 비회원 주소는 어떻게 할 것인가?
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

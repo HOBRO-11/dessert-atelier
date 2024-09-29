@@ -14,7 +14,7 @@ public class ReviewDto {
 
     private Long id;
 
-    private Long productId;
+    private Long displayProductId;
 
     private Long userId;
 
@@ -22,11 +22,9 @@ public class ReviewDto {
 
     private String comment;
 
-    private LocalDateTime reviewUpdatedAt;
+    private LocalDateTime createdAt;
 
-    private String react;
-
-    private LocalDateTime reactUpdatedAt;
+    private LocalDateTime updatedAt;
 
     private ReviewOrigin origin;
 

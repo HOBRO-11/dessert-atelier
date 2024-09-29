@@ -2,8 +2,6 @@ package com.yangnjo.dessert_atelier.common.dto.qna;
 
 import java.time.LocalDateTime;
 
-import com.yangnjo.dessert_atelier.db.entity.Users;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -13,10 +11,14 @@ public class QnAUnAnswerDto {
 
     public Long id;
 
-    public Users users;
+    public Long userId;
+
+    public Long dpId;
 
     public String comment ;
 
-    public LocalDateTime commentUpdatedAt;
+    public LocalDateTime createdAt;
+
+    public LocalDateTime updatedAt;
 
 }

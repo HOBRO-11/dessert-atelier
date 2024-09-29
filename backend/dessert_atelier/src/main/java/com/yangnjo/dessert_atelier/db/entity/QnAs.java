@@ -1,4 +1,5 @@
 package com.yangnjo.dessert_atelier.db.entity;
+
 import java.time.LocalDateTime;
 
 import com.yangnjo.dessert_atelier.db.model.QnAStatus;
@@ -29,6 +30,10 @@ public class QnAs {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "display_product_id")
+    private DisplayProducts displayProducts;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private Users users;
 
@@ -50,8 +55,8 @@ public class QnAs {
     /*
      * this case return null value, if users and password is null value
      */
-    public QnAs createQnA(Users users, String password, String comment) {
-        if(users == null && password == null){
+    public QnAs createQnA(DisplayProducts dp, Users users, String password, String comment) {
+        if (users == null && password == null) {
             return null;
         }
         QnAs qnAs = new QnAs();
@@ -59,29 +64,31 @@ public class QnAs {
             qnAs.users = users;
             users.addQnA(this);
         }
-        if(users == null){
+        if (users == null) {
             qnAs.password = password;
         }
+        qnAs.displayProducts = dp;
+        dp.addQna(qnAs);
         qnAs.comment = comment;
         qnAs.status = QnAStatus.WAITING;
         setCommentUpdateAt();
         return qnAs;
     }
 
-    public void changeComment(String newComment){
+    public void changeComment(String newComment) {
         this.comment = newComment;
         setCommentUpdateAt();
     }
 
-    public void hide(){
+    public void hide() {
         this.status = QnAStatus.HIDE;
     }
 
-    public void qnaPublic(){
+    public void qnaPublic() {
         this.status = QnAStatus.PUB;
     }
 
-    public void waiting(){
+    public void waiting() {
         this.status = QnAStatus.WAITING;
     }
 
@@ -90,11 +97,12 @@ public class QnAs {
         setAnswerUpdateAt();
     }
 
-    private void setCommentUpdateAt(){
+    private void setCommentUpdateAt() {
         this.commentUpdatedAt = LocalDateTime.now();
     }
 
-    private void setAnswerUpdateAt(){
+    private void setAnswerUpdateAt() {
         this.answerUpdatedAt = LocalDateTime.now();
     }
+
 }

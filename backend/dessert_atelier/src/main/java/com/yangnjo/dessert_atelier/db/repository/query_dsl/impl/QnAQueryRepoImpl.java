@@ -1,7 +1,7 @@
 package com.yangnjo.dessert_atelier.db.repository.query_dsl.impl;
 
-import static com.querydsl.core.types.Projections.constructor;
-import static com.yangnjo.dessert_atelier.db.entity.QQnAs.qnAs;
+import static com.querydsl.core.types.Projections.*;
+import static com.yangnjo.dessert_atelier.db.entity.QQnAs.*;
 
 import java.util.List;
 
@@ -47,7 +47,7 @@ public class QnAQueryRepoImpl implements QnAQueryRepo {
     @Override
     public List<QnADto> findByStatus(int page, int size, QnAStatus status, Direction direction) {
         return queryFactory
-                .select(constructor(QnADto.class, qnAs.id, qnAs.users, qnAs.comment, qnAs.commentUpdatedAt, qnAs.answer,
+                .select(constructor(QnADto.class, qnAs.id, qnAs.users.id, qnAs.id, qnAs.comment, qnAs.commentUpdatedAt, qnAs.answer,
                         qnAs.answerUpdatedAt, qnAs.status))
                 .from(qnAs)
                 .where(isStatus(status))

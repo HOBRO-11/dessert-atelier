@@ -24,8 +24,8 @@ import lombok.NoArgsConstructor;
 public class Reviews extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id", nullable = false)
-    private Products products;
+    @JoinColumn(name = "display_product_id", nullable = false)
+    private DisplayProducts displayProducts;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -41,10 +41,10 @@ public class Reviews extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private ReviewOrigin origin;
 
-    public Reviews createReviews(Products products, Users users, ReviewImages reviewImages, String comment, ReviewOrigin origin) {
+    public Reviews createReviews(DisplayProducts dp ,Users users, ReviewImages reviewImages, String comment, ReviewOrigin origin) {
         Reviews reviews = new Reviews();
-        reviews.products = products;
-        products.addReview(reviews);
+        reviews.displayProducts = dp;
+        dp.addReview(reviews);
         reviews.users = users;
         users.addReview(reviews);
         reviews.reviewImages = reviewImages;

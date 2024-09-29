@@ -1,7 +1,9 @@
 package com.yangnjo.dessert_atelier.db.entity;
 
 import java.time.LocalDateTime;
-import java.util.List;
+
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import com.yangnjo.dessert_atelier.db.model.OrderStatus;
 
@@ -13,7 +15,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
@@ -36,9 +37,6 @@ public class Orders {
 
     private String password;
 
-    @OneToMany(mappedBy = "orders")
-    private List<Carts> carts;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id", nullable = false)
     private Addresses addresses;
@@ -51,37 +49,31 @@ public class Orders {
     @Column(nullable = false)
     private OrderStatus status;
 
+    @JdbcTypeCode(SqlTypes.JSON)
+    @OneToOne(fetch = FetchType.LAZY)
+    private OrderCarts orderCarts;
+
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
 
-    public static Orders createOrder(String code, Users users, String password, List<Carts> carts,
-            Addresses addresses, OrderStatus status) {
+    public static Orders createOrder(String code, Users users, String password, Addresses addresses,
+            OrderCarts orderCarts) {
         Orders orders = new Orders();
-        if (users == null && (password == null || password.isBlank())) {
-            return null;
-        }
-
         orders.code = code;
         if (users != null) {
             orders.users = users;
             users.addOrder(orders);
         }
-
         if (users == null) {
             orders.password = password;
         }
-
-        orders.carts = carts;
-        for (Carts c : carts) {
-            c.used();
-        }
-
         orders.addresses = addresses;
-        orders.status = status;
-        orders.createdAt = LocalDateTime.now();
+        orders.orderCarts = orderCarts;
+        orders.status = OrderStatus.PAYMENT_COMPLETED;
         return orders;
     }
+
 
     public void changeAddress(Addresses addresses) {
         this.addresses = addresses;
@@ -106,14 +98,6 @@ public class Orders {
     public void refund() {
         this.status = OrderStatus.REFUND;
     };
-
-    protected void addCarts(Carts carts) {
-        this.carts.add(carts);
-    }
-
-    public void removeCarts(Carts carts) {
-        this.carts.remove(carts);
-    }
 
     @PrePersist
     public void setCreatedAt() {
