@@ -23,7 +23,7 @@ public class Deliveries {
     @Column(name = "delivery_code")
     private String code;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false, mappedBy = "deliveries")
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "deliveries")
     private Orders orders;
 
     @JoinColumn(name = "delivery_company")
@@ -32,7 +32,7 @@ public class Deliveries {
 
     private LocalDateTime createdAt;
 
-    public Deliveries createDelivery(String code, Orders orders, DeliveryCompany company) {
+    public static Deliveries createDelivery(String code, Orders orders, DeliveryCompany company) {
         Deliveries deliveries = new Deliveries();
         deliveries.code = code;
         deliveries.orders = orders;

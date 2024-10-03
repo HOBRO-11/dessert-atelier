@@ -22,7 +22,7 @@ public class OrderCarts {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public List<String> cartIds = new ArrayList<>();
+    public List<Long> cartIds = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "orderCarts")
     private Orders orders;
@@ -30,8 +30,14 @@ public class OrderCarts {
     public static OrderCarts createOrderCarts(List<Carts> carts) {
         OrderCarts orderCarts = new OrderCarts();
         for (Carts cart : carts) {
-            orderCarts.cartIds.add(cart.getId().toString());
+            orderCarts.cartIds.add(cart.getId());
         }
+        return orderCarts;
+    }
+
+    public static OrderCarts createOrderCart(List<Long> cartIds) {
+        OrderCarts orderCarts = new OrderCarts();
+        orderCarts.cartIds = cartIds;
         return orderCarts;
     }
 

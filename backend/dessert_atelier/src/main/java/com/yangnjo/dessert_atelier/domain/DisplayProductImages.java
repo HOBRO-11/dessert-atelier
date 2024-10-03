@@ -21,9 +21,8 @@ public class DisplayProductImages {
 
     private List<String> imagesUrl;
 
-    public static DisplayProductImages createImages(Long id, List<String> imagesUrl) {
+    public static DisplayProductImages createImages(List<String> imagesUrl) {
         DisplayProductImages dpi = new DisplayProductImages();
-        dpi.id = id;
         dpi.imagesUrl = imagesUrl;
         return dpi;
     }

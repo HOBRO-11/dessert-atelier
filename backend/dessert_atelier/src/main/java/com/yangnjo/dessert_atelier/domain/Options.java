@@ -32,7 +32,7 @@ public class Options {
     private DisplayProducts displayProducts;
 
     @OneToMany(mappedBy = "options")
-    private List<ProductQuantity> productQuantities;
+    private List<ProductQuantity> productQuantities = new ArrayList<>();
 
     private Integer totalQuantity;
 
@@ -48,12 +48,11 @@ public class Options {
     @OneToMany(mappedBy = "options")
     private List<Carts> carts = new ArrayList<>();
 
-    public static Options createOptions(DisplayProducts displayProducts, List<ProductQuantity> productQuantities,
+    public static Options createOptions(DisplayProducts displayProducts,
             Integer totalQuantity, String description, Integer price) {
         Options options = new Options();
         options.displayProducts = displayProducts;
         displayProducts.addOption(options);
-        options.productQuantities.addAll(productQuantities);
         options.totalQuantity = totalQuantity;
         options.description = description;
         options.price = price;
@@ -73,7 +72,7 @@ public class Options {
         this.carts.add(carts);
     }
 
-    protected void addProductQuantity(ProductQuantity productQuantity) {
+    public void addProductQuantity(ProductQuantity productQuantity) {
         this.productQuantities.add(productQuantity);
     }
 

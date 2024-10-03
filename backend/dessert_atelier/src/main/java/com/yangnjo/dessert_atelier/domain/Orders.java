@@ -42,7 +42,7 @@ public class Orders {
     private Destination destination;
 
     @JoinColumn(name = "delivery_code")
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne(fetch = FetchType.LAZY)
     private Deliveries deliveries;
 
     @Enumerated(EnumType.STRING)
