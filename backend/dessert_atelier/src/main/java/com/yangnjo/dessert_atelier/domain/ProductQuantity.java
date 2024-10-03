@@ -10,6 +10,7 @@ import jakarta.persistence.ManyToOne;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter
@@ -26,18 +27,15 @@ public class ProductQuantity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "option_id")
+    @Setter(value = AccessLevel.PROTECTED)
     private Options options;
 
     private Integer quantity;
 
-    public static ProductQuantity createProductQuantity(Products product, Options options, Integer quantity) {
-        ProductQuantity productQuantity = new ProductQuantity();
-        productQuantity.products = product;
-        product.addProductQuantity(productQuantity);
-        productQuantity.options = options;
-        options.addProductQuantity(productQuantity);
-        productQuantity.quantity = quantity;
-        return productQuantity;
+    public ProductQuantity(Products product, Integer quantity) {
+        this.products = product;
+        product.addProductQuantity(this);
+        this.quantity = quantity;
     }
 
 }

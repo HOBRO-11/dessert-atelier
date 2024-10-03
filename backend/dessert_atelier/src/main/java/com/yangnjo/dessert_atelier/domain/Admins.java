@@ -2,6 +2,7 @@ package com.yangnjo.dessert_atelier.domain;
 
 import com.yangnjo.dessert_atelier.domain.model.BaseEntity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -14,27 +15,28 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Admins extends BaseEntity {
 
+    @Column(nullable = false, unique = true)
     public String email;
 
+    @Column(nullable = false)
     public String password;
 
     public Integer phone;
 
     @Enumerated(value = EnumType.STRING)
+    @Column(nullable = false)
     public AdminStatus adminStatus;
 
     @Enumerated(value = EnumType.STRING)
+    @Column(nullable = false)
     public AdminRole adminRole;
 
-    public static Admins createAdmin(String email, String password, Integer phone, AdminStatus adminStatus,
-            AdminRole adminRole) {
-        Admins admins = new Admins();
-        admins.email = email;
-        admins.password = password;
-        admins.phone = phone;
-        admins.adminStatus = AdminStatus.PENDING;
-        admins.adminRole = AdminRole.NONE;
-        return admins;
+    public Admins(String email, String password, Integer phone, AdminStatus adminStatus, AdminRole adminRole) {
+        this.email = email;
+        this.password = password;
+        this.phone = phone;
+        this.adminStatus = AdminStatus.PENDING;
+        this.adminRole = AdminRole.NONE;
     }
 
     public void allow() {

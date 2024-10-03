@@ -25,11 +25,9 @@ public class DeliveryCompany {
     @Column(nullable = false)
     public int phone;
 
-    public static DeliveryCompany createDeliveryCompany(String companyName, int phone) {
-        DeliveryCompany deliveryCompany = new DeliveryCompany();
-        deliveryCompany.companyName = companyName;
-        deliveryCompany.phone = phone;
-        return deliveryCompany;
+    public DeliveryCompany(String companyName, int phone) {
+        this.companyName = companyName;
+        this.phone = phone;
     }
 
 }

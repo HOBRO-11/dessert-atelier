@@ -14,6 +14,7 @@ import jakarta.persistence.ManyToOne;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter
@@ -26,8 +27,9 @@ public class Addresses {
 
     @Column(nullable = false)
     private String naming;
-
-    @JoinColumn(name = "user_id")
+    
+    @Setter(value = AccessLevel.PROTECTED)
+    @JoinColumn(name = "user_id", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Users users;
 
@@ -37,16 +39,11 @@ public class Addresses {
     @Column(nullable = false)
     private boolean isDefault;
 
-    public static Addresses createAddress(Users users, String naming, String postCode, String detailAddress,
-            String receiver, Integer phone, boolean isDefault) {
-        Addresses address = new Addresses();
-        address.naming = naming;
-        address.users = users;
-        users.addAddress(address);
-        Destination newDestination = Destination.createDestination(postCode, detailAddress, receiver, phone);
-        address.destination = newDestination;
-        address.isDefault = isDefault;
-        return address;
+    public Addresses(String naming, String postCode, String detailAddress, String receiver, Integer phone, boolean isDefault) {
+        this.naming = naming;
+        Destination newDestination = new Destination(postCode, detailAddress, receiver, phone);
+        this.destination = newDestination;
+        this.isDefault = isDefault;
     }
 
     public boolean setDefaultAddress() {

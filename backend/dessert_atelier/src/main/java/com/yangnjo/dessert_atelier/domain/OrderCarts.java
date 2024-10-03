@@ -12,6 +12,7 @@ import jakarta.persistence.OneToOne;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter
@@ -24,21 +25,14 @@ public class OrderCarts {
 
     public List<Long> cartIds = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "orderCarts")
+    @Setter(value = AccessLevel.PROTECTED)
+    @OneToOne(mappedBy = "orderCarts", fetch = FetchType.LAZY)
     private Orders orders;
 
-    public static OrderCarts createOrderCarts(List<Carts> carts) {
-        OrderCarts orderCarts = new OrderCarts();
+    public OrderCarts(List<Carts> carts) {
         for (Carts cart : carts) {
-            orderCarts.cartIds.add(cart.getId());
+            this.cartIds.add(cart.getId());
         }
-        return orderCarts;
-    }
-
-    public static OrderCarts createOrderCart(List<Long> cartIds) {
-        OrderCarts orderCarts = new OrderCarts();
-        orderCarts.cartIds = cartIds;
-        return orderCarts;
     }
 
 }

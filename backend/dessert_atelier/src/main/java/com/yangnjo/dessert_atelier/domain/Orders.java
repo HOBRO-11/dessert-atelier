@@ -50,30 +50,35 @@ public class Orders {
     private OrderStatus status;
 
     @JdbcTypeCode(SqlTypes.JSON)
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private OrderCarts orderCarts;
 
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
 
-    public static Orders createOrder(String code, Users users, String password, Destination destination,
-            OrderCarts orderCarts) {
+    public static Orders createUserOrder(String code, Users users, Destination destination, OrderCarts orderCarts) {
         Orders orders = new Orders();
         orders.code = code;
-        if (users != null) {
-            orders.users = users;
-            users.addOrder(orders);
-        }
-        if (users == null) {
-            orders.password = password;
-        }
+        orders.users = users;
+        users.addOrder(orders);
         orders.destination = destination;
         orders.orderCarts = orderCarts;
+        orderCarts.setOrders(orders);
         orders.status = OrderStatus.PAYMENT_COMPLETED;
         return orders;
     }
 
+    public static Orders createGuestOrder(String code, String password, Destination destination, OrderCarts orderCarts) {
+        Orders orders = new Orders();
+        orders.code = code;
+        orders.password = password;
+        orders.destination = destination;
+        orders.orderCarts = orderCarts;
+        orderCarts.setOrders(orders);
+        orders.status = OrderStatus.PAYMENT_COMPLETED;
+        return orders;
+    }
 
     public void changeAddress(Destination destination) {
         this.destination = destination;
@@ -104,12 +109,14 @@ public class Orders {
         this.createdAt = LocalDateTime.now();
     }
 
+    public void setDelivery(Deliveries deliveries) {
+        this.deliveries = deliveries;
+        deliveries.setOrders(this);
+    }
+
     @PreUpdate
     public void setUpdatedAt() {
         this.updatedAt = LocalDateTime.now();
     }
 
-    protected void setDelivery(Deliveries deliveries) {
-        this.deliveries = deliveries;
-    }
 }

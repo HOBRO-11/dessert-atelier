@@ -8,10 +8,12 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter
@@ -22,22 +24,25 @@ public class Basket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Setter(value = AccessLevel.PROTECTED)
+    @JoinColumn(name = "user_id")
     @OneToOne(fetch = FetchType.LAZY)
     private Users users;
 
-    private List<String> cartIds = new ArrayList<>();
+    private List<Long> cartIds = new ArrayList<>();
 
-    public static Basket createBasket(Users users) {
-        Basket basket = new Basket();
-        basket.users = users;
-        return basket;
-    };
+    public Basket(List<Carts> carts) {
+        for (Carts cart : carts) {
+            this.cartIds.add(cart.getId());
+        }
+    }
 
-    public void addCartId(String cartId) {
+    public void addCart(Long cartId) {
         this.cartIds.add(cartId);
     }
 
-    public void removeCartId(String cartId) {
-        this.cartIds.remove(cartId);
+    public void addCart(Carts cart) {
+        this.cartIds.add(cart.getId());
     }
+
 }

@@ -17,6 +17,7 @@ import jakarta.persistence.OneToMany;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter
@@ -27,12 +28,13 @@ public class Options {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Setter(value = AccessLevel.PROTECTED)
     @JoinColumn(name = "display_product_id")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private DisplayProducts displayProducts;
 
     @OneToMany(mappedBy = "options")
-    private List<ProductQuantity> productQuantities = new ArrayList<>();
+    private List<ProductQuantity> productQuantities;
 
     private Integer totalQuantity;
 
@@ -48,16 +50,13 @@ public class Options {
     @OneToMany(mappedBy = "options")
     private List<Carts> carts = new ArrayList<>();
 
-    public static Options createOptions(DisplayProducts displayProducts,
-            Integer totalQuantity, String description, Integer price) {
-        Options options = new Options();
-        options.displayProducts = displayProducts;
-        displayProducts.addOption(options);
-        options.totalQuantity = totalQuantity;
-        options.description = description;
-        options.price = price;
-        options.status = OptionStatus.AVAILABLE;
-        return options;
+    public Options(Integer totalQuantity, String description, Integer price, List<ProductQuantity> productQuantities) {
+        this.totalQuantity = totalQuantity;
+        this.description = description;
+        this.price = price;
+        this.status = OptionStatus.AVAILABLE;
+        this.productQuantities = productQuantities;
+        productQuantities.forEach(productQuantity -> productQuantity.setOptions(this));
     }
 
     public void setStatusAvailable() {
@@ -70,10 +69,6 @@ public class Options {
 
     protected void addCart(Carts carts) {
         this.carts.add(carts);
-    }
-
-    public void addProductQuantity(ProductQuantity productQuantity) {
-        this.productQuantities.add(productQuantity);
     }
 
 }
