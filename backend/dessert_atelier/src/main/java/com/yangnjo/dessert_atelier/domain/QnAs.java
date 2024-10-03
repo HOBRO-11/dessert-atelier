@@ -28,7 +28,7 @@ public class QnAs {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "display_product_id")
+    @JoinColumn(name = "display_product_id", nullable = false)
     private DisplayProducts displayProducts;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -50,28 +50,35 @@ public class QnAs {
 
     private String answer;
 
+    private LocalDateTime answerCreatedAt;
+
     private LocalDateTime answerUpdatedAt;
 
     /*
      * this case return null value, if users and password is null value
      */
-    public QnAs createQnA(DisplayProducts dp, Users users, String password, String comment) {
-        if (users == null && password == null) {
-            return null;
-        }
+    public static QnAs createGuestQnA(DisplayProducts displayProducts, String password, String comment) {
         QnAs qnAs = new QnAs();
-        if (users != null) {
-            qnAs.users = users;
-            users.addQnA(this);
-        }
-        if (users == null) {
-            qnAs.password = password;
-        }
-        qnAs.displayProducts = dp;
-        dp.addQna(qnAs);
+        qnAs.displayProducts = displayProducts;
+        displayProducts.addQna(qnAs);
+        qnAs.password = password;
         qnAs.comment = comment;
         qnAs.status = QnAStatus.WAITING;
-        setCommentUpdateAt();
+        qnAs.setCommentCreatedAt();
+        qnAs.setCommentUpdateAt();
+        return qnAs;
+    }
+
+    public static QnAs createUserQnA(DisplayProducts displayProducts, Users users, String comment) {
+        QnAs qnAs = new QnAs();
+        qnAs.displayProducts = displayProducts;
+        displayProducts.addQna(qnAs);
+        users.addQnA(qnAs);
+        qnAs.users = users;
+        qnAs.comment = comment;
+        qnAs.status = QnAStatus.WAITING;
+        qnAs.setCommentCreatedAt();
+        qnAs.setCommentUpdateAt();
         return qnAs;
     }
 
@@ -93,12 +100,30 @@ public class QnAs {
     }
 
     public void setAnswer(String answer) {
+        if(this.answer == null) {
+            setAnswerCreatedAt();
+        }
         this.answer = answer;
+        this.status = QnAStatus.ANSWERED;
         setAnswerUpdateAt();
+    }
+
+    public void removeAnswer() {
+        this.answer = null;
+        this.status = QnAStatus.WAITING;
+        setAnswerUpdateAt();
+    }
+
+    private void setCommentCreatedAt() {
+        this.commentCreatedAt = LocalDateTime.now();
     }
 
     private void setCommentUpdateAt() {
         this.commentUpdatedAt = LocalDateTime.now();
+    }
+
+    private void setAnswerCreatedAt() {
+        this.answerCreatedAt = LocalDateTime.now();
     }
 
     private void setAnswerUpdateAt() {

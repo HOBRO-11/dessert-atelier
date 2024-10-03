@@ -60,41 +60,24 @@ public class DisplayProducts extends BaseEntity {
     @OneToMany(mappedBy = "displayProducts")
     private List<Carts> carts = new ArrayList<>();
 
-    public static DisplayProducts createDP(String title, Integer price, String thumb, String desc,
+    public DisplayProducts(String title, Integer price, String thumb, String desc,
             DisplayProductImages dpImgs, SalePolicyStatus saleStatus, DisplayProductStatus dpStatus) {
-        DisplayProducts dp = new DisplayProducts();
-        dp.title = title;
-        dp.price = price;
-        dp.thumb = thumb;
-        dp.description = desc;
-        dp.dpImgs = dpImgs;
-        dp.saleStatus = saleStatus;
-        dp.dpStatus = dpStatus;
-        return dp;
+        this.title = title;
+        this.price = price;
+        this.thumb = thumb;
+        this.description = desc;
+        this.dpImgs = dpImgs;
+        this.saleStatus = saleStatus;
+        this.dpStatus = dpStatus;
     }
 
-    public void addReview(Reviews reviews) {
+    protected void addReview(Reviews reviews) {
         this.reviews.add(reviews);
+        reviews.setDisplayProducts(this);
     }
 
-    public void removeReview(Reviews reviews) {
-        this.reviews.remove(reviews);
-    }
-
-    public void addQna(QnAs qnas) {
+    protected void addQna(QnAs qnas) {
         this.qnas.add(qnas);
-    }
-
-    public void removeQna(QnAs qnas) {
-        this.qnas.remove(qnas);
-    }
-
-    public void addImageUrls(List<String> imageUrls) {
-        this.dpImgs.addImageUrls(imageUrls);
-    }
-
-    public void removeImageUrls(List<String> imageUrls) {
-        this.dpImgs.removeImageUrls(imageUrls);
     }
 
     public void changeSaleStatus(SalePolicyStatus saleStatus) {
@@ -105,12 +88,9 @@ public class DisplayProducts extends BaseEntity {
         this.dpStatus = dpStatus;
     }
 
-    protected void addOption(Options options) {
+    public void addOption(Options options) {
         this.options.add(options);
-    }
-
-    public void removeOption(int index) {
-        this.options.get(index).setStatusUnavailable();
+        options.setDisplayProducts(this);
     }
 
     protected void addCart(Carts carts) {

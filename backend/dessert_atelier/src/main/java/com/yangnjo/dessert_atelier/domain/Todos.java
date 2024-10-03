@@ -38,12 +38,10 @@ public class Todos {
 
     private LocalDateTime completeAt;
 
-    public static Todos createTodo(Orders orders) {
-        Todos todos = new Todos();
-        todos.orders = orders;
-        todos.status = TodoStatus.PENDING;
-        todos.createdAt = LocalDateTime.now();
-        return todos;
+    public Todos (Orders orders) {
+        this.orders = orders;
+        this.status = TodoStatus.PENDING;
+        this.createdAt = LocalDateTime.now();
     };
 
     public void inProgress() {

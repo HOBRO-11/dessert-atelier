@@ -8,6 +8,7 @@ import lombok.Getter;
 public enum QnAStatus {
     
     WAITING("WAITING"),
+    ANSWERED("ANSWERED"),
     HIDE("HIDE"),
     PUB("PUBLIC");
 

@@ -22,18 +22,15 @@ public class ReviewImages {
 
     private List<String> imagesUrl = new ArrayList<>();
 
-    public static ReviewImages createImages(Long id, List<String> imagesUrl) {
-        ReviewImages ri = new ReviewImages();
-        ri.id = id;
-        ri.imagesUrl = imagesUrl;
-        return ri;
+    public ReviewImages(List<String> imagesUrl) {
+        this.imagesUrl = imagesUrl;
     }
 
-    protected void addImageUrls(List<String> imageUrls) {
+    public void addImageUrls(List<String> imageUrls) {
         this.imagesUrl.addAll(imageUrls);
     }
 
-    protected void removeImageUrls(List<String> imageUrls) {
+    public void removeImageUrls(List<String> imageUrls) {
         this.imagesUrl.removeAll(imageUrls);
     }
 }

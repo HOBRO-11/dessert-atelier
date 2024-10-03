@@ -41,14 +41,11 @@ public class Products extends BaseEntity {
     @OneToMany(mappedBy = "products")
     private List<ProductQuantity> productQuantities = new ArrayList<>();
 
-    public static Products createProduct(String name, int price,
-            String thumb, String comment, ProductStatus status) {
-        Products products = new Products();
-        products.name = name;
-        products.price = price;
-        products.thumb = thumb;
-        products.status = ProductStatus.AVAILABLE;
-        return products;
+    public Products(String name, int price, String thumb, String comment, ProductStatus status) {
+        this.name = name;
+        this.price = price;
+        this.thumb = thumb;
+        this.status = ProductStatus.AVAILABLE;
     }
 
     public void changeName(String name) {
@@ -61,12 +58,9 @@ public class Products extends BaseEntity {
         this.thumb = thumb;
     }
 
-    protected void addRecipes(Recipes recipes) {
+    public void addRecipes(Recipes recipes) {
         this.recipes.add(recipes);
-    }
-
-    public void subtractRecipes(Recipes recipes) {
-        this.recipes.remove(recipes);
+        recipes.setProducts(this);
     }
 
     public void changeStatus(ProductStatus status) {

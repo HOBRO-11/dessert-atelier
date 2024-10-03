@@ -1,5 +1,6 @@
 package com.yangnjo.dessert_atelier.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.yangnjo.dessert_atelier.domain.model.BaseEntity;
@@ -20,12 +21,10 @@ public class Components extends BaseEntity {
     private String name;
 
     @OneToMany(mappedBy = "components")
-    private List<Recipes> recipes;
+    private List<Recipes> recipes = new ArrayList<>();
 
-    public static Components createComponent(String name) {
-        Components components = new Components();
-        components.name = name;
-        return components;
+    public Components(String name) {
+        this.name = name;
     }
 
     public void changeName(String name){
@@ -34,10 +33,6 @@ public class Components extends BaseEntity {
 
     protected void addRecipes(Recipes recipes){
         this.recipes.add(recipes);
-    }
-
-    protected void removeRecipes(Recipes recipes){
-        this.recipes.remove(recipes);
     }
 
 }

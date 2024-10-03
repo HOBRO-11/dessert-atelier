@@ -13,6 +13,7 @@ import jakarta.persistence.PrePersist;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter
@@ -23,22 +24,19 @@ public class Deliveries {
     @Column(name = "delivery_code")
     private String code;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "deliveries")
+    @Setter(value = AccessLevel.PROTECTED)
+    @OneToOne(mappedBy = "deliveries", fetch = FetchType.LAZY, optional = false)
     private Orders orders;
 
-    @JoinColumn(name = "delivery_company")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "delivery_company", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private DeliveryCompany company;
 
     private LocalDateTime createdAt;
 
-    public static Deliveries createDelivery(String code, Orders orders, DeliveryCompany company) {
-        Deliveries deliveries = new Deliveries();
-        deliveries.code = code;
-        deliveries.orders = orders;
-        orders.setDelivery(deliveries);
-        deliveries.company = company;
-        return deliveries;
+    public Deliveries(String code, DeliveryCompany company) {
+        this.code = code;
+        this.company = company;
     }
 
     @PrePersist

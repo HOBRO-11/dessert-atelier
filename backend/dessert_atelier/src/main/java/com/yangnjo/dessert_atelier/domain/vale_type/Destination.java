@@ -18,13 +18,11 @@ public class Destination {
 
     private Integer phone;
 
-    public static Destination createDestination(String postCode, String detailAddress, String receiver, Integer phone) {
-        Destination destination = new Destination();
-        destination.postCode = postCode;
-        destination.detailAddress = detailAddress;
-        destination.receiver = receiver;
-        destination.phone = phone;
-        return destination;
+    public Destination(String postCode, String detailAddress, String receiver, Integer phone) {
+        this.postCode = postCode;
+        this.detailAddress = detailAddress;
+        this.receiver = receiver;
+        this.phone = phone;
     }
 
 }

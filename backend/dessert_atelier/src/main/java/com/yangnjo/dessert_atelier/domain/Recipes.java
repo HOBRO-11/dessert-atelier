@@ -10,12 +10,14 @@ import jakarta.persistence.ManyToOne;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Recipes extends BaseEntity {
 
+    @Setter(value = AccessLevel.PROTECTED)
     @JoinColumn(name = "product_id")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Products products;
@@ -27,20 +29,10 @@ public class Recipes extends BaseEntity {
     @Column(nullable = false)
     private Integer quantity;
 
-    public static Recipes createRecipes(Products products, Components components, Integer quantity) {
-        Recipes recipes = new Recipes();
-        recipes.products = products;
-        products.addRecipes(recipes);
-        recipes.components = components;
-        components.addRecipes(recipes);
-        recipes.quantity = quantity;
-        return recipes;
-    }
-
-    public void changeComponent(Components components) {
-        this.components.removeRecipes(this);
+    public Recipes(Components components, Integer quantity) {
+        components.addRecipes(this);
         this.components = components;
-        this.components.addRecipes(this);
+        this.quantity = quantity;
     }
 
     public int addQuantity(int quantity) {

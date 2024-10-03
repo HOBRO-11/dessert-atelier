@@ -37,7 +37,7 @@ public class Users extends BaseEntity {
     @Column(nullable = false)
     private UserStatus userStatus;
 
-    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "users", orphanRemoval = true)
+    @OneToMany(mappedBy = "users", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Addresses> addresses = new ArrayList<>();
 
     @OneToMany(mappedBy = "users", orphanRemoval = true)
@@ -49,28 +49,32 @@ public class Users extends BaseEntity {
     @OneToMany(mappedBy = "users")
     private List<Orders> orders = new ArrayList<>();
 
-    @OneToOne(mappedBy = "users")
+    @OneToOne(mappedBy = "users", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Basket basket;
 
-    public static Users createUser(String email, String password, String name, Integer phone) {
-        Users users = new Users();
-        users.email = email;
-        users.password = password;
-        users.name = name;
-        users.phone = phone;
-        users.userStatus = UserStatus.ACTIVE;
-        return users;
+    public Users(String email, String password, String name, Integer phone) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.phone = phone;
+        this.userStatus = UserStatus.ACTIVE;
     }
 
-    protected void addAddress(Addresses address) {
+    public void addAddress(Addresses address) {
         this.addresses.add(address);
+        address.setUsers(this);
+    }
+
+    public void setBasket(Basket basket) {
+        this.basket = basket;
+        basket.setUsers(this);
     }
 
     public void BanUser() {
         this.userStatus = UserStatus.BAN;
     }
 
-    public void ActiveUser(Users user) {
+    public void ActiveUser() {
         this.userStatus = UserStatus.ACTIVE;
     }
 
@@ -84,18 +88,11 @@ public class Users extends BaseEntity {
 
     protected void addReview(Reviews reviews) {
         this.reviews.add(reviews);
-    }
-
-    public void removeReview(Reviews reviews) {
-        this.reviews.remove(reviews);
+        reviews.setUsers(this);
     }
 
     protected void addQnA(QnAs qnAs) {
         this.qnAs.add(qnAs);
-    }
-
-    public void removeQnA(QnAs qnAs) {
-        this.qnAs.remove(qnAs);
     }
 
     protected void addOrder(Orders orders) {
