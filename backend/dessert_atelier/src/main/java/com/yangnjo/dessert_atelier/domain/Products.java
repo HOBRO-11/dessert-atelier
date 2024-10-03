@@ -41,10 +41,11 @@ public class Products extends BaseEntity {
     @OneToMany(mappedBy = "products")
     private List<ProductQuantity> productQuantities = new ArrayList<>();
 
-    public static Products createProduct(String name,
+    public static Products createProduct(String name, int price,
             String thumb, String comment, ProductStatus status) {
         Products products = new Products();
         products.name = name;
+        products.price = price;
         products.thumb = thumb;
         products.status = ProductStatus.AVAILABLE;
         return products;

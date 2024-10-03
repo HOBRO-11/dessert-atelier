@@ -37,10 +37,10 @@ public class QnAs {
 
     private String password;
 
-    // TODO: 추후 추가 예정 createdAt
-
     @Column(nullable = false)
     private String comment;
+
+    private LocalDateTime commentCreatedAt;
 
     private LocalDateTime commentUpdatedAt;
 

@@ -23,6 +23,13 @@ public class DeliveryCompany {
     public String companyName;
 
     @Column(nullable = false)
-    public int Phone;
+    public int phone;
+
+    public static DeliveryCompany createDeliveryCompany(String companyName, int phone) {
+        DeliveryCompany deliveryCompany = new DeliveryCompany();
+        deliveryCompany.companyName = companyName;
+        deliveryCompany.phone = phone;
+        return deliveryCompany;
+    }
 
 }
