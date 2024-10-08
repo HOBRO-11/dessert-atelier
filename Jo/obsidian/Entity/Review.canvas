@@ -1,0 +1,11 @@
+{
+	"nodes":[
+		{"id":"282aa8b6124e3171","type":"text","text":"- [ ] Reviews\n\nid\ndp_id\nusers_id\noptionDescs\nrate\nimages\ncomment\ncomment_updated_at\norigin","x":-125,"y":-130,"width":250,"height":310},
+		{"id":"762740413cc6e65d","type":"text","text":"create -> save","x":160,"y":-139,"width":250,"height":60},
+		{"id":"eaf65e25f1b8b43e","type":"text","text":"update -> byId","x":160,"y":7,"width":250,"height":60},
+		{"id":"471199d1ef7fc0ca","type":"text","text":"read -> byId, byUser, byDP","x":160,"y":-66,"width":250,"height":60},
+		{"id":"1a396d286e22e717","type":"text","text":"delete -> byId","x":160,"y":80,"width":250,"height":60},
+		{"id":"1bcf64d131df8257","type":"text","text":"- 리뷰에 관한 엔티티이다.","x":-125,"y":200,"width":250,"height":60}
+	],
+	"edges":[]
+}

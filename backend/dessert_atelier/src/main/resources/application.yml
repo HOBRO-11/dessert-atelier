@@ -3,6 +3,6 @@ spring:
     name: dessert_atelier
   profiles:
     active:
-      - h2-test
-
+      - postgre-test
+      # - h2-test
 

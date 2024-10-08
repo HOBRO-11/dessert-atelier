@@ -1,0 +1,14 @@
+{
+	"nodes":[
+		{"id":"972d6487eccecf46","type":"text","text":"- [x] Orders\n\ncode\nusers_id\npassword\npost_code\ndetail_address\nreceiver\nphone\ndelivery\nstatus\norder_carts","x":-125,"y":-167,"width":250,"height":334},
+		{"id":"d43144ea62fccc3b","type":"text","text":"create -> save","x":160,"y":-139,"width":250,"height":60},
+		{"id":"be25cfd52f8a8f84","type":"text","text":"update -> byCode","x":160,"y":7,"width":250,"height":60},
+		{"id":"a1847337d43207ac","type":"text","text":"read -> byCode, byUser, ","x":160,"y":-66,"width":250,"height":60},
+		{"id":"c506a60a8b41f370","type":"text","text":"* delete -> byCode","x":160,"y":80,"width":250,"height":60},
+		{"id":"2f47f4f8cbc93ae9","type":"text","text":"직접적으로 삭제는 지원하지 않는다. 개인정보 정책에 따른다.","x":360,"y":180,"width":250,"height":58},
+		{"id":"1f1929f579bed675","x":-125,"y":260,"width":559,"height":160,"type":"text","text":"- 주문을 저장하는 엔티티이다.\n- password 는 비회원 주문일 때만 사용된다.  encrypt 하자\n- 배송이 완료되고 일주일이 지나면 더이상 변경이 불가능 하다.\n- 따로 삭제 기능은 지원하지 않으며, 유저가 탈퇴하고 일정기간이 지나면 삭제 하는 기능을 추가할 지 고민해보자."}
+	],
+	"edges":[
+		{"id":"3a8c1bac466055ce","fromNode":"c506a60a8b41f370","fromSide":"bottom","toNode":"2f47f4f8cbc93ae9","toSide":"left"}
+	]
+}

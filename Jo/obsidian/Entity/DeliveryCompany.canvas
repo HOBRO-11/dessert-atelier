@@ -1,0 +1,10 @@
+{
+	"nodes":[
+		{"id":"19af2bf57a037fe0","type":"text","text":"- [x] delivery_compnay\n\nid\nname\nphone\n","x":-125,"y":-70,"width":250,"height":140},
+		{"id":"e6db51a6102de232","type":"text","text":"create -> save","x":160,"y":-99,"width":250,"height":60},
+		{"id":"3de8627b071ac110","type":"text","text":"update -> byId","x":160,"y":47,"width":250,"height":60},
+		{"id":"8d56220a849c1019","type":"text","text":"read -> byId, byName, all","x":160,"y":-26,"width":250,"height":60},
+		{"id":"0ad5fb307790e5aa","x":-125,"y":120,"width":370,"height":64,"type":"text","text":"- 배달 업체에 관한 엔티티이다.\n- 배달 관련 API를 구분하기 위해 만들어졌다."}
+	],
+	"edges":[]
+}

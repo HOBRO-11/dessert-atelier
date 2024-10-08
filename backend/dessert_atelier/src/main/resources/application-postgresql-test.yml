@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/testdb
+    username: root
+    password: rootpassword
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto:
+        none
+    properties:
+      hibernate:
+        '[format_sql]': true
+
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:sql/test-data-postgresql.sql
