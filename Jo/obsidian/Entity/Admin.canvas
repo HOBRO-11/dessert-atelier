@@ -1,0 +1,11 @@
+{
+	"nodes":[
+		{"id":"98545be150128fc6","type":"text","text":"- [x] Admins\n\nid\nemail\npassword\nphone\nstatus\nrole\n","x":-125,"y":-113,"width":250,"height":226},
+		{"id":"ebf1c0cb1cbb23d7","type":"text","text":"create -> save","x":160,"y":-139,"width":250,"height":60},
+		{"id":"2b76a4e2150cfca7","type":"text","text":"update -> byId","x":160,"y":7,"width":250,"height":60},
+		{"id":"99d0341a19560e7a","type":"text","text":"read -> byId, byEmail, all","x":160,"y":-66,"width":250,"height":60},
+		{"id":"f06d6d77f73e64b9","type":"text","text":"delete -> byId","x":160,"y":80,"width":250,"height":60},
+		{"id":"cd00a5fe25552bc6","type":"text","text":"- Owner 무조건 1명 이상있어야한다.","x":-125,"y":160,"width":320,"height":60}
+	],
+	"edges":[]
+}

@@ -1,0 +1,11 @@
+{
+	"nodes":[
+		{"id":"a81587f4268c6506","type":"text","text":"- [x] Recipes\n\nid\nproducts_id\ncomponents_id\nquantity\n","x":-125,"y":-83,"width":250,"height":166},
+		{"id":"fce43421988791ff","type":"text","text":"create -> save","x":160,"y":-139,"width":250,"height":60},
+		{"id":"8943fec7c8e39d0d","type":"text","text":"update -> byId","x":160,"y":7,"width":250,"height":60},
+		{"id":"853eabd4c6402fef","type":"text","text":"read -> byId, byProduct","x":160,"y":-66,"width":250,"height":60},
+		{"id":"1ea8890e6bc1b931","type":"text","text":"delete -> byId","x":160,"y":80,"width":250,"height":60},
+		{"id":"ad0e99d8dd3efa8f","type":"text","text":"- product에 들어가는 재료에 관한 엔티티이다.","x":-125,"y":160,"width":386,"height":60}
+	],
+	"edges":[]
+}

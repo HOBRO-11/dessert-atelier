@@ -1,0 +1,10 @@
+{
+	"nodes":[
+		{"id":"22de0eac50b230b1","type":"text","text":"- [x] Products\n\nid\nname\nstatus\nprice\nthumb\n","x":-125,"y":-114,"width":250,"height":229},
+		{"id":"3c9079eb2aec2276","type":"text","text":"create -> save","x":160,"y":-139,"width":250,"height":60},
+		{"id":"79e9ea20579aabc3","type":"text","text":"update -> byId","x":160,"y":7,"width":250,"height":60},
+		{"id":"ae2ddcfd83fe410b","type":"text","text":"read -> byId, byName, all","x":160,"y":-66,"width":250,"height":60},
+		{"id":"8c82050675a3d954","type":"text","text":"- 상품에 관한 정보를 저장하는 엔티티이다.\n- status와 price 에 관하여 변경 시 영향이 갈 수 있는 dp와 option을 보여준다\n- status 가 dp, option 에 영향이 갈 수 있다.","x":-133,"y":154,"width":543,"height":126}
+	],
+	"edges":[]
+}

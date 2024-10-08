@@ -1,0 +1,13 @@
+{
+	"nodes":[
+		{"id":"9f9d6e94b17fdd03","type":"text","text":"- [x] Deliveries\n\nid\ndelivery_code\ndelivery_company\n","x":-125,"y":-118,"width":250,"height":237},
+		{"id":"83977459dc26512c","type":"text","text":"create -> save","x":140,"y":-99,"width":250,"height":60},
+		{"id":"0456f31e3d5c3911","type":"text","text":"update -> byCode","x":140,"y":47,"width":250,"height":60},
+		{"id":"823cb960474e4eab","type":"text","text":"read -> byCode","x":140,"y":-26,"width":250,"height":60},
+		{"id":"7239174ae7ac99dc","type":"text","text":"배송 전에만 수정 가능","x":440,"y":47,"width":250,"height":60},
+		{"id":"a6f30f0f6bf9151b","type":"text","text":"- Order에 대한 배달을 담당하는 엔티티이다.\n- code는 운송장 번호이다\n- 배달 전에만 변경 가능하다.\n- order 레코드가 삭제된 경우 같이 삭제된다.","x":-125,"y":140,"width":383,"height":130}
+	],
+	"edges":[
+		{"id":"ea59e0f93817e406","fromNode":"0456f31e3d5c3911","fromSide":"right","toNode":"7239174ae7ac99dc","toSide":"left"}
+	]
+}

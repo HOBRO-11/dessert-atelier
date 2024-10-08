@@ -1,0 +1,9 @@
+{
+	"nodes":[
+		{"id":"cd846aa9a2b9b907","type":"text","text":"- [x] order_carts - JSON\n\nid\nlist_cart_ids","x":-125,"y":-66,"width":250,"height":132},
+		{"id":"1301a7cbcb55d880","type":"text","text":"create -> save","x":160,"y":-59,"width":250,"height":60},
+		{"id":"920b67ba3356ac9d","type":"text","text":"read -> byId","x":160,"y":21,"width":250,"height":60},
+		{"id":"5e67ae8c3d48b357","type":"text","text":"- 주문한 Option의 구성을 저장하는 엔티티이다.\n- 이 레코드를 참고하는 Order가 삭제될때 같이 삭제된다. ","x":-125,"y":100,"width":446,"height":64}
+	],
+	"edges":[]
+}

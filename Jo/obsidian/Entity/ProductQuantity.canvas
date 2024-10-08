@@ -1,0 +1,9 @@
+{
+	"nodes":[
+		{"id":"9aa7e1d600ddc77b","type":"text","text":"- [x] Product_Quantity\n\nid\noption_id\nproduct\nquantity","x":-125,"y":-114,"width":250,"height":228},
+		{"id":"0bba3bce09b1d529","type":"text","text":"create -> save","x":160,"y":-79,"width":250,"height":60},
+		{"id":"ccfcffdabb7cbdd3","type":"text","text":"read -> byId, byOption","x":160,"y":-6,"width":250,"height":60},
+		{"id":"ebad429cfb2f1a4d","type":"text","text":"- option에 들어갈 product의 구성에 관한 엔티티이다\n- 변경은 지원하지 않으며, option이 삭제될 때 같이 삭제된다.","x":-125,"y":140,"width":465,"height":94}
+	],
+	"edges":[]
+}
