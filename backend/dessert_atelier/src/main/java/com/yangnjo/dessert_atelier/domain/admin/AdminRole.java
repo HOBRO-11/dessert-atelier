@@ -7,10 +7,9 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum AdminRole {
 
-    NONE("NONE"),
-    OWNER("OWNER"),
-    STAFF("STAFF"),
-    PART_TIME("PART_TIME");
+    NONE,
+    OWNER,
+    STAFF,
+    PART_TIME;
 
-    private final String role;
 }

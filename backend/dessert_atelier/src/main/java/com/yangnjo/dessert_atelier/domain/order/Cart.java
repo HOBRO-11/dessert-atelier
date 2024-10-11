@@ -1,5 +1,6 @@
 package com.yangnjo.dessert_atelier.domain.order;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,6 +17,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PreUpdate;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,11 +44,18 @@ public class Cart {
     @Enumerated(value = EnumType.STRING)
     private CartStatus status;
 
+    private LocalDateTime updatedAt;
+
     public Cart(List<Option> options, Integer quantity, CartStatus status) {
         List<Long> optionIds = options.stream().map(Option::getId).collect(Collectors.toList());
         this.optionIds.addAll(optionIds);
         this.quantity = quantity;
         this.status = status;
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        this.updatedAt = LocalDateTime.now();
     }
 
 }
