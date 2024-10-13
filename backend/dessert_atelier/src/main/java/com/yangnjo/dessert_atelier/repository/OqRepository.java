@@ -3,9 +3,9 @@ package com.yangnjo.dessert_atelier.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.yangnjo.dessert_atelier.domain.order.Cart;
+import com.yangnjo.dessert_atelier.domain.order.OptionQuantity;
 
 @Repository
-public interface CartRepository extends JpaRepository<Cart, Long> {
+public interface OqRepository extends JpaRepository<OptionQuantity, Long> {
 
 }

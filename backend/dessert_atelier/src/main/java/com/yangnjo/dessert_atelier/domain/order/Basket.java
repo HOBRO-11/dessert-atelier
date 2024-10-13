@@ -2,7 +2,6 @@ package com.yangnjo.dessert_atelier.domain.order;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.hibernate.annotations.Type;
 
@@ -35,21 +34,19 @@ public class Basket {
 
     @Type(JsonType.class)
     // @Column(columnDefinition = "JSONB")
-    private List<Long> cartIds = new ArrayList<>();
+    private List<BasketProperty> properties = new ArrayList<BasketProperty>();
 
     public Basket(Member member) {
         this.member = member;
         member.setBasket(this);
     }
 
-    public void addCarts(List<Cart> carts) {
-        List<Long> cartIds = carts.stream().map(Cart::getId).collect(Collectors.toList());
-        this.cartIds.addAll(cartIds);
+    public void addProperty(BasketProperty property) {
+        this.properties.add(property);
     }
 
-    public void removeCarts(List<Cart> carts) {
-        List<Long> cartIds = carts.stream().map(Cart::getId).collect(Collectors.toList());
-        this.cartIds.removeAll(cartIds);
+    public void removeProperty(Long dppId, List<Long> optionIds) {
+        this.properties.removeIf(property -> (property.getDppId().equals(dppId) && property.getOptionIds().equals(optionIds)));
     }
 
 }

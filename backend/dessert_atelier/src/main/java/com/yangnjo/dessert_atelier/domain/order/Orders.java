@@ -1,6 +1,8 @@
 package com.yangnjo.dessert_atelier.domain.order;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.yangnjo.dessert_atelier.domain.delivery.Delivery;
 import com.yangnjo.dessert_atelier.domain.member.Member;
@@ -16,6 +18,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
@@ -53,34 +56,31 @@ public class Orders {
     @Column(nullable = false)
     private OrderStatus orderStatus;
 
-    @JoinColumn(name = "order_cart_id", nullable = false)
-    @OneToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.REMOVE)
-    private OrderCart orderCarts;
-
     private Long totalPrice;
 
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
 
-    public static Orders createUserOrder(String orderCode, Member member, Destination destination, OrderCart orderCarts, Long totalPrice) {
+    @OneToMany(mappedBy = "orders", cascade = CascadeType.REMOVE)
+    private List<OptionQuantity> optionQuantities = new ArrayList<>();
+
+    public static Orders createUserOrder(String orderCode, Member member, Destination destination, Long totalPrice) {
         Orders orders = new Orders();
         orders.orderCode = orderCode;
         orders.member = member;
         member.addOrder(orders);
         orders.destination = destination;
-        orders.orderCarts = orderCarts;
         orders.totalPrice = totalPrice;
         orders.orderStatus = OrderStatus.PAYMENT_COMPLETED;
         return orders;
     }
 
-    public static Orders createGuestOrder(String orderCode, String password, Destination destination, OrderCart orderCarts, Long totalPrice) {
+    public static Orders createGuestOrder(String orderCode, String password, Destination destination, Long totalPrice) {
         Orders orders = new Orders();
         orders.orderCode = orderCode;
         orders.password = password;
         orders.destination = destination;
-        orders.orderCarts = orderCarts;
         orders.totalPrice = totalPrice;
         orders.orderStatus = OrderStatus.PAYMENT_COMPLETED;
         return orders;
@@ -94,6 +94,11 @@ public class Orders {
     @PreUpdate
     public void setUpdatedAt() {
         this.updatedAt = LocalDateTime.now();
+    }
+
+    protected void addOptionQuantity(OptionQuantity optionQuantity) {
+        this.optionQuantities.add(optionQuantity);
+        optionQuantity.setOrders(this);
     }
 
 }
