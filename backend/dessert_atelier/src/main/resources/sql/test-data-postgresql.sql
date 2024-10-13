@@ -1,23 +1,49 @@
+DROP TABLE IF EXISTS total_sale_option;
+
+DROP TABLE IF EXISTS total_sale_product;
+
 DROP TABLE IF EXISTS todo;
+
 DROP TABLE IF EXISTS qna;
+
 DROP TABLE IF EXISTS review;
+
 DROP TABLE IF EXISTS review_image;
+
+DROP TABLE IF EXISTS option_quantity;
+
 DROP TABLE IF EXISTS orders;
+
 DROP TABLE IF EXISTS delivery;
+
 DROP TABLE IF EXISTS delivery_company;
+
 DROP TABLE IF EXISTS order_cart;
+
 DROP TABLE IF EXISTS basket;
+
 DROP TABLE IF EXISTS cart;
+
 DROP TABLE IF EXISTS product_quantity;
+
 DROP TABLE IF EXISTS option;
+
 DROP TABLE IF EXISTS display_product_preset;
+
 DROP TABLE IF EXISTS display_product_preset_image;
+
 DROP TABLE IF EXISTS display_product;
+
 DROP TABLE IF EXISTS recipe;
+
 DROP TABLE IF EXISTS product;
+
 DROP TABLE IF EXISTS component;
+
 DROP TABLE IF EXISTS address;
+
 DROP TABLE IF EXISTS member;
+
 DROP TABLE IF EXISTS store_admin;
 
 CREATE TABLE member (
@@ -79,6 +105,7 @@ CREATE TABLE display_product (
     thumb VARCHAR(100) NOT NULL,
     description VARCHAR(100) NOT NULL,
     sale_status VARCHAR(20),
+    current_dpp_id BIGINT,
     created_at TIMESTAMP,
     updated_at TIMESTAMP
 );
@@ -130,23 +157,12 @@ CREATE TABLE product_quantity (
     FOREIGN KEY (option_id) REFERENCES option (id)
 );
 
-CREATE TABLE cart (
-    id BIGSERIAL PRIMARY KEY,
-    option_ids JSONB,
-    quantity INT NOT NULL,
-    status VARCHAR(20)
-);
-
 CREATE TABLE basket (
     id BIGSERIAL PRIMARY KEY,
     member_id BIGINT,
-    cart_ids JSONB,
+    -- cart_ids JSONB,
+    properties JSONB,
     FOREIGN KEY (member_id) REFERENCES member (id) ON DELETE CASCADE
-);
-
-CREATE TABLE order_cart (
-    id BIGSERIAL PRIMARY KEY,
-    cart_ids JSONB
 );
 
 CREATE TABLE delivery_company (
@@ -173,14 +189,24 @@ CREATE TABLE orders (
     receiver VARCHAR(20),
     phone VARCHAR(11),
     delivery_id BIGINT,
-    order_cart_id BIGINT NOT NULL,
     order_status VARCHAR(20) NOT NULL,
     total_price BIGINT,
     created_at TIMESTAMP,
     updated_at TIMESTAMP,
     FOREIGN KEY (member_id) REFERENCES member (id) ON DELETE SET NULL,
-    FOREIGN KEY (delivery_id) REFERENCES delivery (id),
-    FOREIGN KEY (order_cart_id) REFERENCES order_cart (id)
+    FOREIGN KEY (delivery_id) REFERENCES delivery (id)
+);
+
+CREATE TABLE option_quantity (
+    id BIGSERIAL PRIMARY KEY,
+    order_code VARCHAR(20) NOT NULL,
+    display_product_preset_id BIGINT NOT NULL,
+    option_ids JSONB,
+    quantity INT NOT NULL,
+    status VARCHAR(20),
+    updated_at TIMESTAMP,
+    FOREIGN KEY (display_product_preset_id) REFERENCES display_product_preset (id),
+    FOREIGN KEY (order_code) REFERENCES orders (order_code)
 );
 
 CREATE TABLE review_image (
@@ -228,6 +254,22 @@ CREATE TABLE todo (
     created_at TIMESTAMP,
     complete_at TIMESTAMP,
     FOREIGN KEY (order_code) REFERENCES orders (order_code)
+);
+
+CREATE TABLE total_sale_option (
+    id BIGSERIAL PRIMARY KEY,
+    option_id BIGINT,
+    sale_amount INT,
+    created_at DATE,
+    FOREIGN KEY (option_id) REFERENCES option (id)
+);
+
+CREATE TABLE total_sale_product (
+    id BIGSERIAL PRIMARY KEY,
+    product_id BIGINT,
+    sale_amount INT,
+    created_at DATE,
+    FOREIGN KEY (product_id) REFERENCES product (id)
 );
 
 CREATE TABLE store_admin (

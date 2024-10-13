@@ -1,3 +1,7 @@
+DROP TABLE IF EXISTS total_sale_option;
+
+DROP TABLE IF EXISTS total_sale_product;
+
 DROP TABLE IF EXISTS review_image;
 
 DROP TABLE IF EXISTS review;
@@ -32,19 +36,11 @@ DROP TABLE IF EXISTS store_admin;
 
 DROP TABLE IF EXISTS todo;
 
-DROP TABLE IF EXISTS todo;
-
-DROP TABLE IF EXISTS order_cart;
-
-DROP TABLE IF EXISTS cart;
+DROP TABLE IF EXISTS option_quantity;
 
 DROP TABLE IF EXISTS product_quantity;
 
 DROP TABLE IF EXISTS basket;
-
-DROP TABLE IF EXISTS qna;
-
-DROP TABLE IF EXISTS review_image;
 
 CREATE TABLE member (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
@@ -105,6 +101,7 @@ CREATE TABLE display_product (
     thumb VARCHAR(100) NOT NULL,
     description VARCHAR(100) NOT NULL,
     sale_status VARCHAR(20),
+    current_dpp_id BIGINT,
     created_at TIMESTAMP,
     updated_at TIMESTAMP
 );
@@ -156,25 +153,6 @@ CREATE TABLE product_quantity (
     FOREIGN KEY (option_id) REFERENCES option (id)
 );
 
-CREATE TABLE cart (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    option_ids JSON,
-    quantity INT NOT NULL,
-    status VARCHAR(20)
-);
-
-CREATE TABLE basket (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    member_id BIGINT,
-    cart_ids JSON,
-    FOREIGN KEY (member_id) REFERENCES member (id) ON DELETE CASCADE
-);
-
-CREATE TABLE order_cart (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    cart_ids JSON
-);
-
 CREATE TABLE delivery_company (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     company_name VARCHAR(20) NOT NULL,
@@ -199,14 +177,31 @@ CREATE TABLE orders (
     receiver VARCHAR(20),
     phone VARCHAR(11),
     delivery_id BIGINT,
-    order_cart_id BIGINT NOT NULL,
     order_status VARCHAR(20) NOT NULL,
     total_price BIGINT,
     created_at TIMESTAMP,
     updated_at TIMESTAMP,
     FOREIGN KEY (member_id) REFERENCES member (id) ON DELETE SET NULL,
-    FOREIGN KEY (delivery_id) REFERENCES delivery (id),
-    FOREIGN KEY (order_cart_id) REFERENCES order_cart (id)
+    FOREIGN KEY (delivery_id) REFERENCES delivery (id)
+);
+
+CREATE TABLE option_quantity (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    order_code VARCHAR(20) NOT NULL,
+    display_product_preset_id BIGINT,
+    option_ids JSON,
+    quantity INT NOT NULL,
+    status VARCHAR(20),
+    updated_at TIMESTAMP,
+    FOREIGN KEY (display_product_preset_id) REFERENCES display_product_preset (id),
+    FOREIGN KEY (order_code) REFERENCES orders (order_code)
+);
+
+CREATE TABLE basket (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    member_id BIGINT,
+    properties JSON, -- JSONB를 JSON으로 변경
+    FOREIGN KEY (member_id) REFERENCES member (id) ON DELETE CASCADE
 );
 
 CREATE TABLE review_image (
@@ -254,6 +249,22 @@ CREATE TABLE todo (
     created_at TIMESTAMP,
     complete_at TIMESTAMP,
     FOREIGN KEY (order_code) REFERENCES orders (order_code)
+);
+
+CREATE TABLE total_sale_option (
+    id BIGINT PRIMARY KEY,
+    option_id BIGINT,
+    sale_amount INT,
+    created_at DATE,
+    FOREIGN KEY (option_id) REFERENCES option (id)
+);
+
+CREATE TABLE total_sale_product (
+    id BIGINT PRIMARY KEY,
+    product_id BIGINT,
+    sale_amount INT,
+    created_at DATE,
+    FOREIGN KEY (product_id) REFERENCES product (id)
 );
 
 CREATE TABLE store_admin (

@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.hibernate.annotations.Type;
 
+import com.yangnjo.dessert_atelier.domain.display_product.DisplayProductPreset;
 import com.yangnjo.dessert_atelier.domain.display_product.Option;
 
 import io.hypersistence.utils.hibernate.type.json.JsonType;
@@ -14,9 +15,12 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PreUpdate;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -26,11 +30,20 @@ import lombok.Setter;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Cart {
+public class OptionQuantity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Setter
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_code")
+    private Orders orders;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "display_product_preset_id")
+    private DisplayProductPreset displayProductPreset;
 
     @Type(JsonType.class)
     // @Column(columnDefinition = "JSONB")
@@ -42,15 +55,19 @@ public class Cart {
 
     @Setter
     @Enumerated(value = EnumType.STRING)
-    private CartStatus status;
+    private OptionQuantityStatus status;
 
     private LocalDateTime updatedAt;
 
-    public Cart(List<Option> options, Integer quantity, CartStatus status) {
+    public OptionQuantity(Orders orders, List<Option> options, DisplayProductPreset displayProductPreset, Integer quantity, OptionQuantityStatus status) {
+        this.orders = orders;
+        orders.addOptionQuantity(this);
         List<Long> optionIds = options.stream().map(Option::getId).collect(Collectors.toList());
         this.optionIds.addAll(optionIds);
+        this.displayProductPreset = displayProductPreset;
         this.quantity = quantity;
         this.status = status;
+        this.orders = orders;
     }
 
     @PreUpdate
