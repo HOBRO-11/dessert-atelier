@@ -148,7 +148,6 @@ public class DomainTest {
                                 "testNaming", "testThumb.jpg", "testTitle", 100_000, 1, "testContent",
                                 displayProductImages);
                 displayProductPresetRepository.save(displayProductPreset);
-                displayProducts.setCurrentDppId(displayProductPreset.getId());
 
                 PresetTable presetTable = new PresetTable(displayProducts);
                 presetTable.setDefaultDpp(displayProductPreset);
