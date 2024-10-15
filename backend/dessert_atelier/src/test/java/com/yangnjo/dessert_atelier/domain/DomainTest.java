@@ -16,6 +16,7 @@ import com.yangnjo.dessert_atelier.domain.display_product.DisplayProduct;
 import com.yangnjo.dessert_atelier.domain.display_product.DisplayProductPreset;
 import com.yangnjo.dessert_atelier.domain.display_product.DisplayProductPresetImage;
 import com.yangnjo.dessert_atelier.domain.display_product.Option;
+import com.yangnjo.dessert_atelier.domain.display_product.PresetTable;
 import com.yangnjo.dessert_atelier.domain.display_product.ProductQuantity;
 import com.yangnjo.dessert_atelier.domain.display_product.SaleStatus;
 import com.yangnjo.dessert_atelier.domain.member.Address;
@@ -48,6 +49,7 @@ import com.yangnjo.dessert_atelier.repository.MemberRepository;
 import com.yangnjo.dessert_atelier.repository.OptionRepository;
 import com.yangnjo.dessert_atelier.repository.OqRepository;
 import com.yangnjo.dessert_atelier.repository.OrderRepository;
+import com.yangnjo.dessert_atelier.repository.PresetTableRepository;
 import com.yangnjo.dessert_atelier.repository.ProductQuantityRepository;
 import com.yangnjo.dessert_atelier.repository.ProductRepository;
 import com.yangnjo.dessert_atelier.repository.QnARepository;
@@ -60,7 +62,7 @@ import jakarta.persistence.PersistenceContext;
 
 @SpringBootTest
 @ActiveProfiles("h2-test")
-// @Transactional
+@Transactional
 public class DomainTest {
 
         @PersistenceContext
@@ -101,6 +103,8 @@ public class DomainTest {
         private DeliveryCompanyRepository deliveryCompanyRepository;
         @Autowired
         private DisplayProductPresetRepository displayProductPresetRepository;
+        @Autowired
+        private PresetTableRepository presetTableRepository;
 
         @Test
         @Transactional
@@ -145,6 +149,12 @@ public class DomainTest {
                                 displayProductImages);
                 displayProductPresetRepository.save(displayProductPreset);
                 displayProducts.setCurrentDppId(displayProductPreset.getId());
+
+                PresetTable presetTable = new PresetTable(displayProducts);
+                presetTable.setDefaultDpp(displayProductPreset);
+                presetTable.setCurrentDpp(displayProductPreset);
+                presetTable.setNumbering(1);
+                presetTableRepository.save(presetTable);
 
                 ProductQuantity productQuantities = new ProductQuantity(products, 10);
                 Option options = new Option(5, "testOptionDesc", 500_000, List.of(productQuantities), 1);
