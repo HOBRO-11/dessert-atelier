@@ -1,7 +1,6 @@
 {
 	"nodes":[
 		{"id":"f7fbf5f4da3eebf4","type":"group","x":560,"y":214,"width":340,"height":399,"label":"해결 방법"},
-		{"id":"aae416aa8e8bbeed","type":"text","text":"- [x] display_product\n\nid\nthumb\nnaming\ndesc\nsaleStatus\nDisplayProductPreset_id\n~~dpStatus~~\n\n","x":-125,"y":-143,"width":250,"height":286},
 		{"id":"75142b2e109265dc","type":"text","text":"create -> save","x":140,"y":-139,"width":250,"height":60},
 		{"id":"f55d439f83f06b21","type":"text","text":"read -> byId, bytitle, all, dpStatus, policyStatus","x":140,"y":-66,"width":392,"height":60},
 		{"id":"5f8b0d9e8fa95946","type":"text","text":"- 화면에 보여지는 아이템 페이지에 관한 엔티티이다\n- ~~saleStatus 를 이용하여 상품의 할인을 관리한다.~~\n- ~~해당 레코드의 title, thumb 대해선 update를 진행하지 않으며 새로운 레코드를 만들어 이를 대신한다.~~\n- 해당 레코드를 사용하는 레코드가 존재하는 경우 삭제 되지 않는다.","x":-125,"y":160,"width":674,"height":192},
@@ -9,9 +8,9 @@
 		{"id":"be0bc6a4920a4dc1","type":"text","text":"* update -> byId","x":140,"y":7,"width":250,"height":60},
 		{"id":"3a501c9c2892f8e4","type":"text","text":"- [ ] DP_wrapper table을 만들까?","x":580,"y":234,"width":300,"height":60},
 		{"id":"db3f4453b97aef01","type":"text","text":"문제 상황","x":164,"y":384,"width":112,"height":60},
+		{"id":"3822a098dd001140","type":"text","text":"해결방안","x":320,"y":384,"width":108,"height":60},
 		{"id":"572e70e074dffc02","type":"text","text":"기존에 있던 DP를 할인을 적용하려한다.","x":-125,"y":498,"width":250,"height":60},
 		{"id":"1d7f8f48de78f5d0","type":"text","text":"==기존 dp를 참고하던 레코드의 개수만큼 bulk update 가 발생==","x":-125,"y":660,"width":250,"height":60},
-		{"id":"3822a098dd001140","type":"text","text":"해결방안","x":320,"y":384,"width":108,"height":60},
 		{"id":"c804912007b89aec","type":"text","text":"Review 의 dp id 변경","x":151,"y":579,"width":250,"height":60},
 		{"id":"863727f7b5d4e08f","type":"text","text":"title과 thumb 는 변경할 수 없으니 새로운 레코드를 만든다.","x":151,"y":498,"width":250,"height":60},
 		{"id":"7d4943f868b66b7c","type":"text","text":"- [ ] 이전 DP 를 따로 history에 저장하여 조회하게 만들까?","x":580,"y":305,"width":300,"height":87},
@@ -19,10 +18,11 @@
 		{"id":"38dc536d0b6537ec","type":"text","text":"- [ ] DP id와 별개로 code를 조회하게 만들까?","x":580,"y":403,"width":300,"height":92},
 		{"id":"735be61768b963a9","type":"text","text":"- [x] saleStatus 통해 할인 중이라면 할인 테이블을 참고하도록 할까?","x":580,"y":506,"width":300,"height":87},
 		{"id":"32d4d44335e69bcf","type":"text","text":"Option 의 dp id 변경","x":151,"y":740,"width":250,"height":60},
+		{"id":"a8dbf698ba8615f5","type":"text","text":"DisplayProductPreset\n\nid\ndp_id\nnaming\ntitle\nprice\ncontent\nimgs\npercent\nthumb\nstartDate\nendDate\nisDefault","x":178,"y":820,"width":250,"height":380},
 		{"id":"2a749a2c3e4ce244","type":"text","text":"option\n\n~","x":480,"y":868,"width":250,"height":284},
 		{"id":"7ed4b28a26e994c4","type":"text","text":"display_product\n\nid\nthumb\nnaming\ndesc\nsaleStatus\nDisplayProductPreset_id\n~~dpStatus~~","x":-125,"y":881,"width":250,"height":258},
-		{"id":"a8dbf698ba8615f5","type":"text","text":"DisplayProductPreset\n\nid\ndp_id\nnaming\ntitle\nprice\ncontent\nimgs\npercent\nthumb\nstartDate\nendDate\nisDefault","x":178,"y":820,"width":250,"height":380},
-		{"id":"1d1a7039ff15de8e","type":"text","text":"review & qna","x":178,"y":1240,"width":250,"height":60}
+		{"id":"1d1a7039ff15de8e","type":"text","text":"review & qna","x":178,"y":1240,"width":250,"height":60},
+		{"id":"c7dbc778d5921449","type":"text","text":"- [x] display_product\n\nid\nnaming\nthumb\ndesc\nsaleStatus\n\n\n","x":-125,"y":-139,"width":250,"height":260}
 	],
 	"edges":[
 		{"id":"727f81bfc10d03e4","fromNode":"db3f4453b97aef01","fromSide":"bottom","toNode":"572e70e074dffc02","toSide":"top"},

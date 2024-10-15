@@ -5,4 +5,18 @@
 - [x] OrderStatus 분리하기
 - [x] 전환번호 String으로
 - [x] varchar size 조정하기
-- [ ] ~~JSON type Rdb 다루기~~
+- [x] Query Repo 만들기
+- [ ] ~~DisplayProduct의 현재 사용 중인 Dpp의 아이디를 저장하는 컬럼을 만들자~~
+- [ ] optionQueryRepo, service 만들기
+- [x] Basket에 cart 도입의 문제점 -> 중복처리에 있어 어려움이 있음 어떻게 해결할 것인가
+- [ ] page 구현 방식 중 Slice도 고려해보기
+- [ ] 하드코딩된 부분 개선하기 ("익명") -> application.yml or util
+	- [ ] LocalDateTimeFormatter
+	- [ ] ReviewDto
+	- [ ] QnADto
+	- [ ] OrderDtp
+- [x] order side의 구조 다시 생각해보기 -> cart 가 필요한 엔티티일까? oo 필요함
+- [ ] 개인정보를 조회하는 영역에서 csrf token을 발행을 고려해보자. 
+	- member 개인정보
+	- 주문란의 개인정보
+- [ ] 

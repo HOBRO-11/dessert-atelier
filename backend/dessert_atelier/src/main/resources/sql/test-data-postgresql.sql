@@ -28,6 +28,8 @@ DROP TABLE IF EXISTS product_quantity;
 
 DROP TABLE IF EXISTS option;
 
+DROP TABLE IF EXISTS preset_table;
+
 DROP TABLE IF EXISTS display_product_preset;
 
 DROP TABLE IF EXISTS display_product_preset_image;
@@ -105,7 +107,6 @@ CREATE TABLE display_product (
     thumb VARCHAR(100) NOT NULL,
     description VARCHAR(100) NOT NULL,
     sale_status VARCHAR(20),
-    current_dpp_id BIGINT,
     created_at TIMESTAMP,
     updated_at TIMESTAMP
 );
@@ -135,6 +136,19 @@ CREATE TABLE display_product_preset (
     FOREIGN KEY (
         display_product_preset_image_id
     ) REFERENCES display_product_preset_image (id)
+);
+
+CREATE TABLE preset_table (
+    id BIGSERIAL PRIMARY KEY,
+    display_product_id BIGINT,
+    default_dpp_id BIGINT,
+    current_dpp_id BIGINT,
+    numbering INT,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    FOREIGN KEY (display_product_id) REFERENCES display_product (id) ON DELETE CASCADE,
+    FOREIGN KEY (default_dpp_id) REFERENCES display_product_preset (id) ON DELETE SET NULL,
+    FOREIGN KEY (current_dpp_id) REFERENCES display_product_preset (id) ON DELETE SET NULL
 );
 
 CREATE TABLE option (

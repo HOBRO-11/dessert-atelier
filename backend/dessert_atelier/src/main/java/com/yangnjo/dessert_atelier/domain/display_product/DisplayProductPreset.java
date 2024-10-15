@@ -37,7 +37,7 @@ public class DisplayProductPreset extends BaseEntity implements Cloneable {
   private String title;
 
   @Column(nullable = false)
-  private int price;
+  private Integer price;
 
   @Setter
   private Integer optionLayer;
@@ -51,7 +51,7 @@ public class DisplayProductPreset extends BaseEntity implements Cloneable {
   private DisplayProductPresetImage dppImg;
   
   @Setter
-  private int percentDiscount;
+  private Integer percentDiscount;
   
   @Setter
   private LocalDateTime startDateTime;

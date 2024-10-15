@@ -16,7 +16,6 @@ public class DpDto {
     private String naming;
     private String description;
     private String thumb;
-    private Long currentDppId;
     private SaleStatus saleStatus;
 
     public static Expression<DpDto> asDto() {
@@ -25,7 +24,6 @@ public class DpDto {
                 displayProduct.naming,
                 displayProduct.description,
                 displayProduct.thumb,
-                displayProduct.currentDppId,
                 displayProduct.saleStatus);
     }
 }

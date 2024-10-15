@@ -1,11 +1,11 @@
 {
 	"nodes":[
-		{"id":"ad7eca01a70e2586","type":"text","text":"- [x] Basket - JSON\n\nid\nuser\nlist_cart_ids","x":-125,"y":-79,"width":250,"height":158},
 		{"id":"c017656e55b55c8a","type":"text","text":"create -> save","x":160,"y":-139,"width":250,"height":60},
 		{"id":"50b7fe6684252af9","type":"text","text":"update -> byId","x":160,"y":7,"width":250,"height":60},
 		{"id":"4583c6b8a4817646","type":"text","text":"read -> byId","x":160,"y":-66,"width":250,"height":60},
 		{"id":"cd7c3c1a651332f3","type":"text","text":"delete -> byId","x":160,"y":80,"width":250,"height":60},
-		{"id":"67ac22af1962a5a9","x":-143,"y":170,"width":563,"height":193,"type":"text","text":"- 장바구니이다.\n- 장바구니에 담긴 cart_id 를 조회하여 Null 이거나 status.Disable 인 경우 현재 상품은 판매하지 않는 상품이라 알려준다.\n- 한 유저당 하나의 Basket을 가진다.\n- 비회원 유저의 경우 브라우저의 캐시를 이용하여 이 엔티티를 대체한다.\n- User 객체가 삭제되면 같이 삭제된다."}
+		{"id":"67ac22af1962a5a9","type":"text","text":"- 장바구니이다.\n- 장바구니에 담긴 cart_id 를 조회하여 Null 이거나 status.Disable 인 경우 현재 상품은 판매하지 않는 상품이라 알려준다.\n- 한 유저당 하나의 Basket을 가진다.\n- 비회원 유저의 경우 브라우저의 캐시를 이용하여 이 엔티티를 대체한다.\n- User 객체가 삭제되면 같이 삭제된다.","x":-143,"y":170,"width":563,"height":193},
+		{"id":"ead9b4b43b43ddd4","type":"text","text":"- [x] Basket - JSON\n\nid\nmember_id\n\\[\ndppId, updatedAt, optionIds, quantity\n]\n","x":-143,"y":-135,"width":250,"height":258}
 	],
 	"edges":[]
 }
