@@ -1,12 +1,12 @@
 {
 	"nodes":[
-		{"id":"2fc80c0dc6a69b6d","type":"text","text":"- [x] Carts\n\nid\noptions_json\nquantity\nstatus\n","x":-125,"y":-119,"width":250,"height":170},
 		{"id":"8295275a048f3e87","type":"text","text":"create -> save","x":160,"y":-139,"width":250,"height":60},
 		{"id":"49f133d5283159ed","type":"text","text":"update -> byId","x":160,"y":7,"width":250,"height":60},
 		{"id":"888f7911e3cbbe7f","type":"text","text":"read -> byId","x":160,"y":-66,"width":250,"height":60},
 		{"id":"a100d4271fd911e1","type":"text","text":"delete -> byId","x":160,"y":80,"width":250,"height":60},
 		{"id":"8f198ade6288195a","type":"text","text":"status.Waiting 인 경우에 한해서 삭제를 진행","x":460,"y":80,"width":250,"height":60},
-		{"id":"1f83a1a6a310836a","type":"text","text":"- options을 담는 엔티티이다\n- 장바구니에 담겨있을땐 status.Waiting\n- 결제가 완료된면 status.Used \n- 장바구니에 담겨있을때만 삭제 가능하다.","x":-125,"y":160,"width":341,"height":130}
+		{"id":"1f83a1a6a310836a","type":"text","text":"- options을 담는 엔티티이다\n- 장바구니에 담겨있을땐 status.Waiting\n- 결제가 완료된면 status.Used \n- 장바구니에 담겨있을때만 삭제 가능하다.","x":-125,"y":160,"width":341,"height":130},
+		{"id":"bff167c7658586c8","type":"text","text":"- [x] OptionQuantity\n\nid\norders_id\ndpp_id\noption_ids\nquantity\nstatus\n\n","x":-125,"y":-139,"width":250,"height":238}
 	],
 	"edges":[
 		{"id":"b9fd33d61c74f143","fromNode":"a100d4271fd911e1","fromSide":"right","toNode":"8f198ade6288195a","toSide":"left"}

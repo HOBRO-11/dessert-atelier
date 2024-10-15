@@ -4,7 +4,7 @@
 		{"id":"6cd05cc51bc2cf37","type":"text","text":"* update -> byId","x":160,"y":7,"width":250,"height":60},
 		{"id":"fbc9eb9c129bbad4","type":"text","text":"read -> byId, byNaming, byDp_id","x":160,"y":-66,"width":300,"height":60},
 		{"id":"9eb07378d10edb0f","type":"text","text":"- DP의 할인정책에 따른 프리셋을 저장하는 엔티티이다.\n- ==title, thumb, dp_id 에 대해선 update 가 닫혀있다.==\n- startDate 와 endDate 기간이 끝나면 isDefault 로 변경된다.","x":-125,"y":200,"width":417,"height":186},
-		{"id":"342af21e57570d9b","type":"text","text":"DisplayProductPreset\n\nid\ndp_id\nnaming\ntitle\nprice\noptionLayer\ncontent\nimgs\npercent\nthumb\nstartDate\nendDate\nisDefault","x":-125,"y":-226,"width":250,"height":404}
+		{"id":"333a4853c57d7793","type":"text","text":"- [x] DisplayProductPreset\n\nid\ndp_id\nnaming\nthumb\ntitle\nprice\noptionLayer\ncontent\nimgs\npercent\nstartDate\nendDate\nisDefault","x":-125,"y":-239,"width":250,"height":406}
 	],
 	"edges":[]
 }

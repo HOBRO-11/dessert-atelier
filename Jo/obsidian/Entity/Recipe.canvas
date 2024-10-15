@@ -1,6 +1,6 @@
 {
 	"nodes":[
-		{"id":"a81587f4268c6506","type":"text","text":"- [x] Recipes\n\nid\nproducts_id\ncomponents_id\nquantity\n","x":-125,"y":-83,"width":250,"height":166},
+		{"id":"a81587f4268c6506","type":"text","text":"- [x] Recipe\n\nid\nproducts_id\ncomponents_id\nquantity\n","x":-125,"y":-83,"width":250,"height":166},
 		{"id":"fce43421988791ff","type":"text","text":"create -> save","x":160,"y":-139,"width":250,"height":60},
 		{"id":"8943fec7c8e39d0d","type":"text","text":"update -> byId","x":160,"y":7,"width":250,"height":60},
 		{"id":"853eabd4c6402fef","type":"text","text":"read -> byId, byProduct","x":160,"y":-66,"width":250,"height":60},

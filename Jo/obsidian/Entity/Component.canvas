@@ -5,8 +5,8 @@
 		{"id":"780b96024a064cee","type":"text","text":"update -> byId","x":160,"y":7,"width":250,"height":60},
 		{"id":"1c4336ab5f215933","type":"text","text":"read -> byId, byName, all","x":160,"y":-66,"width":250,"height":60},
 		{"id":"9deb6496ae749ed8","type":"text","text":"delete -> byId","x":160,"y":80,"width":250,"height":60},
-		{"id":"0796463176066963","type":"text","text":"- [x] Components\n\nid\nname(unique)","x":-125,"y":-82,"width":250,"height":166},
-		{"id":"b632523e1fc0c348","type":"text","text":"이 레코드가 변경 시 영향력을 알려준다. \nex) 영향 받는 recipe를 전부 Select 한다.","x":460,"y":9,"width":250,"height":117}
+		{"id":"b632523e1fc0c348","type":"text","text":"이 레코드가 변경 시 영향력을 알려준다. \nex) 영향 받는 recipe를 전부 Select 한다.","x":460,"y":9,"width":250,"height":117},
+		{"id":"9d4ccdde74b9c5b6","type":"text","text":"- [x] Component\n\nid\nname\nunit","x":-133,"y":-139,"width":250,"height":166}
 	],
 	"edges":[
 		{"id":"a7ca771ae492f096","fromNode":"780b96024a064cee","fromSide":"right","toNode":"b632523e1fc0c348","toSide":"left"},

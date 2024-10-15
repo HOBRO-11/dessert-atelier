@@ -1,11 +1,11 @@
 {
 	"nodes":[
-		{"id":"1cbaa9c77e6e89ab","type":"text","text":"- [x] Todos\n\nid\norders_id\nstatus\ncreated_at\ncomplete_at","x":-125,"y":-98,"width":250,"height":196},
+		{"id":"1cbaa9c77e6e89ab","type":"text","text":"- [x] Todo\n\nid\norders_id\nstatus\ncreated_at\ncomplete_at","x":-125,"y":-98,"width":250,"height":196},
 		{"id":"4a8b2ff19441b532","type":"text","text":"create -> save","x":160,"y":-139,"width":250,"height":60},
 		{"id":"5b10dc957077fd86","type":"text","text":"update -> byId","x":160,"y":7,"width":250,"height":60},
 		{"id":"074508352653877c","type":"text","text":"read -> byId, byDate, byStatus, all","x":160,"y":-66,"width":250,"height":60},
 		{"id":"bdec16f52d2a24c4","type":"text","text":"delete -> byId","x":160,"y":80,"width":250,"height":60},
-		{"id":"46483a0e64884bde","x":-117,"y":187,"width":377,"height":60,"type":"text","text":"- 주문건에 관한 할 일을 매니징하는 엔티티이다."}
+		{"id":"46483a0e64884bde","type":"text","text":"- 주문건에 관한 할 일을 매니징하는 엔티티이다.","x":-117,"y":187,"width":377,"height":60}
 	],
 	"edges":[]
 }

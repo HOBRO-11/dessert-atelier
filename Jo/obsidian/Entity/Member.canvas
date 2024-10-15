@@ -1,11 +1,11 @@
 {
 	"nodes":[
-		{"id":"a6049ca05b89ee10","type":"text","text":"- [x] Users\n\nid\nemail\npassword\nname\nphone\nstatus\norigin\n","x":-360,"y":-100,"width":250,"height":283},
 		{"id":"8ea97f142d50b03f","type":"text","text":"create -> save","x":-80,"y":-98,"width":250,"height":60},
 		{"id":"0d5fbca01c5196c0","type":"text","text":"update -> byId","x":-80,"y":48,"width":250,"height":60},
 		{"id":"c21d621f4a725f68","type":"text","text":"read -> byId, byEmail, all","x":-80,"y":-25,"width":250,"height":60},
 		{"id":"69c3c4911d7d35fa","type":"text","text":"delete -> byId","x":-80,"y":121,"width":250,"height":60},
-		{"id":"ccb4ad55fbe74525","type":"text","text":"- 사용자에 관한 엔티티이다.\n- password는 encrypt 하자","x":-360,"y":220,"width":288,"height":64}
+		{"id":"ccb4ad55fbe74525","type":"text","text":"- 사용자에 관한 엔티티이다.\n- password는 encrypt 하자","x":-360,"y":220,"width":288,"height":64},
+		{"id":"cd4545d99f07172c","type":"text","text":"- [x] Member\n\nid\nemail\npassword\nname\nphone\nstatus\norigin\n","x":-360,"y":-98,"width":250,"height":283}
 	],
 	"edges":[]
 }

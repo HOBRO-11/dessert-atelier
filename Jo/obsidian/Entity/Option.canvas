@@ -14,7 +14,7 @@
 		{"id":"bd9e1c5945820bf1","type":"text","text":"optionLayer2","x":366,"y":375,"width":148,"height":60},
 		{"id":"9e34d31b90921a07","type":"text","text":"optionLayer3","x":366,"y":450,"width":148,"height":60},
 		{"id":"99f28674d240aa1f","type":"text","text":"optionLayer4","x":366,"y":525,"width":148,"height":60},
-		{"id":"1efd626c7fa03881","type":"text","text":"- [x] Options\n\nid\ndpp_id\\\ndesc\noptionLayer\ntotal quantity\n~~productQuantities~~\nstatus\nprice\n\n","x":-125,"y":-139,"width":250,"height":286}
+		{"id":"9838639abdca8266","type":"text","text":"- [x] Option\n\nid\n~~dp_id~~ -> dpp_id\ntotal quantity\noptionLayer\nstatus\ndesc\nprice\n\n\n","x":-125,"y":-139,"width":250,"height":260}
 	],
 	"edges":[
 		{"id":"c9968bedd0dda408","fromNode":"4e3c74e0a91fc4fc","fromSide":"right","toNode":"0043eb8b8d5493c2","toSide":"left"},
