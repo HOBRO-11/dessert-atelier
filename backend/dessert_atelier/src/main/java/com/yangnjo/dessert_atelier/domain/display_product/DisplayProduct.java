@@ -35,9 +35,6 @@ public class DisplayProduct extends BaseEntity {
     private String description;
 
     @Setter
-    private Long currentDppId;
-
-    @Setter
     @Enumerated(value = EnumType.STRING)
     private SaleStatus saleStatus;
 

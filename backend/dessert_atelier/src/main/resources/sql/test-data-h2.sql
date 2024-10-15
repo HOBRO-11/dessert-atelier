@@ -103,7 +103,6 @@ CREATE TABLE display_product (
     thumb VARCHAR(100) NOT NULL,
     description VARCHAR(100) NOT NULL,
     sale_status VARCHAR(20),
-    current_dpp_id BIGINT,
     created_at TIMESTAMP,
     updated_at TIMESTAMP
 );
