@@ -183,7 +183,7 @@ CREATE TABLE delivery (
 );
 
 CREATE TABLE orders (
-    order_code VARCHAR(20) NOT NULL UNIQUE PRIMARY KEY,
+    order_code BIGINT NOT NULL UNIQUE PRIMARY KEY,
     member_id BIGINT,
     password VARCHAR(20),
     post_code VARCHAR(10),
@@ -201,7 +201,7 @@ CREATE TABLE orders (
 
 CREATE TABLE option_quantity (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    order_code VARCHAR(20) NOT NULL,
+    order_code BIGINT NOT NULL,
     display_product_preset_id BIGINT,
     option_ids JSON,
     quantity INT NOT NULL,
@@ -258,7 +258,7 @@ CREATE TABLE qna (
 
 CREATE TABLE todo (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    order_code VARCHAR(20) NOT NULL,
+    order_code BIGINT NOT NULL,
     todo_status VARCHAR(20) NOT NULL,
     created_at TIMESTAMP,
     complete_at TIMESTAMP,
@@ -271,15 +271,19 @@ CREATE TABLE total_sale_option (
     sale_amount INT,
     created_at DATE,
     FOREIGN KEY (option_id) REFERENCES option (id)
+    CONSTRAINT unique_created_at_option UNIQUE (created_at, option_id)
 );
+
 
 CREATE TABLE total_sale_product (
     id BIGINT PRIMARY KEY,
     product_id BIGINT,
     sale_amount INT,
     created_at DATE,
-    FOREIGN KEY (product_id) REFERENCES product (id)
+    FOREIGN KEY (product_id) REFERENCES product (id),
+    CONSTRAINT unique_created_at_product UNIQUE (created_at, product_id)
 );
+
 
 CREATE TABLE store_admin (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
@@ -287,5 +291,6 @@ CREATE TABLE store_admin (
     password VARCHAR(20) NOT NULL,
     phone VARCHAR(11),
     admin_status VARCHAR(20) NOT NULL,
-    admin_role VARCHAR(20) NOT NULL
+    admin_role VARCHAR(20) NOT NULL,
+    CONSTRAINT unique_created_at_product UNIQUE (created_at, product_id)
 );
