@@ -32,8 +32,10 @@ public class PresetTable extends BaseEntity {
   @Setter
   private Integer numbering;
 
-  public PresetTable(DisplayProduct displayProduct) {
+  public PresetTable(DisplayProduct displayProduct, DisplayProductPreset dpp) {
     this.displayProduct = displayProduct;
+    this.defaultDpp = dpp;
+    this.currentDpp = dpp;
   }
 
 }

@@ -1,5 +1,6 @@
 package com.yangnjo.dessert_atelier.domain.display_product;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -48,20 +49,24 @@ public class Option {
     @Column(nullable = false)
     private Integer price;
 
-    @OneToMany(mappedBy = "options", cascade = CascadeType.REMOVE)
-    private List<ProductQuantity> productQuantities;
+    @OneToMany(mappedBy = "option", cascade = CascadeType.REMOVE)
+    private List<ProductQuantity> productQuantities = new ArrayList<>();
 
     /*
      * totalQuantity set infinitely, if totalQuantity is null
      */
-    public Option(Integer totalQuantity, String description, Integer price, List<ProductQuantity> productQuantities, Integer optionLayer) {
+    public Option(DisplayProductPreset dpp, Integer totalQuantity, String description, Integer price, Integer optionLayer) {
+        this.displayProductPreset = dpp;
+        dpp.addOption(this);
         this.totalQuantity = totalQuantity;
         this.optionLayer = optionLayer;
         this.description = description;
         this.price = price;
         this.optionStatus = OptionStatus.AVAILABLE;
-        this.productQuantities = productQuantities;
-        productQuantities.forEach(productQuantity -> productQuantity.setOptions(this));
+    }
+
+    protected void addProductQuantity(ProductQuantity productQuantity) {
+        this.productQuantities.add(productQuantity);
     }
 
 }

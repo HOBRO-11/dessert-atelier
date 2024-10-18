@@ -1,3 +1,4 @@
+
 DROP TABLE IF EXISTS total_sale_option;
 
 DROP TABLE IF EXISTS total_sale_product;

@@ -67,7 +67,6 @@ public class OptionQuantity {
         this.displayProductPreset = displayProductPreset;
         this.quantity = quantity;
         this.status = status;
-        this.orders = orders;
     }
 
     @PreUpdate
