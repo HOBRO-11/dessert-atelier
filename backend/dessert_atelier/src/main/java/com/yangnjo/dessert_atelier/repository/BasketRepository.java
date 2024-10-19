@@ -14,4 +14,6 @@ public interface BasketRepository extends JpaRepository<Basket, Long> {
 
   Optional<Basket> findByMember(Member users);
 
+  Long countByMemberId(Long memberId);
+
 }

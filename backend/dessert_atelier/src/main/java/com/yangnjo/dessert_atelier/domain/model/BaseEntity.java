@@ -37,4 +37,8 @@ public class BaseEntity {
         this.updatedAt = LocalDateTime.now();
     }
 
+    public void setIdToTest(Long id) {
+        this.id = id;
+    }
+
 }

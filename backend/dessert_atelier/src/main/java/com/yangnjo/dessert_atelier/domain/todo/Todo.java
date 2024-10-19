@@ -59,4 +59,8 @@ public class Todo {
         this.completeAt = LocalDateTime.now();
     }
 
+    public void setIdToTest(Long id) {
+        this.id = id;
+    }
+
 }

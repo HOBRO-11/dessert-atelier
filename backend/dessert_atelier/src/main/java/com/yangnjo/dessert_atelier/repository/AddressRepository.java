@@ -8,4 +8,8 @@ import com.yangnjo.dessert_atelier.domain.member.Address;
 @Repository
 public interface AddressRepository extends JpaRepository<Address, Long> {
 
+  boolean existsByMemberIdAndNaming(Long memberId, String naming);
+
+  Long countByMemberId(Long memberId);
+
 }

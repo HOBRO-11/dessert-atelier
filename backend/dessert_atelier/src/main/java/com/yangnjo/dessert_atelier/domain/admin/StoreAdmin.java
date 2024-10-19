@@ -36,7 +36,7 @@ public class StoreAdmin extends BaseEntity {
     @Column(nullable = false)
     private AdminRole adminRole;
 
-    public StoreAdmin(String email, String password, String phone, AdminStatus adminStatus, AdminRole adminRole) {
+    public StoreAdmin(String email, String password, String phone) {
         this.email = email;
         this.password = password;
         this.phone = phone;

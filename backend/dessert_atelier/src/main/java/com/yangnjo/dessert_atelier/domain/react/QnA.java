@@ -120,4 +120,8 @@ public class QnA {
         this.answerUpdatedAt = LocalDateTime.now();
     }
 
+    public void setIdToTest(Long id) {
+        this.id = id;
+    }
+
 }

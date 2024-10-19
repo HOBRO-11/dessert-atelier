@@ -6,4 +6,6 @@ import com.yangnjo.dessert_atelier.domain.display_product.DisplayProductPreset;
 
 public interface DisplayProductPresetRepository extends JpaRepository<DisplayProductPreset, Long> {
 
+  boolean existsByDisplayProductIdAndNaming(Long dpId, String naming);
+
 }

@@ -41,4 +41,8 @@ public class ProductQuantity {
         this.quantity = quantity;
     }
 
+    public void setIdToTest(Long id) {
+        this.id = id;
+    }
+
 }

@@ -16,10 +16,16 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class BasketDto {
+  private Long id;
+  private Long memberId;
   private List<BasketProperty> properties;
 
-  public static Expression<BasketDto> asDto(){
-    return Projections.constructor(BasketDto.class, basket.properties);
-    
+  public static Expression<BasketDto> asDto() {
+    return Projections.constructor(
+        BasketDto.class,
+        basket.id,
+        basket.member.id,
+        basket.properties);
+
   }
 }

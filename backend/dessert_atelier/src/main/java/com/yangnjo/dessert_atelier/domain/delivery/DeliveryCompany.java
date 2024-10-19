@@ -31,4 +31,8 @@ public class DeliveryCompany {
         this.phone = phone;
     }
 
+    public void setIdToTest(Long id) {
+        this.id = id;
+    }
+
 }

@@ -49,4 +49,7 @@ public class Basket {
         this.properties.removeIf(property -> (property.getDppId().equals(dppId) && property.getOptionIds().equals(optionIds)));
     }
 
+    public void setIdToTest(Long id) {
+        this.id = id;
+    }
 }

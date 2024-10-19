@@ -69,4 +69,8 @@ public class Option {
         this.productQuantities.add(productQuantity);
     }
 
+    public void setIdToTest(Long id) {
+        this.id = id;
+    }
+
 }

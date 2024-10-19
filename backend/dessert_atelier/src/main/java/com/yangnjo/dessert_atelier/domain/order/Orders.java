@@ -101,4 +101,8 @@ public class Orders {
         optionQuantity.setOrders(this);
     }
 
+    public void setCodeToTest(Long orderCode) {
+        this.orderCode = orderCode;
+    }
+
 }
