@@ -16,7 +16,8 @@ import lombok.ToString;
 @ToString
 public class OrderSimpleDto {
 
-  private String orderCode;
+  private Long orderCode;
+  private Long memberId;
   private Long deliveryId;
   private OrderStatus orderStatus;
   private Long totalPrice;
@@ -30,9 +31,10 @@ public class OrderSimpleDto {
    * 
    * @see dppTitle
    */
-  public OrderSimpleDto(String orderCode, Long deliveryId, OrderStatus orderStatus, Long totalPrice,
+  public OrderSimpleDto(Long orderCode, Long memberId ,Long deliveryId, OrderStatus orderStatus, Long totalPrice,
       LocalDateTime createdAt, Integer optionQuantityCount) {
     this.orderCode = orderCode;
+    this.memberId = memberId;
     this.deliveryId = deliveryId;
     this.orderStatus = orderStatus;
     this.totalPrice = totalPrice;
@@ -43,6 +45,7 @@ public class OrderSimpleDto {
   public static Expression<OrderSimpleDto> asIncompleteDto() {
     return Projections.constructor(OrderSimpleDto.class,
         orders.orderCode,
+        orders.member.id,
         orders.delivery.id,
         orders.orderStatus,
         orders.totalPrice,

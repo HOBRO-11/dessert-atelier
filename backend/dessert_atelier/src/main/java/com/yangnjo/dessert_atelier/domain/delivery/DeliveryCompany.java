@@ -17,18 +17,22 @@ public class DeliveryCompany {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
+    private Long id;
 
     @Column(nullable = false)
-    public String companyName;
+    private String companyName;
 
     @Setter
     @Column(nullable = false)
-    public String phone;
+    private String phone;
 
     public DeliveryCompany(String companyName, String phone) {
         this.companyName = companyName;
         this.phone = phone;
+    }
+
+    public void setIdToTest(Long id) {
+        this.id = id;
     }
 
 }

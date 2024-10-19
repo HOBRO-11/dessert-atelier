@@ -18,6 +18,7 @@ import lombok.Setter;
 @Getter
 public class ReviewDto {
   private Long id;
+  private Long memberId;
   private String memberName;
   private Map<String, String> imageUrlsMap;
   private Integer rate;
@@ -38,10 +39,11 @@ public class ReviewDto {
    * 반드시 setOptionDescriptions 을 사용하여 DTO 완성을 마무리 짓자.
    * @see optionDescriptions
    */
-  public ReviewDto(Long id, String memberName, Map<String, String> imageUrlsMap, Integer rate, String comment,
+  public ReviewDto(Long id, Long memberId, String memberName, Map<String, String> imageUrlsMap, Integer rate, String comment,
       ReviewStatus status, ReviewOrigin origin, LocalDateTime createdAt, LocalDateTime updatedAt,
       List<Long> optionIds) {
     this.id = id;
+    this.memberId = memberId;
     if (memberName == null) {
       this.memberName = "익명";
     } else {
@@ -60,6 +62,7 @@ public class ReviewDto {
   public static Expression<ReviewDto> asIncompleteDto() {
     return Projections.constructor(ReviewDto.class,
         review.id,
+        review.member.id,
         member.name,
         review.reviewImage.imageUrls,
         review.rate,

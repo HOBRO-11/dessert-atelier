@@ -30,13 +30,19 @@ public class ProductQuantity {
     @Setter(value = AccessLevel.PROTECTED)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "option_id", nullable = false)
-    private Option options;
+    private Option option;
 
     private Integer quantity;
 
-    public ProductQuantity(Product product, Integer quantity) {
+    public ProductQuantity(Product product, Option option, Integer quantity) {
         this.product = product;
+        this.option = option;
+        option.addProductQuantity(this);
         this.quantity = quantity;
+    }
+
+    public void setIdToTest(Long id) {
+        this.id = id;
     }
 
 }

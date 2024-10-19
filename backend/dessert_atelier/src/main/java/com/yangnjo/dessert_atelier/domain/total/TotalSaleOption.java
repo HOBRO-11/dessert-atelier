@@ -44,4 +44,8 @@ public class TotalSaleOption {
     this.createdAt = LocalDateTime.now().toLocalDate();
   }
 
+  public void setIdToTest(Long id) {
+    this.id = id;
+}
+
 }

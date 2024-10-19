@@ -17,26 +17,26 @@ import lombok.Setter;
 public class StoreAdmin extends BaseEntity {
 
     @Column(nullable = false, unique = true)
-    public String email;
+    private String email;
 
     @Setter
     @Column(nullable = false)
-    public String password;
+    private String password;
 
     @Setter
-    public String phone;
+    private String phone;
 
     @Setter
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = false)
-    public AdminStatus adminStatus;
+    private AdminStatus adminStatus;
 
     @Setter
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = false)
-    public AdminRole adminRole;
+    private AdminRole adminRole;
 
-    public StoreAdmin(String email, String password, String phone, AdminStatus adminStatus, AdminRole adminRole) {
+    public StoreAdmin(String email, String password, String phone) {
         this.email = email;
         this.password = password;
         this.phone = phone;

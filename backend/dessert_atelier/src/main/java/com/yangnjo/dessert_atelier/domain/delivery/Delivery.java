@@ -52,4 +52,8 @@ public class Delivery {
         this.createdAt = LocalDateTime.now();
     }
 
+    public void setIdToTest(Long id) {
+        this.id = id;
+    }
+
 }

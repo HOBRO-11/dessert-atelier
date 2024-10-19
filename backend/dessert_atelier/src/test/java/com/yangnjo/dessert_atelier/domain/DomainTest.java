@@ -61,7 +61,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
 @SpringBootTest
-@ActiveProfiles("h2-test")
+@ActiveProfiles("postgresql-test")
 @Transactional
 public class DomainTest {
 
@@ -126,13 +126,14 @@ public class DomainTest {
                 Component components = new Component("testCompetent", ComponentUnit.GRAM);
                 componentRepository.save(components);
 
-                Recipe recipes = new Recipe(components, 5);
-
                 Product products = new Product("testProduct", 100_000, "testThumb.jpg", ProductStatus.AVAILABLE);
-                products.addRecipes(List.of(recipes));
-
                 productRepository.save(products);
+
+                Recipe recipes = new Recipe(components, 5);
+                products.addRecipes(List.of(recipes));
                 recipeRepository.save(recipes);
+
+
 
                 // Display Product Side ok
 
@@ -149,18 +150,17 @@ public class DomainTest {
                                 displayProductImages);
                 displayProductPresetRepository.save(displayProductPreset);
 
-                PresetTable presetTable = new PresetTable(displayProducts);
-                presetTable.setDefaultDpp(displayProductPreset);
-                presetTable.setCurrentDpp(displayProductPreset);
+                PresetTable presetTable = new PresetTable(displayProducts, displayProductPreset);
                 presetTable.setNumbering(1);
                 presetTableRepository.save(presetTable);
 
-                ProductQuantity productQuantities = new ProductQuantity(products, 10);
-                Option options = new Option(5, "testOptionDesc", 500_000, List.of(productQuantities), 1);
-                displayProductPreset.addOptions(List.of(options));
-
+                Option options = new Option(displayProductPreset, 5, "testOptionDesc", 500_000, 1);
                 optionRepository.save(options);
+
+
+                ProductQuantity productQuantities = new ProductQuantity(products, options, 10);
                 productQuantityRepository.save(productQuantities);
+
 
                 // Order Side
 
@@ -170,32 +170,32 @@ public class DomainTest {
                 basket.addProperty(new BasketProperty(1L, LocalDateTime.now(), List.of(1L, 2L), 1));
                 basketRepository.save(basket);
 
-                Orders userOrder = Orders.createUserOrder("ORDER_CODE_123", users,
+                Orders userOrder = Orders.createUserOrder(12341234L, users,
                                 new Destination("48765", "102-1804", "testReceiver", "01087654321"),
                                 100_000L);
+                orderRepository.save(userOrder);
 
-                Orders guestOrder = Orders.createGuestOrder("ORDER_CODE_124", "qwer1234",
+                Orders guestOrder = Orders.createGuestOrder(43214321L, "qwer1234",
                                 new Destination("48765", "102-1804", "testReceiver", "01087654321"),
                                 100_000L);
+                orderRepository.save(guestOrder);
 
                 OptionQuantity oq = new OptionQuantity(userOrder, List.of(options), displayProductPreset, 1,
                                 OptionQuantityStatus.PAID);
+                oqRepository.save(oq);
 
                 OptionQuantity oq1 = new OptionQuantity(userOrder, List.of(options), displayProductPreset, 1,
                                 OptionQuantityStatus.PAID);
+                oqRepository.save(oq1);
 
                 OptionQuantity oq2 = new OptionQuantity(guestOrder, List.of(options), displayProductPreset, 1,
                                 OptionQuantityStatus.PAID);
+                oqRepository.save(oq2);
 
                 OptionQuantity oq3 = new OptionQuantity(userOrder, List.of(options), displayProductPreset, 1,
                                 OptionQuantityStatus.PAID);
-
-                orderRepository.save(userOrder);
-                orderRepository.save(guestOrder);
-                oqRepository.save(oq);
-                oqRepository.save(oq1);
-                oqRepository.save(oq2);
                 oqRepository.save(oq3);
+
                 // Delivery Side
 
                 DeliveryCompany deliveryCompany = new DeliveryCompany("testDeliveryCompany", "0519877654");

@@ -50,4 +50,8 @@ public class Address {
         this.isDefault = isDefault;
     }
 
+    public void setIdToTest(Long id) {
+        this.id = id;
+    }
+
 }

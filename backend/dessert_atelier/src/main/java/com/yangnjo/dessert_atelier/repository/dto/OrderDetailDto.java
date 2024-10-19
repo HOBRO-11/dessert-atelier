@@ -18,7 +18,7 @@ import lombok.ToString;
 @ToString
 public class OrderDetailDto {
 
-  private String orderCode;
+  private Long orderCode;
   private Long deliveryId;
   private OrderStatus orderStatus;
   private Long totalPrice;
@@ -30,7 +30,7 @@ public class OrderDetailDto {
    * 반드시 setOrderPropertyDtos 을 사용하여 DTO 완성을 마무리 짓자.
    * @see orderPropertyDtos
    */
-  public OrderDetailDto(String orderCode, Long deliveryId, OrderStatus orderStatus, Long totalPrice,
+  public OrderDetailDto(Long orderCode, Long deliveryId, OrderStatus orderStatus, Long totalPrice,
       LocalDateTime createdAt) {
     this.orderCode = orderCode;
     this.deliveryId = deliveryId;

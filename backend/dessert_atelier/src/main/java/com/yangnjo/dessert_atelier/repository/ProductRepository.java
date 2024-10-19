@@ -8,4 +8,6 @@ import com.yangnjo.dessert_atelier.domain.product.Product;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
+  boolean existsByName(String name);
+
 }

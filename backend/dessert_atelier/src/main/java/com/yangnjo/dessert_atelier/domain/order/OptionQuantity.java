@@ -67,12 +67,15 @@ public class OptionQuantity {
         this.displayProductPreset = displayProductPreset;
         this.quantity = quantity;
         this.status = status;
-        this.orders = orders;
     }
 
     @PreUpdate
     public void preUpdate() {
         this.updatedAt = LocalDateTime.now();
+    }
+
+    public void setIdToTest(Long id) {
+        this.id = id;
     }
 
 }

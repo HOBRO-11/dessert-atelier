@@ -15,6 +15,7 @@ import lombok.Getter;
 public class QnADto {
 
     private Long id;
+    private Long memberId;
     private String memberName;
     private String comment;
     private String answer;
@@ -24,10 +25,11 @@ public class QnADto {
     private LocalDateTime answerCreatedAt;
     private LocalDateTime answerUpdatedAt;
 
-    public QnADto(Long id, String memberName, String comment, String answer, QnAStatus qnaStatus,
+    public QnADto(Long id, Long memberId, String memberName, String comment, String answer, QnAStatus qnaStatus,
             LocalDateTime commentCreatedAt, LocalDateTime commentUpdatedAt, LocalDateTime answerCreatedAt,
             LocalDateTime answerUpdatedAt) {
         this.id = id;
+        this.memberId = memberId;
         if (memberName == null) {
             this.memberName = "익명";
         } else {
@@ -45,6 +47,7 @@ public class QnADto {
     public static Expression<QnADto> asDto() {
         return Projections.constructor(QnADto.class,
                 qnA.id,
+                qnA.member.id,
                 member.name,
                 qnA.comment,
                 qnA.answer,

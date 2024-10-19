@@ -49,16 +49,16 @@ public class DisplayProductPreset extends BaseEntity implements Cloneable {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "display_product_preset_image_id")
   private DisplayProductPresetImage dppImg;
-  
+
   @Setter
   private Integer percentDiscount;
-  
+
   @Setter
   private LocalDateTime startDateTime;
-  
+
   @Setter
   private LocalDateTime endDateTime;
-  
+
   @Setter
   @Column(nullable = false)
   private boolean isDefault;
@@ -114,11 +114,8 @@ public class DisplayProductPreset extends BaseEntity implements Cloneable {
     return dppClone;
   }
 
-  public void addOptions(List<Option> options) {
-    for (Option o : options) {
-      this.options.add(o);
-      o.setDisplayProductPreset(this);
-    }
+  protected void addOption(Option option) {
+    this.options.add(option);
   }
 
   @Override

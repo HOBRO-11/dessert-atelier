@@ -37,8 +37,8 @@ public class Product extends BaseEntity {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private ProductStatus productStatus;
-    
-    @OneToMany(mappedBy = "product",cascade = CascadeType.REMOVE, orphanRemoval = true)
+
+    @OneToMany(mappedBy = "product", cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, orphanRemoval = true)
     private List<Recipe> recipes = new ArrayList<>();
 
     public Product(String name, int price, String thumb, ProductStatus status) {

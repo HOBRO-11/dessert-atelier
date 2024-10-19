@@ -1,0 +1,42 @@
+package com.yangnjo.dessert_atelier.domain_service.total.impl;
+
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Service;
+
+import com.yangnjo.dessert_atelier.common.page_util.PageOption;
+import com.yangnjo.dessert_atelier.common.page_util.PageResponse;
+import com.yangnjo.dessert_atelier.common.page_util.PeriodOption;
+import com.yangnjo.dessert_atelier.domain_service.total.TotalSaleOptionQueryService;
+import com.yangnjo.dessert_atelier.repository.dto.TotalSaleOptionDto;
+import com.yangnjo.dessert_atelier.repository.dto.TotalSaleOptionGraphDto;
+import com.yangnjo.dessert_atelier.repository.query.TotalSaleOptionQueryRepo;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class TsoQueryServiceImpl implements TotalSaleOptionQueryService {
+
+  private final TotalSaleOptionQueryRepo totalSaleOptionQueryRepo;
+
+  @Override
+  public Page<TotalSaleOptionDto> findForPageByOptionId(Long optionId, PageOption pageOption,
+      PeriodOption periodOption) {
+    List<TotalSaleOptionDto> dtos = totalSaleOptionQueryRepo.findForPageByOptionId(optionId, pageOption, periodOption);
+    int size = dtos.size();
+    if (size <= pageOption.getSize()) {
+      return PageResponse.ofSizeLePageOptionSize(dtos, pageOption);
+    }
+
+    Long count = totalSaleOptionQueryRepo.countForPageByOptionId(optionId, periodOption);
+
+    return PageResponse.of(dtos, pageOption, count);
+  }
+
+  @Override
+  public List<TotalSaleOptionGraphDto> findForGraphByOptionId(Long optionId, PeriodOption periodOption) {
+    return totalSaleOptionQueryRepo.findForGraphByOptionId(optionId, periodOption);
+  }
+}

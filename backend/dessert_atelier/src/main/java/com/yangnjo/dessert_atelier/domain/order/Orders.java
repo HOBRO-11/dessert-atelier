@@ -34,7 +34,7 @@ public class Orders {
 
     @Id
     @Column(nullable = false, unique = true)
-    private String orderCode;
+    private Long orderCode;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -65,7 +65,7 @@ public class Orders {
     @OneToMany(mappedBy = "orders", cascade = CascadeType.REMOVE)
     private List<OptionQuantity> optionQuantities = new ArrayList<>();
 
-    public static Orders createUserOrder(String orderCode, Member member, Destination destination, Long totalPrice) {
+    public static Orders createUserOrder(Long orderCode, Member member, Destination destination, Long totalPrice) {
         Orders orders = new Orders();
         orders.orderCode = orderCode;
         orders.member = member;
@@ -76,7 +76,7 @@ public class Orders {
         return orders;
     }
 
-    public static Orders createGuestOrder(String orderCode, String password, Destination destination, Long totalPrice) {
+    public static Orders createGuestOrder(Long orderCode, String password, Destination destination, Long totalPrice) {
         Orders orders = new Orders();
         orders.orderCode = orderCode;
         orders.password = password;
@@ -99,6 +99,10 @@ public class Orders {
     protected void addOptionQuantity(OptionQuantity optionQuantity) {
         this.optionQuantities.add(optionQuantity);
         optionQuantity.setOrders(this);
+    }
+
+    public void setCodeToTest(Long orderCode) {
+        this.orderCode = orderCode;
     }
 
 }

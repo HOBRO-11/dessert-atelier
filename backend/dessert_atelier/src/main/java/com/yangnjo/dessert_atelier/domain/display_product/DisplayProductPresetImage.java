@@ -32,4 +32,8 @@ public class DisplayProductPresetImage {
         this.imageUrls = imageUrls;
     }
 
+    public void setIdToTest(Long id) {
+        this.id = id;
+    }
+
 }

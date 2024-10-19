@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 import com.yangnjo.dessert_atelier.domain.order.Orders;
 
 @Repository
-public interface OrderRepository extends JpaRepository<Orders, String> {
+public interface OrderRepository extends JpaRepository<Orders, Long> {
+
+  boolean existsByOrderCode(Long orderCode);
 
 }

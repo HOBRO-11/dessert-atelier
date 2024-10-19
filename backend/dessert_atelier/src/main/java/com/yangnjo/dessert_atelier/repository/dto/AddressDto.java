@@ -13,6 +13,7 @@ import lombok.Getter;
 public class AddressDto {
 
   private Long id;
+  private Long memberId;
   private String naming;
   private String postCode;
   private String detailAddress;
@@ -23,6 +24,7 @@ public class AddressDto {
   public static Expression<AddressDto> asDto() {
     return Projections.constructor(AddressDto.class,
         address.id,
+        address.member.id,
         address.naming,
         address.destination.postCode,
         address.destination.detailAddress,

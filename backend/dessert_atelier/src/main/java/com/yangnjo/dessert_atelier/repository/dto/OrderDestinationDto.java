@@ -13,6 +13,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class OrderDestinationDto {
+  private Long orderCode;
+  private Long memberId;
   private String postCode;
   private String detailAddress;
   private String receiver;
@@ -20,6 +22,8 @@ public class OrderDestinationDto {
 
   public static Expression<OrderDestinationDto> asDto() {
     return Projections.constructor(OrderDestinationDto.class,
+        orders.orderCode,
+        orders.member.id,
         orders.destination.postCode,
         orders.destination.detailAddress,
         orders.destination.receiver,
