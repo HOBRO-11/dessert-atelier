@@ -17,6 +17,7 @@ import org.mockito.MockitoAnnotations;
 
 import com.yangnjo.dessert_atelier.domain.member.Member;
 import com.yangnjo.dessert_atelier.domain.member.MemberOrigin;
+import com.yangnjo.dessert_atelier.domain.member.MemberRole;
 import com.yangnjo.dessert_atelier.domain.order.Basket;
 import com.yangnjo.dessert_atelier.domain.order.BasketProperty;
 import com.yangnjo.dessert_atelier.domain_service.member.exception.MemberNotFoundException;
@@ -47,7 +48,8 @@ class BasketCommandServiceTest {
     void createBasket_성공() {
         // Given
         Long memberId = 1L;
-        Member member = new Member("Test User", "1234567890", "Test User", "1234567890", MemberOrigin.STORE);
+        Member member = new Member("Test User", "1234567890", "Test User", "1234567890", MemberRole.MEMBER,
+                MemberOrigin.STORE);
         Basket basket = new Basket(member);
         basket.setIdToTest(1L);
 
@@ -77,7 +79,8 @@ class BasketCommandServiceTest {
     void addProperties_성공() {
         // Given
         Long memberId = 1L;
-        Member member = new Member("Test User", "1234567890", "Test User", "1234567890", MemberOrigin.STORE);
+        Member member = new Member("Test User", "1234567890", "Test User", "1234567890", MemberRole.MEMBER,
+                MemberOrigin.STORE);
 
         Basket basket = new Basket(member);
         member.setBasket(basket);
@@ -98,7 +101,8 @@ class BasketCommandServiceTest {
     void addProperties_장바구니_없음() {
         // Given
         Long memberId = 1L;
-        Member member = new Member("Test User", "1234567890", "Test User", "1234567890", MemberOrigin.STORE);
+        Member member = new Member("Test User", "1234567890", "Test User", "1234567890", MemberRole.MEMBER,
+                MemberOrigin.STORE);
         List<BasketProperty> properties = new ArrayList<>();
 
         when(memberRepository.findById(memberId)).thenReturn(Optional.of(member));
@@ -111,7 +115,8 @@ class BasketCommandServiceTest {
     void addProperties_장바구니_최대_개수_초과() {
         // Given
         Long memberId = 1L;
-        Member member = new Member("Test User", "1234567890", "Test User", "1234567890", MemberOrigin.STORE);
+        Member member = new Member("Test User", "1234567890", "Test User", "1234567890", MemberRole.MEMBER,
+                MemberOrigin.STORE);
         Basket basket = new Basket(member);
         member.setBasket(basket);
         List<BasketProperty> existingProperties = new ArrayList<>();
@@ -135,7 +140,8 @@ class BasketCommandServiceTest {
         Long memberId = 1L;
         Long dppId = 1L;
         List<Long> optionIds = Arrays.asList(1L, 2L);
-        Member member = new Member("Test User", "1234567890", "Test User", "1234567890", MemberOrigin.STORE);
+        Member member = new Member("Test User", "1234567890", "Test User", "1234567890", MemberRole.MEMBER,
+                MemberOrigin.STORE);
         Basket basket = new Basket(member);
         member.setBasket(basket);
         basket.addProperty(new BasketProperty(dppId, optionIds));
@@ -156,7 +162,8 @@ class BasketCommandServiceTest {
         Long memberId = 1L;
         Long dppId = 1L;
         List<Long> optionIds = Arrays.asList(1L, 2L);
-        Member member = new Member("Test User", "1234567890", "Test User", "1234567890", MemberOrigin.STORE);
+        Member member = new Member("Test User", "1234567890", "Test User", "1234567890", MemberRole.MEMBER,
+                MemberOrigin.STORE);
 
         when(memberRepository.findById(memberId)).thenReturn(Optional.of(member));
 
@@ -170,7 +177,8 @@ class BasketCommandServiceTest {
         Long memberId = 1L;
         Long dppId = 1L;
         List<Long> optionIds = Arrays.asList(1L, 2L);
-        Member member = new Member("Test User", "1234567890", "Test User", "1234567890", MemberOrigin.STORE);
+        Member member = new Member("Test User", "1234567890", "Test User", "1234567890", MemberRole.MEMBER,
+                MemberOrigin.STORE);
         Basket basket = new Basket(member);
         member.setBasket(basket);
 

@@ -5,7 +5,7 @@
 		{"id":"78dcc6f50a1ad621","type":"text","text":"update -> byId","x":135,"y":47,"width":250,"height":60},
 		{"id":"dabb44c522d1ba66","type":"text","text":"read -> byId","x":135,"y":-26,"width":250,"height":60},
 		{"id":"72fcec4db2d80fb2","type":"text","text":"delete -> byId","x":135,"y":120,"width":250,"height":60},
-		{"id":"7ba67e9a4f5da8ca","type":"text","text":"- dp와 dpp 간의 관계 설정을 돕는 테이블이다.\n- numbering을 통해 화면에 표시되는 dpp의 순서를 지정할 수 있다","x":-125,"y":200,"width":385,"height":94}
+		{"id":"7ba67e9a4f5da8ca","type":"text","text":"- dp와 dpp 간의 관계 설정을 돕는 테이블이다.\n- numbering을 통해 화면에 표시되는 dpp의 순서를 지정할 수 있다\n- currentId 현재 대문에 표시할 dpp_id이다.\n- defaultId는 currentId의 status가 Available이 아니거나 null일때 표시된다\n- cache 해두자","x":-125,"y":200,"width":510,"height":193}
 	],
 	"edges":[]
 }

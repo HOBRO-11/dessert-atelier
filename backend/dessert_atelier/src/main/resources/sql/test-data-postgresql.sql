@@ -1,4 +1,3 @@
-
 DROP TABLE IF EXISTS total_sale_option;
 
 DROP TABLE IF EXISTS total_sale_product;
@@ -45,16 +44,17 @@ DROP TABLE IF EXISTS component;
 
 DROP TABLE IF EXISTS address;
 
+DROP TABLE IF EXISTS refresh_token;
 DROP TABLE IF EXISTS member;
 
-DROP TABLE IF EXISTS store_admin;
 
 CREATE TABLE member (
     id BIGSERIAL PRIMARY KEY,
     email VARCHAR(30) NOT NULL UNIQUE,
-    password VARCHAR(20) NOT NULL,
+    password VARCHAR(20),
     name VARCHAR(10) NOT NULL,
-    phone VARCHAR(11) NOT NULL,
+    phone VARCHAR(11), 
+    member_role VARCHAR(20) NOT NULL,
     member_origin VARCHAR(20) NOT NULL,
     member_status VARCHAR(20) NOT NULL,
     created_at TIMESTAMP,
@@ -289,13 +289,10 @@ CREATE TABLE total_sale_product (
     CONSTRAINT unique_created_at_product UNIQUE (created_at, product_id)
 );
 
-CREATE INDEX idx_total_sale_product ON total_sale_product (created_at, product_id);
-
-CREATE TABLE store_admin (
+CREATE TABLE refresh_token ( 
     id BIGSERIAL PRIMARY KEY,
-    email VARCHAR(30) NOT NULL UNIQUE,
-    password VARCHAR(20) NOT NULL,
-    phone VARCHAR(11),
-    admin_status VARCHAR(20) NOT NULL,
-    admin_role VARCHAR(20) NOT NULL
+member_id BIGINT,
+refresh_token_signature VARCHAR(100) NOT NULL,
+expired_date TIMESTAMP,
+FOREIGN KEY (member_id) REFERENCES member (id)
 );

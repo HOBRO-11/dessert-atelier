@@ -10,6 +10,8 @@ import com.yangnjo.dessert_atelier.repository.dto.MemberSimpleDto;
 
 public interface MemberQueryService {
 
+  MemberSimpleDto getMemberById(Long id);
+
   MemberDto getMemberByStatusAndOrigin(MemberStatus status, MemberOrigin origin, PageOption pageOption);
 
   Page<MemberSimpleDto> getSimpleMembersByStatusAndOrigin(MemberStatus status, MemberOrigin origin,

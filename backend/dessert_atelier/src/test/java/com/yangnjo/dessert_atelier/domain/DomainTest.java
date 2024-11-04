@@ -22,6 +22,7 @@ import com.yangnjo.dessert_atelier.domain.display_product.SaleStatus;
 import com.yangnjo.dessert_atelier.domain.member.Address;
 import com.yangnjo.dessert_atelier.domain.member.Member;
 import com.yangnjo.dessert_atelier.domain.member.MemberOrigin;
+import com.yangnjo.dessert_atelier.domain.member.MemberRole;
 import com.yangnjo.dessert_atelier.domain.order.Basket;
 import com.yangnjo.dessert_atelier.domain.order.BasketProperty;
 import com.yangnjo.dessert_atelier.domain.order.OptionQuantity;
@@ -112,7 +113,7 @@ public class DomainTest {
 
                 // User Side ok
 
-                Member users = new Member("testEmail@email.com", "asdf1234!@#$", "testUser", "01012344567",
+                Member users = new Member("testEmail@email.com", "asdf1234!@#$", "testUser", "01012344567", MemberRole.MEMBER,
                                 MemberOrigin.STORE);
                 memberRepository.save(users);
 

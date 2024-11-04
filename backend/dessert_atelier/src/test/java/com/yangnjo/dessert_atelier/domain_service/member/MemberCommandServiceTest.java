@@ -15,6 +15,7 @@ import org.mockito.MockitoAnnotations;
 
 import com.yangnjo.dessert_atelier.domain.member.Member;
 import com.yangnjo.dessert_atelier.domain.member.MemberOrigin;
+import com.yangnjo.dessert_atelier.domain.member.MemberRole;
 import com.yangnjo.dessert_atelier.domain.member.MemberStatus;
 import com.yangnjo.dessert_atelier.domain_service.member.dto.MemberCreateDto;
 import com.yangnjo.dessert_atelier.domain_service.member.dto.MemberUpdateDto;
@@ -39,7 +40,8 @@ public class MemberCommandServiceTest {
     @Test
     public void createMember_ShouldReturnMemberId_WhenValidInput() {
         // Given
-        MemberCreateDto dto = new MemberCreateDto("test@example.com", "password", "Test User", "1234567890", MemberOrigin.STORE);
+        MemberCreateDto dto = new MemberCreateDto("test@example.com", "password", "Test User", "1234567890",
+                MemberRole.MEMBER, MemberOrigin.STORE);
         Member member = dto.toEntity();
         member.setIdToTest(1L);
         
@@ -58,7 +60,8 @@ public class MemberCommandServiceTest {
     @Test
     public void createMember_ShouldThrowException_WhenEmailAlreadyExists() {
         // Given
-        MemberCreateDto dto = new MemberCreateDto("existing@example.com", "password", "Test User", "1234567890", MemberOrigin.STORE);
+        MemberCreateDto dto = new MemberCreateDto("existing@example.com", "password", "Test User", "1234567890",
+                MemberRole.MEMBER, MemberOrigin.STORE);
         when(memberRepository.existsByEmail(dto.getEmail())).thenReturn(true);
 
         // When & Then
@@ -73,7 +76,8 @@ public class MemberCommandServiceTest {
         // Given
         Long memberId = 1L;
         MemberUpdateDto dto = new MemberUpdateDto(memberId, "New Name", "9876543210");
-        Member existingMember = new Member("test@example.com", "password", "Old Name", "1234567890", MemberOrigin.STORE);
+        Member existingMember = new Member("test@example.com", "password", "Old Name", "1234567890", MemberRole.MEMBER,
+                MemberOrigin.STORE);
         existingMember.setIdToTest(memberId);
 
         when(memberRepository.findById(memberId)).thenReturn(Optional.of(existingMember));
@@ -92,7 +96,8 @@ public class MemberCommandServiceTest {
         // Given
         Long memberId = 1L;
         MemberUpdateDto dto = new MemberUpdateDto(memberId, "New Name", null);
-        Member existingMember = new Member("test@example.com", "password", "Old Name", "1234567890", MemberOrigin.STORE);
+        Member existingMember = new Member("test@example.com", "password", "Old Name", "1234567890", MemberRole.MEMBER,
+                MemberOrigin.STORE);
         existingMember.setIdToTest(memberId);
 
         when(memberRepository.findById(memberId)).thenReturn(Optional.of(existingMember));
@@ -124,7 +129,8 @@ public class MemberCommandServiceTest {
         // Given
         Long memberId = 1L;
         String newPassword = "newPassword";
-        Member existingMember = new Member("test@example.com", "oldPassword", "Test User", "1234567890", MemberOrigin.STORE);
+        Member existingMember = new Member("test@example.com", "oldPassword", "Test User", "1234567890",
+                MemberRole.MEMBER, MemberOrigin.STORE);
         existingMember.setIdToTest(memberId);
 
         when(memberRepository.findById(memberId)).thenReturn(Optional.of(existingMember));
@@ -154,7 +160,8 @@ public class MemberCommandServiceTest {
     public void banMember_ShouldChangeMemberStatusToBan_WhenValidInput() {
         // Given
         Long memberId = 1L;
-        Member existingMember = new Member("test@example.com", "password", "Test User", "1234567890", MemberOrigin.STORE);
+        Member existingMember = new Member("test@example.com", "password", "Test User", "1234567890", MemberRole.MEMBER,
+                MemberOrigin.STORE);
         existingMember.setIdToTest(memberId);
 
         when(memberRepository.findById(memberId)).thenReturn(Optional.of(existingMember));

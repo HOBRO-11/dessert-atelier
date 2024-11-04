@@ -4,7 +4,7 @@
 		{"id":"d336f1ffa6729a5b","type":"text","text":"update -> byId","x":160,"y":7,"width":250,"height":60},
 		{"id":"5f98de61b4280819","type":"text","text":"read -> byId, byUser, byStatus, all","x":160,"y":-66,"width":250,"height":60},
 		{"id":"b17f04ef478bc803","type":"text","text":"delete -> byId","x":160,"y":80,"width":250,"height":60},
-		{"id":"0c5e9e32d30dfd8a","type":"text","text":"- 질문에 관한 엔티티이다.\n- 비회원인 경우 password를 사용한다. 따로 encrypt는 하지 않는다.","x":-130,"y":176,"width":530,"height":64},
+		{"id":"0c5e9e32d30dfd8a","type":"text","text":"- 질문에 관한 엔티티이다.\n- 비회원인 경우 password를 사용한다. 따로 encrypt는 하지 않는다\n- 맴버가 작성한 QnA를 조회시 본인 확인이 필요하다.","x":-130,"y":176,"width":530,"height":96},
 		{"id":"461d7569856cc194","type":"text","text":"- [x] QnA\n\nid\ndp_id\nmember_id\npassword\ncomment\ncomment_at\nstatus\nanswer\nanswer_at\n","x":-130,"y":-141,"width":250,"height":296}
 	],
 	"edges":[]

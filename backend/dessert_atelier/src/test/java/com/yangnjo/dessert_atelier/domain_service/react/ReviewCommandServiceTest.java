@@ -21,6 +21,7 @@ import com.yangnjo.dessert_atelier.domain.display_product.DisplayProductPreset;
 import com.yangnjo.dessert_atelier.domain.display_product.Option;
 import com.yangnjo.dessert_atelier.domain.display_product.SaleStatus;
 import com.yangnjo.dessert_atelier.domain.member.Member;
+import com.yangnjo.dessert_atelier.domain.member.MemberRole;
 import com.yangnjo.dessert_atelier.domain.react.Review;
 import com.yangnjo.dessert_atelier.domain.react.ReviewImage;
 import com.yangnjo.dessert_atelier.domain.react.ReviewOrigin;
@@ -68,7 +69,7 @@ class ReviewCommandServiceTest {
 
         DisplayProduct displayProduct = new DisplayProduct("테스트 제품", "설명", "thumb.jpg", SaleStatus.ON_SALE);
         DisplayProductPreset dpp = DisplayProductPreset.createDefaultDPP(displayProduct, null, null, null, 0, 0, null, null);
-        Member member = new Member("test@example.com", "password", "Test User", "1234567890", null);
+        Member member = new Member("test@example.com", "password", "Test User", "1234567890", MemberRole.MEMBER, null);
         Option option1 = new Option(dpp, 10, "테스트 옵션1", 100, 1);
         Option option2 = new Option(dpp, 10, "테스트 옵션2", 100, 1);
         List<Option> options = Arrays.asList(option1, option2);
@@ -137,7 +138,7 @@ class ReviewCommandServiceTest {
         ReviewUpdateDto dto = new ReviewUpdateDto(reviewId, memberId, newComment);
 
         Review review = mock(Review.class);
-        Member member = new Member("test@example.com", "password", "Test User", "1234567890", null);
+        Member member = new Member("test@example.com", "password", "Test User", "1234567890", MemberRole.MEMBER, null);
         member.setIdToTest(memberId);
 
         when(reviewRepository.findById(reviewId)).thenReturn(Optional.of(review));
@@ -163,7 +164,7 @@ class ReviewCommandServiceTest {
         ReviewUpdateDto dto = new ReviewUpdateDto(reviewId, differentMemberId, newComment);
 
         Review review = mock(Review.class);
-        Member member = new Member("test@example.com", "password", "Test User", "1234567890", null);
+        Member member = new Member("test@example.com", "password", "Test User", "1234567890", MemberRole.MEMBER, null);
         member.setIdToTest(memberId);
 
         when(reviewRepository.findById(reviewId)).thenReturn(Optional.of(review));
@@ -198,7 +199,7 @@ class ReviewCommandServiceTest {
         Long memberId = 1L;
 
         Review review = mock(Review.class);
-        Member member = new Member("test@example.com", "password", "Test User", "1234567890", null);
+        Member member = new Member("test@example.com", "password", "Test User", "1234567890", MemberRole.MEMBER, null);
         member.setIdToTest(memberId);
 
         when(reviewRepository.findById(reviewId)).thenReturn(Optional.of(review));
@@ -222,7 +223,7 @@ class ReviewCommandServiceTest {
         Long differentMemberId = 2L;
 
         Review review = mock(Review.class);
-        Member member = new Member("test@example.com", "password", "Test User", "1234567890", null);
+        Member member = new Member("test@example.com", "password", "Test User", "1234567890", MemberRole.MEMBER, null);
         member.setIdToTest(memberId);
 
         when(reviewRepository.findById(reviewId)).thenReturn(Optional.of(review));

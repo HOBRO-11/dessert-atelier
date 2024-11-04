@@ -30,15 +30,15 @@
 ~~~
 
 - 조회 : Find
-	- 단 건 ==조회== : findXxx 
-	- 다 건 ==조회== : findXxxs
+	- 단 건 ==조회== : getXxx 
+	- 다 건 ==조회== : getXxxs
 
 - 생성 : save
-	- 단 건 ==생성== : saveXxx
-	- 다 건 ==생성== : saveXxxs
+	- 단 건 ==생성== : createXxx
+	- 다 건 ==생성== : createXxxs
 
-- 수정 : Change, Modify, Update
-	- 특정 필드 하나를 ==수정== : changeField
+- 수정 : update
+	- 특정 필드 하나를 ==수정== : updateField
 	- 특정 필드 하나를 ==수정==하며 그 의도가 명확한경우 그 의도를 바로 메소드에 반영한다. 
 		- ex) 직원의 직위를 매니저로 바꾸고 싶다면 -> changeRoleToManager
 	- Bulk_Update의 경우 (단일 필드에 대해서만 ==벌트 수정==을 지원한다.): bulkChangeField
@@ -56,4 +56,6 @@
 	- 단 건 ==삭제== : deleteXxx
 	- 다 건 ==삭제== : deleteXxxs
 
+- 의도가 확실한 경우 그 의도를 바로 메소드명으로 반영하여도 된다. 
+	- ex) addXxx
 ## Exception naming Rule

@@ -40,4 +40,9 @@ public class MemberQueryServiceImpl implements MemberQueryService {
         return PageResponse.of(dtos, pageOption, total);
     }
 
+    @Override
+    public MemberSimpleDto getMemberById(Long id) {
+        return memberQueryRepo.findMemberById(id);
+    }
+
 }

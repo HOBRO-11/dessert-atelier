@@ -5,6 +5,7 @@ import static com.yangnjo.dessert_atelier.domain.member.QMember.*;
 import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.Projections;
 import com.yangnjo.dessert_atelier.domain.member.MemberOrigin;
+import com.yangnjo.dessert_atelier.domain.member.MemberRole;
 import com.yangnjo.dessert_atelier.domain.member.MemberStatus;
 
 import lombok.AllArgsConstructor;
@@ -18,6 +19,7 @@ public class MemberDto {
   private String email;
   private String name;
   private String phone;
+  private MemberRole memberRole;
   private MemberStatus memberStatus;
   private MemberOrigin memberOrigin;
 
@@ -27,6 +29,7 @@ public class MemberDto {
         member.email,
         member.name,
         member.phone,
+        member.memberRole,
         member.memberStatus,
         member.memberOrigin);
   }

@@ -16,6 +16,7 @@ import org.mockito.MockitoAnnotations;
 import com.yangnjo.dessert_atelier.domain.delivery.Delivery;
 import com.yangnjo.dessert_atelier.domain.delivery.DeliveryCompany;
 import com.yangnjo.dessert_atelier.domain.member.Member;
+import com.yangnjo.dessert_atelier.domain.member.MemberRole;
 import com.yangnjo.dessert_atelier.domain.order.OrderStatus;
 import com.yangnjo.dessert_atelier.domain.order.Orders;
 import com.yangnjo.dessert_atelier.domain.value_type.Destination;
@@ -44,7 +45,7 @@ class OrderCommandServiceTest {
   void createUserOrder_성공() {
     // Given
     Long memberId = 1L;
-    Member member = new Member("Test User", "1234567890", "Test User", "1234567890", null);
+    Member member = new Member("Test User", "1234567890", "Test User", "1234567890", MemberRole.MEMBER, null);
     member.setIdToTest(memberId);
 
     Destination destination = new Destination("John Doe", "123-456-7890", "123 Main St", "12345");

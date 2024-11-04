@@ -5,7 +5,7 @@
 		{"id":"a5c2f7cba30a762e","type":"text","text":"update -> byId","x":180,"y":9,"width":250,"height":60},
 		{"id":"7de21435f6e5a4d6","type":"text","text":"read -> byId, byUser","x":180,"y":-64,"width":250,"height":60},
 		{"id":"f6335e532dcfb6f2","type":"text","text":"delete -> byId","x":180,"y":82,"width":250,"height":60},
-		{"id":"0ac37a430880d57b","type":"text","text":"- 주소 프리셋을 저장하는 엔티티이다.\n- 한 유저는 최대 20개의 Addresses를 가질 수 있음\n- 한 유저가 가진 Addresses 중 단 하나만 isDefault = true 이다.\n- post_code 는 우편번호이다\n- user 레코드가 삭제될 때 같이 삭제된다.","x":-100,"y":180,"width":494,"height":160}
+		{"id":"0ac37a430880d57b","type":"text","text":"- 주소들을 저장하는 엔티티이다.\n- 조회하기 위해선 ==본인임을== 확인한다.\n- 한 유저는 최대 20개의 주소를 가질 수 있음\n- 한 유저가 가진 주소 중 단 하나만 isDefault = true 이다.\n- 기본 주소는 삭제할 수 없으며 삭제를 원한다면 다른 주소를 기본주소로 설정해야한다 (isDefault)\n- post_code 는 우편번호이다\n- user 레코드가 삭제될 때 같이 삭제된다.","x":-100,"y":180,"width":494,"height":259}
 	],
 	"edges":[]
 }

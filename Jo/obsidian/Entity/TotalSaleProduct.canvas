@@ -1,0 +1,8 @@
+{
+	"nodes":[
+		{"id":"7449d85ff78f6132","type":"text","text":"- [x] TotalSaleProduct\n\nid\nproduct_id\nsaleAmount\ncreatedAt","x":-278,"y":-214,"width":250,"height":259},
+		{"id":"a48247660f164e9a","type":"text","text":"upsert -> createdAt & product_id","x":-13,"y":-205,"width":294,"height":60},
+		{"id":"eaed3bdc54da8600","type":"text","text":"- 하루동안 상품에 따라 판매량을 나타낸다\n- 따로 삭제는 지원하지 않는다.\n- createdAt & product_id 복합키를 이용하여 빠르게 레코드에 접근한다\n- 벌크 upsert 시 문제가 발생하면 전체가 롤백이 일어날 수 있으므로 상품별로 취합하여 한번에 upsert를 진행하자","x":-276,"y":55,"width":543,"height":160}
+	],
+	"edges":[]
+}

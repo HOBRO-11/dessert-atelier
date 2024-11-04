@@ -1,6 +1,12 @@
 package com.yangnjo.dessert_atelier.domain_service.member.exception;
 
+import com.yangnjo.dessert_atelier.domain.member.MemberOrigin;
+
+import lombok.Getter;
+
+@Getter
 public class MemberAlreadyExistException extends RuntimeException {
+    private MemberOrigin origin;
   public MemberAlreadyExistException() {
     super();
   }
@@ -15,6 +21,14 @@ public class MemberAlreadyExistException extends RuntimeException {
 
   public MemberAlreadyExistException(String message, Throwable ex) {
     super(message, ex);
+  }
+
+  /**
+   * 이메일은 일치하나 MemberOrigin이 일치하지 않을 경우 사용
+   */
+  public MemberAlreadyExistException(MemberOrigin origin) {
+      super();
+      this.origin = origin;
   }
 
 }
