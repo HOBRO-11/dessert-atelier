@@ -15,6 +15,7 @@ import org.mockito.MockitoAnnotations;
 import com.yangnjo.dessert_atelier.domain.display_product.DisplayProduct;
 import com.yangnjo.dessert_atelier.domain.display_product.SaleStatus;
 import com.yangnjo.dessert_atelier.domain.member.Member;
+import com.yangnjo.dessert_atelier.domain.member.MemberRole;
 import com.yangnjo.dessert_atelier.domain.react.QnA;
 import com.yangnjo.dessert_atelier.domain.react.QnAStatus;
 import com.yangnjo.dessert_atelier.domain_service.react.dto.QnaCreateDto;
@@ -55,7 +56,7 @@ class QnACommandServiceTest {
 
     DisplayProduct dp = new DisplayProduct("테스트 제품", "설명", "thumb.jpg", SaleStatus.ON_SALE);
     dp.setIdToTest(dpId);
-    Member member = new Member("test@example.com", "password", "Test User", "1234567890", null);
+    Member member = new Member("test@example.com", "password", "Test User", "1234567890", MemberRole.MEMBER, null);
     member.setIdToTest(memberId);
     QnA qna = QnA.createMemberQnA(dp, member, comment);
     qna.setIdToTest(qnaId);
@@ -108,7 +109,7 @@ class QnACommandServiceTest {
     String newComment = "수정된 질문";
     DisplayProduct dp = new DisplayProduct("테스트 제품", "설명", "thumb.jpg", SaleStatus.ON_SALE);
 
-    Member member = new Member("test@example.com", "password", "Test User", "1234567890", null);
+    Member member = new Member("test@example.com", "password", "Test User", "1234567890", MemberRole.MEMBER, null);
     member.setIdToTest(memberId);
     QnA qna = QnA.createMemberQnA(dp, member, "원래 질문");
 
@@ -210,7 +211,7 @@ class QnACommandServiceTest {
     Long qnaId = 1L;
     Long memberId = 1L;
 
-    Member member = new Member("test@example.com", "password", "Test User", "1234567890", null);
+    Member member = new Member("test@example.com", "password", "Test User", "1234567890", MemberRole.MEMBER, null);
     member.setIdToTest(memberId);
     DisplayProduct dp = new DisplayProduct("테스트 제품", "설명", "thumb.jpg", SaleStatus.ON_SALE);
 
@@ -253,7 +254,7 @@ class QnACommandServiceTest {
     Long wrongMemberId = 2L;
     String newComment = "수정된 질문";
 
-    Member member = new Member("Test User", "1234567890", "Test User", "1234567890", null);
+    Member member = new Member("Test User", "1234567890", "Test User", "1234567890", MemberRole.MEMBER, null);
     member.setIdToTest(memberId);
     DisplayProduct dp = new DisplayProduct("테스트 제품", "설명", "thumb.jpg", SaleStatus.ON_SALE);
 

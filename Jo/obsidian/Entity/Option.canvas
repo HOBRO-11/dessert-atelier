@@ -3,27 +3,8 @@
 		{"id":"3200410f06e8d884","type":"text","text":"create -> save","x":160,"y":-139,"width":250,"height":60},
 		{"id":"e28eab8025ccfdd3","type":"text","text":"* update -> byId","x":160,"y":7,"width":250,"height":60},
 		{"id":"139ea938822b6f2b","type":"text","text":"read -> byId, byDpp","x":160,"y":-66,"width":250,"height":60},
-		{"id":"5fb182b324b700a8","type":"text","text":"- Dpp의 옵션 설정에 사용되는 엔티티이다.\n- 변경에 대해선 status, total quantity 만 열려있다.\n- 변경에 대해선 닫혀있어 기존의 레코드의 상태를 변경하고 이를 대체한다.","x":-125,"y":154,"width":565,"height":126},
-		{"id":"cd0e3533bb2bd60f","type":"text","text":"\\+ op1_1/op2_1/op3_1/op4_1 __ quantity : 5","x":-125,"y":445,"width":367,"height":60},
-		{"id":"0ac9f2a6a5d45300","type":"text","text":"\\+ op1_2/op2_1/op3_1/op4_1 __ quantity : 3","x":-125,"y":525,"width":367,"height":60},
-		{"id":"267170008eacb310","type":"text","text":"cart\n\nid\noptions - JSON\nquantity\nstatus","x":-125,"y":605,"width":250,"height":167},
-		{"id":"040f414001891f59","type":"text","text":"basket\n\nid\nuser\n\n","x":-125,"y":827,"width":250,"height":108},
-		{"id":"7d08c610bc8fd8f7","type":"text","text":"orderCart\n\nid","x":164,"y":827,"width":250,"height":105},
-		{"id":"4e3c74e0a91fc4fc","type":"text","text":"dp","x":232,"y":300,"width":71,"height":60},
-		{"id":"0043eb8b8d5493c2","type":"text","text":"optionLayer1","x":366,"y":300,"width":148,"height":60},
-		{"id":"bd9e1c5945820bf1","type":"text","text":"optionLayer2","x":366,"y":375,"width":148,"height":60},
-		{"id":"9e34d31b90921a07","type":"text","text":"optionLayer3","x":366,"y":450,"width":148,"height":60},
-		{"id":"99f28674d240aa1f","type":"text","text":"optionLayer4","x":366,"y":525,"width":148,"height":60},
-		{"id":"9838639abdca8266","type":"text","text":"- [x] Option\n\nid\n~~dp_id~~ -> dpp_id\ntotal quantity\noptionLayer\nstatus\ndesc\nprice\n\n\n","x":-125,"y":-139,"width":250,"height":260}
+		{"id":"5fb182b324b700a8","type":"text","text":"- Dpp의 옵션 설정에 사용되는 엔티티이다.\n- 변경에 대해선 status, total quantity 만 열려있다.\n- 변경에 대해선 닫혀있어 기존의 레코드의 상태를 변경하고 이를 대체한다.\n- description을 통해 장바구니, 리뷰의 옵션, 주문 조회 기능을 상세 내용을 알 수 있다.\n- optionLayer는 Dpp에 노출되는 optionLayer의 위치를 나타낸다.\n","x":-125,"y":154,"width":565,"height":193},
+		{"id":"9838639abdca8266","type":"text","text":"- [x] Option\n\nid\n~~dp_id~~ -> dpp_id\ntotal quantity\noptionLayer\nstatus\ndescription\nprice\n\n\n","x":-125,"y":-139,"width":250,"height":260}
 	],
-	"edges":[
-		{"id":"c9968bedd0dda408","fromNode":"4e3c74e0a91fc4fc","fromSide":"right","toNode":"0043eb8b8d5493c2","toSide":"left"},
-		{"id":"ec31a6686a29de2e","fromNode":"4e3c74e0a91fc4fc","fromSide":"right","toNode":"bd9e1c5945820bf1","toSide":"left"},
-		{"id":"93f68f2d395536d5","fromNode":"4e3c74e0a91fc4fc","fromSide":"right","toNode":"9e34d31b90921a07","toSide":"left"},
-		{"id":"290391e8d7631344","fromNode":"4e3c74e0a91fc4fc","fromSide":"right","toNode":"99f28674d240aa1f","toSide":"left"},
-		{"id":"81e5ad299999fbff","fromNode":"267170008eacb310","fromSide":"bottom","toNode":"040f414001891f59","toSide":"top"},
-		{"id":"27214d84edc9817e","fromNode":"267170008eacb310","fromSide":"right","toNode":"7d08c610bc8fd8f7","toSide":"top"},
-		{"id":"a3d2365d6e4ea12d","fromNode":"cd0e3533bb2bd60f","fromSide":"right","toNode":"267170008eacb310","toSide":"right"},
-		{"id":"a4633af9ed3762f9","fromNode":"0ac9f2a6a5d45300","fromSide":"right","toNode":"267170008eacb310","toSide":"right"}
-	]
+	"edges":[]
 }

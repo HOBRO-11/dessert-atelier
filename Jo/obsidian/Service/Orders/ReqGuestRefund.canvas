@@ -1,0 +1,27 @@
+{
+	"nodes":[
+		{"id":"52203e533edbdcad","type":"text","text":"guest","x":-236,"y":-946,"width":93,"height":60},
+		{"id":"a3966ee4ac5cc26d","type":"text","text":"findOrderByOrderCode","x":-300,"y":-775,"width":221,"height":60},
+		{"id":"e0ebc68066ecbedf","type":"text","text":"checkNullMemberId","x":-94,"y":-635,"width":205,"height":60},
+		{"id":"5608e275b9522f9c","type":"text","text":"http 204 : 해당 주문건은 존재하지 않습니다.","x":-514,"y":-635,"width":250,"height":60},
+		{"id":"2bed2e1b2f3215c7","type":"text","text":"checkPassword","x":-74,"y":-435,"width":166,"height":60},
+		{"id":"b9a58690fa8c39f6","type":"text","text":"http 401 : 멤버 주문건입니다.","x":-425,"y":-435,"width":250,"height":60},
+		{"id":"826bd54a23f8944e","type":"text","text":"http 401 : 정보가 일치하지 않습니다.","x":-425,"y":-215,"width":250,"height":60},
+		{"id":"fa805d103b0e7e32","type":"text","text":"checkStatus","x":-62,"y":-215,"width":143,"height":60},
+		{"id":"6a4ad85379252008","type":"text","text":"http 200 : 현재 ${status} 이미로 환불이 불가능함 연락부탁","x":-425,"y":-15,"width":250,"height":60},
+		{"id":"33a258e2871be32f","type":"text","text":"updateStatus : request_refund","x":-72,"y":-15,"width":164,"height":60},
+		{"id":"b31ba5617de83874","type":"text","text":"http 200 : 환불 요청 완료","x":-99,"y":145,"width":219,"height":60}
+	],
+	"edges":[
+		{"id":"ce594aef95e81c88","fromNode":"52203e533edbdcad","fromSide":"bottom","toNode":"a3966ee4ac5cc26d","toSide":"top","label":"guestRefundForm"},
+		{"id":"9d37c8b31e41b22c","fromNode":"a3966ee4ac5cc26d","fromSide":"left","toNode":"5608e275b9522f9c","toSide":"top","label":"not\nfound"},
+		{"id":"d571fa813945bd51","fromNode":"a3966ee4ac5cc26d","fromSide":"right","toNode":"e0ebc68066ecbedf","toSide":"top","label":"ok"},
+		{"id":"46f31e98e7c3100f","fromNode":"e0ebc68066ecbedf","fromSide":"bottom","toNode":"b9a58690fa8c39f6","toSide":"top","label":"false\nmemberId not null"},
+		{"id":"641022be23ceaf74","fromNode":"e0ebc68066ecbedf","fromSide":"bottom","toNode":"2bed2e1b2f3215c7","toSide":"top","label":"ok"},
+		{"id":"5c7c3bdec00c22b9","fromNode":"2bed2e1b2f3215c7","fromSide":"bottom","toNode":"826bd54a23f8944e","toSide":"top","label":"not match"},
+		{"id":"0c4bed5a89eb067b","fromNode":"2bed2e1b2f3215c7","fromSide":"bottom","toNode":"fa805d103b0e7e32","toSide":"top","label":"ok"},
+		{"id":"8b154e1be994a8f7","fromNode":"fa805d103b0e7e32","fromSide":"bottom","toNode":"6a4ad85379252008","toSide":"top","label":"status == \ncomplete, Cancel,\nrefund"},
+		{"id":"5b2019cebeb933ec","fromNode":"fa805d103b0e7e32","fromSide":"bottom","toNode":"33a258e2871be32f","toSide":"top","label":"ok"},
+		{"id":"de403d0996e2480f","fromNode":"33a258e2871be32f","fromSide":"bottom","toNode":"b31ba5617de83874","toSide":"top","label":"ok"}
+	]
+}

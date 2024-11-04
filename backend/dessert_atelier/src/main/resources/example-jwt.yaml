@@ -1,0 +1,15 @@
+## [, ] 는 제거하고 기입한다.
+jwt:
+  access-token: 
+    secret-key: [access-token-sk] ## 외부에 노출되지 않게 조심
+    name: [access-token-name]
+    duration: [Integer] ## long 타입이 되지 않게 조심한다.
+    time-unit: [ChronoUnit.]
+    hash-fields: [String1, String2, ...]
+  refresh-token:
+    secret-key: [refresh-token-sk] ## 외부에 노출되지 않게 조심
+    name: [refresh-token-name]
+    duration: [Integer] ## long 타입이 되지 않게 조심한다.
+    time-unit: [ChronoUnit.]
+    hash-fields: [String1, String2, ...]
+    path: ['{baseUrl}/...']

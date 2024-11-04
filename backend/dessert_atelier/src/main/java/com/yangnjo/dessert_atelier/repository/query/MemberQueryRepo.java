@@ -10,12 +10,14 @@ import com.yangnjo.dessert_atelier.repository.dto.MemberSimpleDto;
 
 public interface MemberQueryRepo {
 
-  MemberDto findByMemberStatusAndMemberOrigin(MemberStatus memberStatus, MemberOrigin memberOrigin,
-      PageOption pageOption);
+	MemberSimpleDto findMemberById(Long id);
 
-  List<MemberSimpleDto> findSimplesByMemberStatusAndMemberOrigin(MemberStatus memberStatus,
-      MemberOrigin memberOrigin, PageOption pageOption);
+	MemberDto findByMemberStatusAndMemberOrigin(MemberStatus memberStatus, MemberOrigin memberOrigin,
+			PageOption pageOption);
 
-  Long countSimplesByMemberStatusAndMemberOrigin(MemberStatus memberStatus, MemberOrigin memberOrigin);
+	List<MemberSimpleDto> findSimplesByMemberStatusAndMemberOrigin(MemberStatus memberStatus,
+			MemberOrigin memberOrigin, PageOption pageOption);
+
+	Long countSimplesByMemberStatusAndMemberOrigin(MemberStatus memberStatus, MemberOrigin memberOrigin);
 
 }

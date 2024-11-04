@@ -8,7 +8,7 @@
 - [x] Query Repo 만들기
 - [ ] ~~DisplayProduct의 현재 사용 중인 Dpp의 아이디를 저장하는 컬럼을 만들자~~
 - [ ] optionQueryRepo, service 만들기
-- [x] Basket에 cart 도입의 문제점 -> 중복처리에 있어 어려움이 있음 어떻게 해결할 것인가
+
 - [ ] page 구현 방식 중 Slice도 고려해보기
 - [ ] 하드코딩된 부분 개선하기 ("익명") -> application.yml or util
 	- [ ] LocalDateTimeFormatter
@@ -19,4 +19,15 @@
 - [ ] 개인정보를 조회하는 영역에서 csrf token을 발행을 고려해보자. 
 	- member 개인정보
 	- 주문란의 개인정보
-- [ ] 
+- [ ] service create Form _ 모든 필드는 final로 제작 만들기
+- [ ] display query method 다시 생각하기
+- [ ] 개인정보가 들어간 곳에 본인 검증은 어떻게 할까?
+- [ ] OrderCode를 Long 으로 바꾼다.
+- [ ] OrderCode 조회시 유저역시 조회하게 만드는게 좋아보임
+- [ ] orderCommandservice의 하드코딩을 어떻게 설정으로 못 바꿀까?
+- [ ] postgresql의 mvcc 에 대해 공부하기
+- [ ] 아직 만들지 않은 service 가 있는지 체크
+	- dpp img
+	- review img
+	- product quatity
+	- orderQuantity 확인 연관관계도 확인

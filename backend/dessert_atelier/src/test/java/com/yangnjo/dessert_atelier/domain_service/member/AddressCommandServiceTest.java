@@ -14,6 +14,7 @@ import org.mockito.MockitoAnnotations;
 
 import com.yangnjo.dessert_atelier.domain.member.Address;
 import com.yangnjo.dessert_atelier.domain.member.Member;
+import com.yangnjo.dessert_atelier.domain.member.MemberRole;
 import com.yangnjo.dessert_atelier.domain_service.member.dto.AddressCreateDto;
 import com.yangnjo.dessert_atelier.domain_service.member.dto.AddressUpdateDto;
 import com.yangnjo.dessert_atelier.domain_service.member.exception.AddressCountMaxException;
@@ -38,7 +39,7 @@ public class AddressCommandServiceTest {
   @BeforeEach
   public void setUp() {
     MockitoAnnotations.openMocks(this);
-    member = new Member("test@example.com", "password", "Test User", "1234567890", null);
+    member = new Member("test@example.com", "password", "Test User", "1234567890", MemberRole.MEMBER, null);
     address = new Address("Home", "12345", "Detail Address", "Receiver", "1234567890", false);
     member.addAddress(address);
   }

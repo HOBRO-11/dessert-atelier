@@ -72,7 +72,7 @@ public class Orders {
         member.addOrder(orders);
         orders.destination = destination;
         orders.totalPrice = totalPrice;
-        orders.orderStatus = OrderStatus.PAYMENT_COMPLETED;
+        orders.orderStatus = OrderStatus.PAYMENT_IN_PROGRESS;
         return orders;
     }
 
@@ -82,7 +82,7 @@ public class Orders {
         orders.password = password;
         orders.destination = destination;
         orders.totalPrice = totalPrice;
-        orders.orderStatus = OrderStatus.PAYMENT_COMPLETED;
+        orders.orderStatus = OrderStatus.PAYMENT_IN_PROGRESS;
         return orders;
     }
 

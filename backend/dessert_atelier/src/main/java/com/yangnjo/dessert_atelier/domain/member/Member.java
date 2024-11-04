@@ -45,6 +45,10 @@ public class Member extends BaseEntity {
     @Column(nullable = false)
     private MemberOrigin memberOrigin;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private MemberRole memberRole;
+
     @Setter
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -66,11 +70,12 @@ public class Member extends BaseEntity {
     @OneToOne(mappedBy = "member", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Basket basket;
 
-    public Member(String email, String password, String name, String phone, MemberOrigin memberOrigin) {
+    public Member(String email, String password, String name, String phone, MemberRole memberRole, MemberOrigin memberOrigin) {
         this.email = email;
         this.password = password;
         this.name = name;
         this.phone = phone;
+        this.memberRole = memberRole;
         this.memberOrigin = memberOrigin;
         this.memberStatus = MemberStatus.ACTIVE;
     }

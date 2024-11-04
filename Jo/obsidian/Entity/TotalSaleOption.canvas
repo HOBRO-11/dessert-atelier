@@ -1,0 +1,8 @@
+{
+	"nodes":[
+		{"id":"f407f80173921d35","type":"text","text":"- [x] TotalSaleOption\n\nid\noption_id\nsaleAmount\ncreatedAt","x":-125,"y":-129,"width":250,"height":259},
+		{"id":"7f0605042e823e25","type":"text","text":"upsert -> createdAt & option_id","x":140,"y":-120,"width":292,"height":60},
+		{"id":"7b2bc30a7088cf34","type":"text","text":"- 하루동안 옵션에 따라 판매량을 나타낸다\n- 따로 삭제는 지원하지 않는다.\n- createdAt & option_id 복합키를 이용하여 빠르게 레코드에 접근한다\n- 벌크 upsert 시 문제가 발생하면 전체가 롤백이 일어날 수 있으므로 옵션별로 취합하여 한번에 upsert를 진행하자","x":-123,"y":140,"width":543,"height":160}
+	],
+	"edges":[]
+}

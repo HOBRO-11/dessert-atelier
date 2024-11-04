@@ -35,25 +35,37 @@ public class MemberQueryRepoImpl implements MemberQueryRepo {
         .fetchOne();
   }
 
+	@Override
+	public MemberSimpleDto findMemberById(Long id) {
+		return queryFactory.select(MemberSimpleDto.asDto())
+				.from(member)
+				.where(equalMemberId(id))
+				.fetchOne();
+	}
+
   @Override
   public List<MemberSimpleDto> findSimplesByMemberStatusAndMemberOrigin(MemberStatus memberStatus,
-      MemberOrigin memberOrigin, PageOption pageOption) {
-    return queryFactory.select(MemberSimpleDto.asDto())
-        .from(member)
-        .where(equalMemberStatus(memberStatus), equalMemberOrigin(memberOrigin))
-        .offset(pageOption.getOffset())
-        .limit(pageOption.getSize())
-        .orderBy(pageOption.getDirection(member.id))
-        .fetch();
+			MemberOrigin memberOrigin, PageOption pageOption) {
+		return queryFactory.select(MemberSimpleDto.asDto())
+				.from(member)
+				.where(equalMemberStatus(memberStatus), equalMemberOrigin(memberOrigin))
+				.offset(pageOption.getOffset())
+				.limit(pageOption.getSize())
+				.orderBy(pageOption.getDirection(member.id))
+				.fetch();
   }
 
   @Override
   public Long countSimplesByMemberStatusAndMemberOrigin(MemberStatus memberStatus, MemberOrigin memberOrigin) {
-    return queryFactory.select(member.count())
+		return queryFactory.select(member.count())
         .from(member)
         .where(equalMemberStatus(memberStatus), equalMemberOrigin(memberOrigin))
         .fetchOne();
-  }
+	}
+
+	private BooleanExpression equalMemberId(Long id) {
+		return member.id.eq(id);
+	}
 
   private BooleanExpression equalMemberStatus(MemberStatus memberStatus) {
     return memberStatus != null ? member.memberStatus.eq(memberStatus) : null;

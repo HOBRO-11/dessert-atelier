@@ -7,11 +7,12 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum OrderStatus {
 
-    SHOPPING_BASKET,
+    PAYMENT_IN_PROGRESS,
     PAYMENT_COMPLETED,
     REQUEST_CANCEL,
     CANCEL,
     COMPLETED,
+    REQUEST_REFUND,
     REFUND,
     HIDE;
 
