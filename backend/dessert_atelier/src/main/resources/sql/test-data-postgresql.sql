@@ -45,15 +45,15 @@ DROP TABLE IF EXISTS component;
 DROP TABLE IF EXISTS address;
 
 DROP TABLE IF EXISTS refresh_token;
-DROP TABLE IF EXISTS member;
 
+DROP TABLE IF EXISTS member;
 
 CREATE TABLE member (
     id BIGSERIAL PRIMARY KEY,
     email VARCHAR(30) NOT NULL UNIQUE,
     password VARCHAR(20),
     name VARCHAR(10) NOT NULL,
-    phone VARCHAR(11), 
+    phone VARCHAR(11),
     member_role VARCHAR(20) NOT NULL,
     member_origin VARCHAR(20) NOT NULL,
     member_status VARCHAR(20) NOT NULL,
@@ -234,7 +234,6 @@ CREATE TABLE review (
     display_product_id BIGINT NOT NULL,
     member_id BIGINT,
     review_image_id BIGINT,
-    option_ids JSONB, -- 옵션 테이블의 아이디를 참고할 것인지 아닌지 생각해보자.
     rate INT,
     comment VARCHAR(250) NOT NULL,
     origin VARCHAR(20),
@@ -289,10 +288,10 @@ CREATE TABLE total_sale_product (
     CONSTRAINT unique_created_at_product UNIQUE (created_at, product_id)
 );
 
-CREATE TABLE refresh_token ( 
+CREATE TABLE refresh_token (
     id BIGSERIAL PRIMARY KEY,
-member_id BIGINT,
-refresh_token_signature VARCHAR(100) NOT NULL,
-expired_date TIMESTAMP,
-FOREIGN KEY (member_id) REFERENCES member (id)
+    member_id BIGINT,
+    refresh_token_signature VARCHAR(100) NOT NULL,
+    expired_date TIMESTAMP,
+    FOREIGN KEY (member_id) REFERENCES member (id)
 );

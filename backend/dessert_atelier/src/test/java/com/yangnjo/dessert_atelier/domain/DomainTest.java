@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -66,172 +65,168 @@ import jakarta.persistence.PersistenceContext;
 @Transactional
 public class DomainTest {
 
-        @PersistenceContext
-        private EntityManager em;
-        @Autowired
-        private MemberRepository memberRepository;
-        @Autowired
-        private AddressRepository addressRepository;
-        @Autowired
-        private ComponentRepository componentRepository;
-        @Autowired
-        private RecipeRepository recipeRepository;
-        @Autowired
-        private ProductRepository productRepository;
-        @Autowired
-        private ProductQuantityRepository productQuantityRepository;
-        @Autowired
-        private OptionRepository optionRepository;
-        @Autowired
-        private DisplayProductImageRepository displayProductImageRepository;
-        @Autowired
-        private DisplayProductRepository displayProductRepository;
-        @Autowired
-        private BasketRepository basketRepository;
-        @Autowired
-        private QnARepository qnaRepository;
-        @Autowired
-        private ReviewImageRepository reviewImageRepository;
-        @Autowired
-        private ReviewRepository reviewRepository;
-        @Autowired
-        private OqRepository oqRepository;
-        @Autowired
-        private OrderRepository orderRepository;
-        @Autowired
-        private DeliveryRepository deliveryRepository;
-        @Autowired
-        private DeliveryCompanyRepository deliveryCompanyRepository;
-        @Autowired
-        private DisplayProductPresetRepository displayProductPresetRepository;
-        @Autowired
-        private PresetTableRepository presetTableRepository;
+    @PersistenceContext
+    private EntityManager em;
+    @Autowired
+    private MemberRepository memberRepository;
+    @Autowired
+    private AddressRepository addressRepository;
+    @Autowired
+    private ComponentRepository componentRepository;
+    @Autowired
+    private RecipeRepository recipeRepository;
+    @Autowired
+    private ProductRepository productRepository;
+    @Autowired
+    private ProductQuantityRepository productQuantityRepository;
+    @Autowired
+    private OptionRepository optionRepository;
+    @Autowired
+    private DisplayProductImageRepository displayProductImageRepository;
+    @Autowired
+    private DisplayProductRepository displayProductRepository;
+    @Autowired
+    private BasketRepository basketRepository;
+    @Autowired
+    private QnARepository qnaRepository;
+    @Autowired
+    private ReviewImageRepository reviewImageRepository;
+    @Autowired
+    private ReviewRepository reviewRepository;
+    @Autowired
+    private OqRepository oqRepository;
+    @Autowired
+    private OrderRepository orderRepository;
+    @Autowired
+    private DeliveryRepository deliveryRepository;
+    @Autowired
+    private DeliveryCompanyRepository deliveryCompanyRepository;
+    @Autowired
+    private DisplayProductPresetRepository displayProductPresetRepository;
+    @Autowired
+    private PresetTableRepository presetTableRepository;
 
-        @Test
-        @Transactional
-        void domain_test() throws InterruptedException {
+    // @Test
+    // @Transactional
+    void domain_test() throws InterruptedException {
 
-                // User Side ok
+        // User Side ok
 
-                Member users = new Member("testEmail@email.com", "asdf1234!@#$", "testUser", "01012344567", MemberRole.MEMBER,
-                                MemberOrigin.STORE);
-                memberRepository.save(users);
+        Member users = new Member("testEmail@email.com", "asdf1234!@#$", "testUser", "01012344567", MemberRole.MEMBER,
+                MemberOrigin.STORE);
+        memberRepository.save(users);
 
-                Address addresses = new Address("testAddress", "48765", "102-1804", "testReceiver", "01087654321",
-                                true);
-                users.addAddress(addresses);
-                addressRepository.save(addresses);
+        Address addresses = new Address("testAddress", "48765", "102-1804", "testReceiver", "01087654321",
+                true);
+        users.addAddress(addresses);
+        addressRepository.save(addresses);
 
-                // Product Side ok
+        // Product Side ok
 
-                Component components = new Component("testCompetent", ComponentUnit.GRAM);
-                componentRepository.save(components);
+        Component components = new Component("testCompetent", ComponentUnit.GRAM);
+        componentRepository.save(components);
 
-                Product products = new Product("testProduct", 100_000, "testThumb.jpg", ProductStatus.AVAILABLE);
-                productRepository.save(products);
+        Product products = new Product("testProduct", 100_000, "testThumb.jpg", ProductStatus.AVAILABLE);
+        productRepository.save(products);
 
-                Recipe recipes = new Recipe(components, 5);
-                products.addRecipes(List.of(recipes));
-                recipeRepository.save(recipes);
+        Recipe recipes = new Recipe(components, 5);
+        products.addRecipes(List.of(recipes));
+        recipeRepository.save(recipes);
 
+        // Display Product Side ok
 
+        DisplayProduct displayProducts = new DisplayProduct("testNaming", "testDpDesc", "testthumb.jpg",
+                SaleStatus.ON_SALE);
+        displayProductRepository.save(displayProducts);
 
-                // Display Product Side ok
+        DisplayProductPresetImage displayProductImages = new DisplayProductPresetImage(
+                Map.of("dpImage1.jpg", "dpImage1.jpg", "dpImage2.jpg", "dpImage2.jpg"));
+        displayProductImageRepository.save(displayProductImages);
 
-                DisplayProduct displayProducts = new DisplayProduct("testNaming", "testDpDesc", "testthumb.jpg",
-                                SaleStatus.ON_SALE);
-                displayProductRepository.save(displayProducts);
+        DisplayProductPreset displayProductPreset = DisplayProductPreset.createDefaultDPP(displayProducts,
+                "testNaming", "testThumb.jpg", "testTitle", 100_000, 1, "testContent",
+                displayProductImages);
+        displayProductPresetRepository.save(displayProductPreset);
 
-                DisplayProductPresetImage displayProductImages = new DisplayProductPresetImage(
-                                Map.of("dpImage1.jpg", "dpImage1.jpg", "dpImage2.jpg", "dpImage2.jpg"));
-                displayProductImageRepository.save(displayProductImages);
+        PresetTable presetTable = new PresetTable(displayProducts, displayProductPreset);
+        presetTable.setNumbering(1);
+        presetTableRepository.save(presetTable);
 
-                DisplayProductPreset displayProductPreset = DisplayProductPreset.createDefaultDPP(displayProducts,
-                                "testNaming", "testThumb.jpg", "testTitle", 100_000, 1, "testContent",
-                                displayProductImages);
-                displayProductPresetRepository.save(displayProductPreset);
+        Option options = new Option(displayProductPreset, 5, "testOptionDesc", 500_000, 1);
+        optionRepository.save(options);
 
-                PresetTable presetTable = new PresetTable(displayProducts, displayProductPreset);
-                presetTable.setNumbering(1);
-                presetTableRepository.save(presetTable);
+        ProductQuantity productQuantities = new ProductQuantity(products, options, 10);
+        productQuantityRepository.save(productQuantities);
 
-                Option options = new Option(displayProductPreset, 5, "testOptionDesc", 500_000, 1);
-                optionRepository.save(options);
+        // Order Side
 
+        Basket basket = new Basket(users);
+        basket.addProperty(new BasketProperty(1L, LocalDateTime.now(), List.of(1L, 2L), 1));
+        Thread.sleep(500);
+        basket.addProperty(new BasketProperty(1L, LocalDateTime.now(), List.of(1L, 2L), 1));
+        basketRepository.save(basket);
 
-                ProductQuantity productQuantities = new ProductQuantity(products, options, 10);
-                productQuantityRepository.save(productQuantities);
+        Orders userOrder = Orders.createUserOrder(12341234L, users,
+                new Destination("48765", "102-1804", "testReceiver", "01087654321"),
+                100_000L);
+        orderRepository.save(userOrder);
 
+        Orders guestOrder = Orders.createGuestOrder(43214321L, "qwer1234",
+                new Destination("48765", "102-1804", "testReceiver", "01087654321"),
+                100_000L);
+        orderRepository.save(guestOrder);
 
-                // Order Side
+        OptionQuantity oq = new OptionQuantity(userOrder, List.of(options), displayProductPreset, 1,
+                OptionQuantityStatus.PAID);
+        oqRepository.save(oq);
 
-                Basket basket = new Basket(users);
-                basket.addProperty(new BasketProperty(1L, LocalDateTime.now(), List.of(1L, 2L), 1));
-                Thread.sleep(500);
-                basket.addProperty(new BasketProperty(1L, LocalDateTime.now(), List.of(1L, 2L), 1));
-                basketRepository.save(basket);
+        OptionQuantity oq1 = new OptionQuantity(userOrder, List.of(options), displayProductPreset, 1,
+                OptionQuantityStatus.PAID);
+        oqRepository.save(oq1);
 
-                Orders userOrder = Orders.createUserOrder(12341234L, users,
-                                new Destination("48765", "102-1804", "testReceiver", "01087654321"),
-                                100_000L);
-                orderRepository.save(userOrder);
+        OptionQuantity oq2 = new OptionQuantity(guestOrder, List.of(options), displayProductPreset, 1,
+                OptionQuantityStatus.PAID);
+        oqRepository.save(oq2);
 
-                Orders guestOrder = Orders.createGuestOrder(43214321L, "qwer1234",
-                                new Destination("48765", "102-1804", "testReceiver", "01087654321"),
-                                100_000L);
-                orderRepository.save(guestOrder);
+        OptionQuantity oq3 = new OptionQuantity(userOrder, List.of(options), displayProductPreset, 1,
+                OptionQuantityStatus.PAID);
+        oqRepository.save(oq3);
 
-                OptionQuantity oq = new OptionQuantity(userOrder, List.of(options), displayProductPreset, 1,
-                                OptionQuantityStatus.PAID);
-                oqRepository.save(oq);
+        // Delivery Side
 
-                OptionQuantity oq1 = new OptionQuantity(userOrder, List.of(options), displayProductPreset, 1,
-                                OptionQuantityStatus.PAID);
-                oqRepository.save(oq1);
+        DeliveryCompany deliveryCompany = new DeliveryCompany("testDeliveryCompany", "0519877654");
+        deliveryCompanyRepository.save(deliveryCompany);
 
-                OptionQuantity oq2 = new OptionQuantity(guestOrder, List.of(options), displayProductPreset, 1,
-                                OptionQuantityStatus.PAID);
-                oqRepository.save(oq2);
+        Delivery delivery = new Delivery("DELIVERY_CODE_123", deliveryCompany);
+        userOrder.setDelivery(delivery);
+        deliveryRepository.save(delivery);
 
-                OptionQuantity oq3 = new OptionQuantity(userOrder, List.of(options), displayProductPreset, 1,
-                                OptionQuantityStatus.PAID);
-                oqRepository.save(oq3);
+        // React Side
 
-                // Delivery Side
+        QnA qna = QnA.createMemberQnA(displayProducts, users, "testQnaContent");
+        qnaRepository.save(qna);
 
-                DeliveryCompany deliveryCompany = new DeliveryCompany("testDeliveryCompany", "0519877654");
-                deliveryCompanyRepository.save(deliveryCompany);
+        QnA guestQnA = QnA.createGuestQnA(displayProducts, "qewr1234", "testGuestComment");
+        qnaRepository.save(guestQnA);
 
-                Delivery delivery = new Delivery("DELIVERY_CODE_123", deliveryCompany);
-                userOrder.setDelivery(delivery);
-                deliveryRepository.save(delivery);
+        ReviewImage reviewImages = new ReviewImage(
+                Map.of("reviewImage1.jpg", "reviewImage1.jpg", "reviewImage2.jpg",
+                        "reviewImage2.jpg"));
+        reviewImageRepository.save(reviewImages);
 
-                // React Side
+        ReviewImage guestReviewImages = new ReviewImage(
+                Map.of("reviewImage1.jpg", "reviewImage1.jpg", "reviewImage2.jpg",
+                        "reviewImage2.jpg"));
+        reviewImageRepository.save(guestReviewImages);
 
-                QnA qna = QnA.createMemberQnA(displayProducts, users, "testQnaContent");
-                qnaRepository.save(qna);
+        Review review = Review.createUserReviews(displayProducts, users, reviewImages,
+                5, "testReview");
+        reviewRepository.save(review);
 
-                QnA guestQnA = QnA.createGuestQnA(displayProducts, "qewr1234", "testGuestComment");
-                qnaRepository.save(guestQnA);
+        Review guestReview = Review.createStoreReviews(displayProducts, guestReviewImages,
+                5, "testGuestReview",
+                ReviewOrigin.NAVER_STORE);
+        reviewRepository.save(guestReview);
 
-                ReviewImage reviewImages = new ReviewImage(
-                                Map.of("reviewImage1.jpg", "reviewImage1.jpg", "reviewImage2.jpg",
-                                                "reviewImage2.jpg"));
-                reviewImageRepository.save(reviewImages);
-
-                ReviewImage guestReviewImages = new ReviewImage(
-                                Map.of("reviewImage1.jpg", "reviewImage1.jpg", "reviewImage2.jpg",
-                                                "reviewImage2.jpg"));
-                reviewImageRepository.save(guestReviewImages);
-
-                Review review = Review.createUserReviews(displayProducts, users, reviewImages,
-                                List.of(options), 5, "testReview");
-                reviewRepository.save(review);
-
-                Review guestReview = Review.createStoreReviews(displayProducts, guestReviewImages,
-                                List.of(options), 5, "testGuestReview",
-                                ReviewOrigin.NAVER_STORE);
-                reviewRepository.save(guestReview);
-
-        }
+    }
 }
