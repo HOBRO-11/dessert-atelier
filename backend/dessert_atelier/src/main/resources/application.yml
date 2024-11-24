@@ -5,8 +5,14 @@ spring:
     include: 
       - oauth
       - jwt
+      - aws
     active:
       - postgresql-test
+  servlet:
+    multipart:
+      enabled: false
+      max-file-size: 10MB
+      max-request-size: 10MB
 
 server:
   servlet:
