@@ -41,3 +41,6 @@ application-oauth.yml
 
 ### JWT ###
 application-jwt.yml
+
+### AWS ###
+application-aws.yml
