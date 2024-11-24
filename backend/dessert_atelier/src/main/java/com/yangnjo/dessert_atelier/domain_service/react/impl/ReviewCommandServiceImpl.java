@@ -1,12 +1,9 @@
 package com.yangnjo.dessert_atelier.domain_service.react.impl;
 
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yangnjo.dessert_atelier.domain.display_product.DisplayProduct;
-import com.yangnjo.dessert_atelier.domain.display_product.Option;
 import com.yangnjo.dessert_atelier.domain.member.Member;
 import com.yangnjo.dessert_atelier.domain.react.Review;
 import com.yangnjo.dessert_atelier.domain.react.ReviewImage;
@@ -20,7 +17,6 @@ import com.yangnjo.dessert_atelier.domain_service.react.exception.ReviewNonAuthE
 import com.yangnjo.dessert_atelier.domain_service.react.exception.ReviewNotFoundException;
 import com.yangnjo.dessert_atelier.repository.DisplayProductRepository;
 import com.yangnjo.dessert_atelier.repository.MemberRepository;
-import com.yangnjo.dessert_atelier.repository.OptionRepository;
 import com.yangnjo.dessert_atelier.repository.ReviewImageRepository;
 import com.yangnjo.dessert_atelier.repository.ReviewRepository;
 
@@ -34,18 +30,16 @@ public class ReviewCommandServiceImpl implements ReviewCommandService {
     private final ReviewRepository reviewRepository;
     private final ReviewImageRepository reviewImageRepository;
     private final DisplayProductRepository displayProductRepository;
-    private final OptionRepository optionRepository;
     private final MemberRepository memberRepository;
 
     @Override
     public Long createMemberReview(final ReviewCreateDto dto) {
         DisplayProduct displayProduct = findDpById(dto.getDpId());
         Member member = findMemberById(dto.getMemberId());
-        List<Option> options = optionRepository.findAllById(dto.getOptionIds());
         ReviewImage reviewImage = new ReviewImage(dto.getImageUrls());
         ReviewImage savedReviewImage = reviewImageRepository.save(reviewImage);
 
-        Review review = dto.toMemberReviewEntity(displayProduct, member, savedReviewImage, options);
+        Review review = dto.toMemberReviewEntity(displayProduct, member, savedReviewImage);
         Review savedReview = reviewRepository.save(review);
         return savedReview.getId();
     }
@@ -53,11 +47,10 @@ public class ReviewCommandServiceImpl implements ReviewCommandService {
     @Override
     public Long createStoreReview(final ReviewCreateDto dto) {
         DisplayProduct displayProduct = findDpById(dto.getDpId());
-        List<Option> options = optionRepository.findAllById(dto.getOptionIds());
         ReviewImage reviewImage = new ReviewImage(dto.getImageUrls());
         ReviewImage savedReviewImage = reviewImageRepository.save(reviewImage);
 
-        Review review = dto.toStoreReviewEntity(displayProduct, savedReviewImage, options);
+        Review review = dto.toStoreReviewEntity(displayProduct, savedReviewImage);
         Review savedReview = reviewRepository.save(review);
         return savedReview.getId();
     }

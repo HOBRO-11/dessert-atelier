@@ -4,9 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -17,8 +15,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import com.yangnjo.dessert_atelier.domain.display_product.DisplayProduct;
-import com.yangnjo.dessert_atelier.domain.display_product.DisplayProductPreset;
-import com.yangnjo.dessert_atelier.domain.display_product.Option;
 import com.yangnjo.dessert_atelier.domain.display_product.SaleStatus;
 import com.yangnjo.dessert_atelier.domain.member.Member;
 import com.yangnjo.dessert_atelier.domain.member.MemberRole;
@@ -32,7 +28,6 @@ import com.yangnjo.dessert_atelier.domain_service.react.exception.ReviewNonAuthE
 import com.yangnjo.dessert_atelier.domain_service.react.impl.ReviewCommandServiceImpl;
 import com.yangnjo.dessert_atelier.repository.DisplayProductRepository;
 import com.yangnjo.dessert_atelier.repository.MemberRepository;
-import com.yangnjo.dessert_atelier.repository.OptionRepository;
 import com.yangnjo.dessert_atelier.repository.ReviewImageRepository;
 import com.yangnjo.dessert_atelier.repository.ReviewRepository;
 
@@ -48,8 +43,6 @@ class ReviewCommandServiceTest {
     @Mock
     private DisplayProductRepository displayProductRepository;
     @Mock
-    private OptionRepository optionRepository;
-    @Mock
     private MemberRepository memberRepository;
 
     @BeforeEach
@@ -64,21 +57,15 @@ class ReviewCommandServiceTest {
         Long memberId = 1L;
         Map<String, String> imageUrls = new HashMap<>();
         imageUrls.put("main", "http://example.com/image.jpg");
-        List<Long> optionIds = Arrays.asList(1L, 2L);
-        ReviewCreateDto dto = new ReviewCreateDto(dpId, memberId, imageUrls, optionIds, 5, "Great product!", ReviewOrigin.THIS);
+        ReviewCreateDto dto = new ReviewCreateDto(dpId, memberId, imageUrls, 5, "Great product!", ReviewOrigin.THIS);
 
         DisplayProduct displayProduct = new DisplayProduct("테스트 제품", "설명", "thumb.jpg", SaleStatus.ON_SALE);
-        DisplayProductPreset dpp = DisplayProductPreset.createDefaultDPP(displayProduct, null, null, null, 0, 0, null, null);
         Member member = new Member("test@example.com", "password", "Test User", "1234567890", MemberRole.MEMBER, null);
-        Option option1 = new Option(dpp, 10, "테스트 옵션1", 100, 1);
-        Option option2 = new Option(dpp, 10, "테스트 옵션2", 100, 1);
-        List<Option> options = Arrays.asList(option1, option2);
         ReviewImage reviewImage = new ReviewImage(imageUrls);
         Review review = mock(Review.class);
 
         when(displayProductRepository.findById(dpId)).thenReturn(Optional.of(displayProduct));
         when(memberRepository.findById(memberId)).thenReturn(Optional.of(member));
-        when(optionRepository.findAllById(optionIds)).thenReturn(options);
         when(reviewImageRepository.save(any(ReviewImage.class))).thenReturn(reviewImage);
         when(reviewRepository.save(any(Review.class))).thenReturn(review);
         when(review.getId()).thenReturn(1L);
@@ -90,7 +77,6 @@ class ReviewCommandServiceTest {
         assertEquals(1L, result);
         verify(displayProductRepository).findById(dpId);
         verify(memberRepository).findById(memberId);
-        verify(optionRepository).findAllById(optionIds);
         verify(reviewImageRepository).save(any(ReviewImage.class));
         verify(reviewRepository).save(any(Review.class));
     }
@@ -101,19 +87,13 @@ class ReviewCommandServiceTest {
         Long dpId = 1L;
         Map<String, String> imageUrls = new HashMap<>();
         imageUrls.put("main", "http://example.com/image.jpg");
-        List<Long> optionIds = Arrays.asList(1L, 2L);
-        ReviewCreateDto dto = new ReviewCreateDto(dpId, null, imageUrls, optionIds, 5, "Great product!", ReviewOrigin.NAVER_STORE);
+        ReviewCreateDto dto = new ReviewCreateDto(dpId, null, imageUrls, 5, "Great product!", ReviewOrigin.NAVER_STORE);
 
         DisplayProduct displayProduct = new DisplayProduct("테스트 제품", "설명", "thumb.jpg", SaleStatus.ON_SALE);
-        DisplayProductPreset dpp = DisplayProductPreset.createDefaultDPP(displayProduct, null, null, null, 0, 0, null, null);
-        Option option1 = new Option(dpp, 10, "테스트 옵션1", 100, 1);
-        Option option2 = new Option(dpp, 10, "테스트 옵션2", 100, 1);
-        List<Option> options = Arrays.asList(option1, option2);
         ReviewImage reviewImage = new ReviewImage(imageUrls);
         Review review = mock(Review.class);
 
         when(displayProductRepository.findById(dpId)).thenReturn(Optional.of(displayProduct));
-        when(optionRepository.findAllById(optionIds)).thenReturn(options);
         when(reviewImageRepository.save(any(ReviewImage.class))).thenReturn(reviewImage);
         when(reviewRepository.save(any(Review.class))).thenReturn(review);
         when(review.getId()).thenReturn(1L);
@@ -124,7 +104,6 @@ class ReviewCommandServiceTest {
         // Then
         assertEquals(1L, result);
         verify(displayProductRepository).findById(dpId);
-        verify(optionRepository).findAllById(optionIds);
         verify(reviewImageRepository).save(any(ReviewImage.class));
         verify(reviewRepository).save(any(Review.class));
     }

@@ -1,16 +1,9 @@
 package com.yangnjo.dessert_atelier.domain.react;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.hibernate.annotations.Type;
-
 import com.yangnjo.dessert_atelier.domain.display_product.DisplayProduct;
-import com.yangnjo.dessert_atelier.domain.display_product.Option;
 import com.yangnjo.dessert_atelier.domain.member.Member;
 import com.yangnjo.dessert_atelier.domain.model.BaseEntity;
 
-import io.hypersistence.utils.hibernate.type.json.JsonType;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -44,10 +37,6 @@ public class Review extends BaseEntity {
     @JoinColumn(name = "review_image_id")
     private ReviewImage reviewImage;
 
-    @Type(JsonType.class)
-    // @Column(columnDefinition = "JSONB")
-    private List<Long> optionIds;
-
     @Setter
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -64,15 +53,13 @@ public class Review extends BaseEntity {
     private ReviewOrigin origin;
 
     public static Review createUserReviews(DisplayProduct displayProduct, Member member, ReviewImage reviewImage,
-            List<Option> options, Integer rate, String comment) {
+            Integer rate, String comment) {
         Review reviews = new Review();
         reviews.displayProduct = displayProduct;
         reviews.displayProduct.addReview(reviews);
         reviews.member = member;
         member.addReview(reviews);
         reviews.reviewImage = reviewImage;
-        List<Long> optionIds = options.stream().map(Option::getId).collect(Collectors.toList());
-        reviews.optionIds = optionIds;
         reviews.rate = rate;
         reviews.comment = comment;
         reviews.origin = ReviewOrigin.THIS;
@@ -81,15 +68,11 @@ public class Review extends BaseEntity {
     }
 
     public static Review createStoreReviews(DisplayProduct displayProduct, ReviewImage reviewImage,
-            List<Option> options, Integer rate, String comment, ReviewOrigin origin) {
+            Integer rate, String comment, ReviewOrigin origin) {
         Review reviews = new Review();
         reviews.displayProduct = displayProduct;
         reviews.displayProduct.addReview(reviews);
         reviews.reviewImage = reviewImage;
-        if (options != null) {
-            List<Long> optionIds = options.stream().map(Option::getId).collect(Collectors.toList());
-            reviews.optionIds = optionIds;
-        }
         reviews.rate = rate;
         reviews.comment = comment;
         reviews.origin = origin;

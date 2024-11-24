@@ -1,6 +1,5 @@
 package com.yangnjo.dessert_atelier.repository.query.query_dsl;
 
-import static com.yangnjo.dessert_atelier.domain.display_product.QOption.*;
 import static com.yangnjo.dessert_atelier.domain.member.QMember.*;
 import static com.yangnjo.dessert_atelier.domain.react.QReview.*;
 
@@ -25,22 +24,14 @@ public class ReviewQueryRepoImpl implements ReviewQueryRepo {
 
   @Override
   public List<ReviewDto> findAllByDppIdAndStatus(Long dpId, ReviewStatus status, PageOption pageOption) {
-    List<ReviewDto> dtos = queryFactory.select(ReviewDto.asIncompleteDto())
+    return queryFactory.select(ReviewDto.asIncompleteDto())
         .from(review)
         .leftJoin(member).on(review.member.id.eq(member.id))
         .where(equalDpId(dpId), equalReviewStatus(status))
         .offset(pageOption.getOffset())
         .limit(pageOption.getSize())
         .orderBy(review.createdAt.desc())
-        .fetch();
-    dtos.forEach(reviewDto -> {
-      reviewDto.setOptionDescriptions(
-          queryFactory.select(option.description)
-              .from(option)
-              .where(equalOptionId(reviewDto.getOptionIds()))
-              .fetch());
-    });
-    return dtos;
+        .fetch(); 
   }
 
   @Override
@@ -57,9 +48,5 @@ public class ReviewQueryRepoImpl implements ReviewQueryRepo {
 
   private BooleanExpression equalReviewStatus(ReviewStatus status) {
     return status == null ? null : review.reviewStatus.eq(status);
-  }
-
-  private BooleanExpression equalOptionId(List<Long> optionIds) {
-    return option.id.in(optionIds);
   }
 }
