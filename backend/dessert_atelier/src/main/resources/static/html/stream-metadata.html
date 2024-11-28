@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Form with Metadata</title>
+    <style>
+        .image-container {
+            margin-bottom: 15px;
+        }
+        #metadataField {
+            display: none; /* 메타데이터 필드 숨김 */
+        }
+    </style>
+</head>
+<body>
+    <h1>Upload Form</h1>
+
+    <form id="uploadForm" method="POST" action="/metadata" enctype="multipart/form-data">
+        <!-- 텍스트 필드 -->
+        <textarea id="description" name="description" placeholder="Enter your description" rows="5" cols="50"></textarea>
+        
+        <!-- 이미지 추가 버튼 -->
+        <div id="imagesContainer">
+            <h3>Images:</h3>
+        </div>
+        <button type="button" id="addImageButton">Add Image</button>
+
+        <!-- 숨겨진 메타데이터 필드 -->
+        <input type="hidden" id="metadataField" name="metadata">
+        
+        <br><br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        const uploadForm = document.getElementById('uploadForm');
+        const imagesContainer = document.getElementById('imagesContainer');
+        const addImageButton = document.getElementById('addImageButton');
+        const metadataField = document.getElementById('metadataField');
+        const descriptionField = document.getElementById('description');
+
+        let imageCount = 0;
+
+        // 이미지 추가 버튼 이벤트
+        addImageButton.addEventListener('click', () => {
+            const imageContainer = document.createElement('div');
+            imageContainer.className = 'image-container';
+
+            const inputFile = document.createElement('input');
+            inputFile.type = 'file';
+            inputFile.name = `images`;
+            inputFile.accept = 'image/*';
+
+            const inputDescription = document.createElement('input');
+            inputDescription.type = 'text';
+            inputDescription.placeholder = 'Enter image description';
+            inputDescription.name = `imageDescriptions`;
+
+            const deleteButton = document.createElement('button');
+            deleteButton.type = 'button';
+            deleteButton.innerText = 'Delete';
+            deleteButton.addEventListener('click', () => {
+                imagesContainer.removeChild(imageContainer);
+            });
+
+            imageContainer.appendChild(inputFile);
+            imageContainer.appendChild(inputDescription);
+            imageContainer.appendChild(deleteButton);
+            imagesContainer.appendChild(imageContainer);
+
+            imageCount++;
+        });
+
+        // 메타데이터 생성 함수
+        function generateMetadata() {
+            const images = document.querySelectorAll('input[type="file"]');
+
+            const imageMetadata = [];
+
+            images.forEach((image, index) => {
+                if (image.files[0]) {
+                    imageMetadata.push({
+                        name: image.files[0].name,
+                        size: image.files[0].size
+                    });
+                }
+            });
+
+            // return JSON.stringify(metadata);
+            return JSON.stringify(imageMetadata);
+        }
+
+        // 폼 제출 이벤트 처리
+        uploadForm.addEventListener('submit', (event) => {
+            event.preventDefault(); // 기본 제출 동작 방지
+
+            // 메타데이터 생성 및 숨겨진 필드에 삽입
+            metadataField.value = generateMetadata();
+
+            // FormData로 모든 데이터를 수집
+            const formData = new FormData();
+
+            // 메타데이터를 첫 번째로 추가
+            formData.append('metadata', metadataField.value);
+
+            // 텍스트 추가
+            formData.append('description', descriptionField.value);
+
+            // 이미지 및 설명 추가
+            const images = document.querySelectorAll('input[type="file"]');
+            images.forEach((image, index) => {
+                if (image.files[0]) {
+                    formData.append(`images`, image.files[0]);
+                }
+            });
+
+            // 폼 데이터를 서버로 전송
+            fetch(uploadForm.action, {
+                method: 'POST',
+                body: formData
+            }).then(response => {
+                if (response.ok) {
+                    alert('Upload successful!');
+                } else {
+                    alert('Upload failed!');
+                }
+            }).catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>

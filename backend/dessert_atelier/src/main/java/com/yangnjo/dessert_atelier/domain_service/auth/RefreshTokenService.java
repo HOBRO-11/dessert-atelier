@@ -4,7 +4,11 @@ import java.time.LocalDateTime;
 
 import com.yangnjo.dessert_atelier.domain.auth.RefreshToken;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 public interface RefreshTokenService {
+
+    public Long validateTokenAndGetMemberId(String refreshTokenString, HttpServletRequest request);
 
     RefreshToken findRefreshToken(Long memberId);
 

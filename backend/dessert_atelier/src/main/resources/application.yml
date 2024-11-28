@@ -6,6 +6,7 @@ spring:
       - oauth
       - jwt
       - aws
+      - redis
     active:
       - postgresql-test
   servlet:
@@ -13,9 +14,3 @@ spring:
       enabled: false
       max-file-size: 10MB
       max-request-size: 10MB
-
-server:
-  servlet:
-    session:
-      tracking-modes: cookie
-

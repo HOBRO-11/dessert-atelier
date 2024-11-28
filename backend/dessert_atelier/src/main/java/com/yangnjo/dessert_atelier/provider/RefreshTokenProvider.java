@@ -6,22 +6,27 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
 @Component
+@RequiredArgsConstructor
 public class RefreshTokenProvider {
 
-    private static final String COOKIE_HEADER = "%s=%s; Path=%s; Max-Age=%d; Secure; HttpOnly; SameSite=Strict";
+    private static final String PROD_TOKEN_COOKIE_HEADER = "%s=%s; Path=%s; Max-Age=%d; Secure; HttpOnly; SameSite=Lax";
+    private static final String DEV_TOKEN_COOKIE_HEADER = "%s=%s; Path=%s; Max-Age=%d; HttpOnly; SameSite=Lax";
+    private final Environment environment;
 
     @Value("${jwt.refresh-token.name}")
     private String name;
@@ -43,9 +48,18 @@ public class RefreshTokenProvider {
 
     private JwtProvider jwtProvider;
 
+    private boolean isProd;
+
     @PostConstruct
     public void init() {
         this.jwtProvider = new JwtProvider(secretKey, duration, timeUnit);
+
+        for (String profile : environment.getActiveProfiles()) {
+            if (profile.equals("prod")) {
+                isProd = true;
+                break;
+            }
+        }
     }
 
     public String create(String subject, HttpServletRequest request) {
@@ -67,23 +81,16 @@ public class RefreshTokenProvider {
         return jwtProvider.getExpDate(refreshTokenString, key);
     }
 
-    public void setRefreshTokenToCookie(HttpServletResponse response, String refreshTokenString) {
-        int maxAge = getMaxAge();
-        
-        Cookie refreshToken = new Cookie(name, refreshTokenString);
-        refreshToken.setHttpOnly(true);
-        refreshToken.setSecure(true);
-        refreshToken.setPath(path);
-        refreshToken.setMaxAge(maxAge);
-        
-        String cookieHeader = String.format(COOKIE_HEADER,
-                refreshToken.getName(),
-                refreshToken.getValue(),
-                refreshToken.getPath(),
-                refreshToken.getMaxAge());
+    public Map<String, String> getRefreshTokenCookieHeader(String refreshTokenString) {
+        return Map.of(HttpHeaders.SET_COOKIE, getTokenCookieHeader(refreshTokenString));
+    }
 
-        response.setHeader("Set-Cookie", cookieHeader);
-        // response.addCookie(refreshToken);
+    private String getTokenCookieHeader(String body) {
+        if (isProd) {
+            return String.format(PROD_TOKEN_COOKIE_HEADER, name, body, path, getMaxAge());
+        } else {
+            return String.format(DEV_TOKEN_COOKIE_HEADER, name, body, path, getMaxAge());
+        }
     }
 
     public String getSignature(String refreshToken) {

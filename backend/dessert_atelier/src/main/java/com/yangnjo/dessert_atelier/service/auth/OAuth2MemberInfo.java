@@ -19,7 +19,6 @@ public class OAuth2MemberInfo implements OAuth2User {
     private static final String GOOGLE = "google";
     private static final String NAVER = "naver";
 
-
     private String nickname;
     @Getter
     private String email;
@@ -62,8 +61,16 @@ public class OAuth2MemberInfo implements OAuth2User {
     }
 
     private static OAuth2MemberInfo ofNaver(Map<String, Object> attributes) {
-        return new OAuth2MemberInfo((String) attributes.get("nickname"), (String) attributes.get("email"),
-                MemberOrigin.NAVER);
+        Object responseObj = attributes.get("response");
+        
+        if (responseObj instanceof Map) {
+            @SuppressWarnings("unchecked")
+            Map<String, String> map = (Map<String, String>) responseObj;
+            return new OAuth2MemberInfo((String) map.get("nickname"), (String) map.get("email"),
+                    MemberOrigin.NAVER);
+        } else {
+            throw new IllegalArgumentException("Response is not a valid Map");
+        }
     }
 
     public Member toEntity() {
