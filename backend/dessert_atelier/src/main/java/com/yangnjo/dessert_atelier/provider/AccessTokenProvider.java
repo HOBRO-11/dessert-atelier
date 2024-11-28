@@ -1,15 +1,15 @@
 package com.yangnjo.dessert_atelier.provider;
 
-import java.io.IOException;
 import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
 import jakarta.annotation.PostConstruct;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.Getter;
 
 @Component
@@ -43,16 +43,11 @@ public class AccessTokenProvider {
         return jwtProvider.validate(jwt);
     }
 
-    // FIXME: 이렇게 ACCESS TOKEN을 전달하는 것이 맞나 의문이다.
-    public void setAccessToken(HttpServletResponse response, String accessTokenString) {
-        try {
-            response.setStatus(HttpServletResponse.SC_OK);
-            response.setContentType("application/json");
-            String jsonResponse = "{ \"" + name + "\" : " + accessTokenString + "\"}";
-            response.getWriter().write(jsonResponse);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public Map<String, String> setAccessTokenHeader(String accessTokenString) {
+        Map<String, String> headers = new HashMap<>();
+        headers.put(name, accessTokenString);
+        headers.put(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, name); // CORS 설정 추가
+        return headers;
     }
 
 }

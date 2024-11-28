@@ -17,6 +17,7 @@ import com.yangnjo.dessert_atelier.provider.RefreshTokenProvider;
 import com.yangnjo.dessert_atelier.repository.MemberRepository;
 import com.yangnjo.dessert_atelier.repository.RefreshTokenRepository;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -33,6 +34,24 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     public RefreshToken findRefreshToken(Long memberId) {
         findMemberById(memberId);
         return findRefreshTokenByMemberId(memberId);
+    }
+
+    @Override
+    public Long validateTokenAndGetMemberId(String refreshTokenString, HttpServletRequest request) {
+        String memberIdString = refreshTokenProvider.validate(refreshTokenString, request);
+
+        long memberId = Long.parseLong(memberIdString);
+        RefreshToken oldRefreshToken = refreshTokenRepository.findById(memberId)
+                .orElseThrow(RefreshTokenNotFoundException::new);
+
+        String oldSignature = oldRefreshToken.getRefreshTokenSignature();
+        String signature = refreshTokenProvider.getSignature(refreshTokenString);
+
+        if (oldSignature.equals(signature) == false) {
+            throw new RefreshTokenNotFoundException();
+        }
+
+        return memberId;
     }
 
     @Override

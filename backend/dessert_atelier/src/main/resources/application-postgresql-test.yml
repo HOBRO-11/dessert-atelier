@@ -9,6 +9,7 @@ spring:
     password: rootpassword
 
   jpa:
+    open-in-view: false
     show-sql: true
     hibernate:
       ddl-auto:
@@ -16,9 +17,10 @@ spring:
     properties:
       hibernate:
         '[format_sql]': true
-        dialect: org.hibernate.dialect.PostgreSQLDialect
 
   sql:
     init:
-      mode: always
+      mode: 
+        never
+        # always
       data-locations: classpath:sql/test-data-postgresql.sql

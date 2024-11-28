@@ -1,0 +1,26 @@
+spring:
+    data:
+        redis:
+            repositories:
+                enabled: true
+            host: localhost
+            port: 6379
+            timeout: 1000ms
+            lettuce:
+                pool:
+                    max-active: 8
+                    min-idle: 0
+                    max-idle: 8
+                    # max-wait: -1ms
+                    # test-on-borrow: true
+                    # test-on-return: false
+                    # test-while-idle: true
+                    # time-between-eviction-runs-millis: 10000
+                    # num-tests-per-eviction-run: 3
+                    # min-evictable-idle-time-millis: 1800000
+                    # soft-min-evictable-idle-time-millis: 1800000
+                    # lifo: false
+
+login-checker:
+    key-prefix: 'loginLog:'
+    partition: 100 000

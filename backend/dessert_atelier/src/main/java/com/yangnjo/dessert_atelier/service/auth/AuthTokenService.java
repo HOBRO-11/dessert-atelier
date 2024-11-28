@@ -13,7 +13,6 @@ import com.yangnjo.dessert_atelier.provider.RefreshTokenProvider;
 import com.yangnjo.dessert_atelier.repository.dto.MemberSimpleDto;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -25,24 +24,34 @@ public class AuthTokenService {
     private final RefreshTokenService refreshTokenService;
     private final MemberQueryService memberQueryService;
 
-    public void refresh(HttpServletRequest request, HttpServletResponse response, String refreshTokenString) {
+    public Map<String, String> getRefreshTokenHeaders(HttpServletRequest request, String oldRefreshTokenString) {
+        if (oldRefreshTokenString == null) {
+            throw new IllegalArgumentException("Refresh token is null");
+        }
+        Long memberId = Long.parseLong(refreshTokenProvider.validate(oldRefreshTokenString, request));
 
-        Long memberId =  Long.parseLong(refreshTokenProvider.validate(refreshTokenString, request));  
-        MemberSimpleDto memberDto = memberQueryService.getMemberById(memberId);
-
-        LocalDateTime expiredDateTime = refreshTokenProvider.getExpiredDateTime(refreshTokenString);
-        refreshTokenService.validateRefreshToken(memberId, refreshTokenString, expiredDateTime);
+        LocalDateTime expiredDateTime = refreshTokenProvider.getExpiredDateTime(oldRefreshTokenString);
+        refreshTokenService.validateRefreshToken(memberId, oldRefreshTokenString, expiredDateTime);
 
         String newRefreshToken = refreshTokenProvider.create(String.valueOf(memberId), request);
         LocalDateTime newExpDateTime = refreshTokenProvider.getExpiredDateTime(newRefreshToken);
         refreshTokenService.updateRefreshToken(memberId, newRefreshToken, newExpDateTime);
 
+        return refreshTokenProvider.getRefreshTokenCookieHeader(newRefreshToken);
+    }
+
+    public Map<String, String> getAccessTokenHeaders(Long memberId) {
+        MemberSimpleDto memberDto = memberQueryService.getMemberById(memberId);
+
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", memberDto.getMemberRole().getRole());
         String accessToken = accessTokenProvider.create(String.valueOf(memberId), claims);
-        accessTokenProvider.setAccessToken(response, accessToken);
 
-        refreshTokenProvider.setRefreshTokenToCookie(response, newRefreshToken);
+        return accessTokenProvider.setAccessTokenHeader(accessToken);
+    }
+
+    public Long getMemberId(HttpServletRequest request, String oldRefreshTokenString) {
+        return Long.parseLong(refreshTokenProvider.validate(oldRefreshTokenString, request));
     }
 
 }

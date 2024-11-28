@@ -115,7 +115,7 @@ public class JwtProvider {
 
         long now = (new Date().getTime()) / 1000;
 
-        if (exp > now) {
+        if (exp < now) {
             throw new TokenIsExpiredException();
         }
 
