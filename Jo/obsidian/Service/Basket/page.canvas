@@ -1,0 +1,14 @@
+{
+	"nodes":[
+		{"id":"357d6b0e5f72de82","x":-327,"y":-393,"width":360,"height":473,"type":"group","label":"RD"},
+		{"id":"401697eedf5b1c01","x":-307,"y":-260,"width":320,"height":180,"type":"group","label":"상품A"},
+		{"id":"9d4ccf67dbd969b1","x":-307,"y":-40,"width":320,"height":100,"type":"group","label":"상품B"},
+		{"id":"9237c98a02f3d7c1","x":-287,"y":-240,"width":280,"height":60,"type":"text","text":"옵션 가격 상태"},
+		{"id":"11711057c3c1a1ac","type":"text","text":"옵션 가격 상태","x":-287,"y":-160,"width":280,"height":60},
+		{"id":"f997e4419b5423e3","type":"text","text":"옵션 가격 상태","x":-287,"y":-20,"width":280,"height":60},
+		{"id":"8c8648f180a72b7a","x":-287,"y":-373,"width":80,"height":60,"type":"text","text":"선택"},
+		{"id":"c6c65a4e08d1cf99","x":-187,"y":-373,"width":80,"height":60,"type":"text","text":"삭제"},
+		{"id":"b11b988d0de8d5fe","x":-87,"y":-373,"width":80,"height":60,"type":"text","text":"주문"}
+	],
+	"edges":[]
+}

@@ -48,11 +48,6 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         setAccessTokenHeader(response, member);
         setRefreshTokenHeader(request, response, member);
 
-        // 응답 헤더 설정
-        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-        response.setHeader("Pragma", "no-cache");
-        response.setHeader("Expires", "0");
-
         getRedirectStrategy().sendRedirect(request, response, "/");
     }
 

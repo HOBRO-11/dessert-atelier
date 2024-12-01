@@ -7,7 +7,7 @@
 - [x] varchar size 조정하기
 - [x] Query Repo 만들기
 - [ ] ~~DisplayProduct의 현재 사용 중인 Dpp의 아이디를 저장하는 컬럼을 만들자~~
-- [ ] optionQueryRepo, service 만들기
+- [x] optionQueryRepo, service 만들기
 
 - [ ] page 구현 방식 중 Slice도 고려해보기
 - [ ] 하드코딩된 부분 개선하기 ("익명") -> application.yml or util
@@ -22,12 +22,14 @@
 - [ ] service create Form _ 모든 필드는 final로 제작 만들기
 - [ ] display query method 다시 생각하기
 - [ ] 개인정보가 들어간 곳에 본인 검증은 어떻게 할까?
-- [ ] OrderCode를 Long 으로 바꾼다.
+- [x] OrderCode를 Long 으로 바꾼다.
 - [ ] OrderCode 조회시 유저역시 조회하게 만드는게 좋아보임
 - [ ] orderCommandservice의 하드코딩을 어떻게 설정으로 못 바꿀까?
-- [ ] postgresql의 mvcc 에 대해 공부하기
+- [x] postgresql의 mvcc 에 대해 공부하기
 - [ ] 아직 만들지 않은 service 가 있는지 체크
 	- dpp img
 	- review img
 	- product quatity
 	- orderQuantity 확인 연관관계도 확인
+- [x] Bearer Header 에 대해 알아보기
+- [ ] 이미지 리사이징 관련하여선 잠시 미루자
