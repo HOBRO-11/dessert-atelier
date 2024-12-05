@@ -28,26 +28,6 @@ public class JwtProvider {
     private Integer duration;
     private ChronoUnit timeUnit;
 
-    public String create(String subject, List<String> valuesToApplyHash) {
-        String id = subject;
-        Date now = new Date();
-        Date expirationDate = Date.from(Instant.now().plus(duration, timeUnit));
-        Key key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
-
-        String expDate = javaDateToString(expirationDate);
-
-        JwtBuilder builder = Jwts.builder()
-                .signWith(key, SignatureAlgorithm.HS256)
-                .setSubject(id).setIssuedAt(now).setExpiration(expirationDate);
-
-        if (valuesToApplyHash != null && (valuesToApplyHash.isEmpty() == false)) {
-            String hashCode = getHashCode(valuesToApplyHash, expDate);
-            builder.claim("hashCode", hashCode);
-        }
-
-        return builder.compact();
-    }
-
     public String create(String subject, final Map<String, Object> claims, List<String> valuesToApplyHash) {
         String id = subject;
         Date now = new Date();
@@ -73,21 +53,14 @@ public class JwtProvider {
 
     }
 
-    public Claims validate(String jwt) {
-        Key key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
-        getExp(jwt, key);
-        return getJwtClaims(jwt, key);
-    }
-
-    public String validate(String jwt, List<String> valuesToApplyHash) {
+    public Claims validate(String jwt, List<String> valuesToApplyHash){
         Key key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
 
         String expDate = getExp(jwt, key);
 
         checkHash(jwt, valuesToApplyHash, key, expDate);
 
-        return getJwtClaims(jwt, key).getSubject();
-
+        return getJwtClaims(jwt, key);
     }
 
     public LocalDateTime getExpDate(String jwt, Key key) {

@@ -11,9 +11,10 @@ import com.yangnjo.dessert_atelier.domain.order.Basket;
 @Repository
 public interface BasketRepository extends JpaRepository<Basket, Long> {
 
+    Optional<Basket> findByMember(Member users);
 
-  Optional<Basket> findByMember(Member users);
+    Long countByMemberId(Long memberId);
 
-  Long countByMemberId(Long memberId);
+    Optional<Basket> findByMemberId(Long id);
 
 }

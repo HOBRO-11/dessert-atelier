@@ -83,7 +83,6 @@ class BasketCommandServiceTest {
                 MemberOrigin.STORE);
 
         Basket basket = new Basket(member);
-        member.setBasket(basket);
         List<BasketProperty> properties = new ArrayList<>();
         properties.add(new BasketProperty(1L, Arrays.asList(1L, 2L)));
 
@@ -118,7 +117,6 @@ class BasketCommandServiceTest {
         Member member = new Member("Test User", "1234567890", "Test User", "1234567890", MemberRole.MEMBER,
                 MemberOrigin.STORE);
         Basket basket = new Basket(member);
-        member.setBasket(basket);
         List<BasketProperty> existingProperties = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
             existingProperties.add(new BasketProperty(Long.valueOf(i), Arrays.asList(1L)));
@@ -143,7 +141,6 @@ class BasketCommandServiceTest {
         Member member = new Member("Test User", "1234567890", "Test User", "1234567890", MemberRole.MEMBER,
                 MemberOrigin.STORE);
         Basket basket = new Basket(member);
-        member.setBasket(basket);
         basket.addProperty(new BasketProperty(dppId, optionIds));
 
         when(memberRepository.findById(memberId)).thenReturn(Optional.of(member));
@@ -179,8 +176,7 @@ class BasketCommandServiceTest {
         List<Long> optionIds = Arrays.asList(1L, 2L);
         Member member = new Member("Test User", "1234567890", "Test User", "1234567890", MemberRole.MEMBER,
                 MemberOrigin.STORE);
-        Basket basket = new Basket(member);
-        member.setBasket(basket);
+        // Basket basket = new Basket(member);
 
         when(memberRepository.findById(memberId)).thenReturn(Optional.of(member));
 

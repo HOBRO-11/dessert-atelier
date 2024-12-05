@@ -1,57 +1,67 @@
 package com.yangnjo.dessert_atelier.service.auth;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.yangnjo.dessert_atelier.domain.member.Member;
 import com.yangnjo.dessert_atelier.domain_service.auth.RefreshTokenService;
-import com.yangnjo.dessert_atelier.domain_service.member.MemberQueryService;
+import com.yangnjo.dessert_atelier.domain_service.member.exception.MemberNotFoundException;
 import com.yangnjo.dessert_atelier.provider.AccessTokenProvider;
 import com.yangnjo.dessert_atelier.provider.RefreshTokenProvider;
-import com.yangnjo.dessert_atelier.repository.dto.MemberSimpleDto;
+import com.yangnjo.dessert_atelier.provider.TokenHeader;
+import com.yangnjo.dessert_atelier.repository.MemberRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class AuthTokenService {
 
     private final AccessTokenProvider accessTokenProvider;
     private final RefreshTokenProvider refreshTokenProvider;
     private final RefreshTokenService refreshTokenService;
-    private final MemberQueryService memberQueryService;
+    private final MemberRepository memberRepository;
 
-    public Map<String, String> getRefreshTokenHeaders(HttpServletRequest request, String oldRefreshTokenString) {
-        if (oldRefreshTokenString == null) {
-            throw new IllegalArgumentException("Refresh token is null");
-        }
-        Long memberId = Long.parseLong(refreshTokenProvider.validate(oldRefreshTokenString, request));
-
-        LocalDateTime expiredDateTime = refreshTokenProvider.getExpiredDateTime(oldRefreshTokenString);
-        refreshTokenService.validateRefreshToken(memberId, oldRefreshTokenString, expiredDateTime);
-
-        String newRefreshToken = refreshTokenProvider.create(String.valueOf(memberId), request);
-        LocalDateTime newExpDateTime = refreshTokenProvider.getExpiredDateTime(newRefreshToken);
-        refreshTokenService.updateRefreshToken(memberId, newRefreshToken, newExpDateTime);
-
-        return refreshTokenProvider.getRefreshTokenCookieHeader(newRefreshToken);
+    public Long validateTokenAndGetMemberId(String refreshTokenString, HttpServletRequest request) {
+        return refreshTokenService.validateTokenAndGetMemberId(refreshTokenString, request);
     }
 
-    public Map<String, String> getAccessTokenHeaders(Long memberId) {
-        MemberSimpleDto memberDto = memberQueryService.getMemberById(memberId);
+    public List<TokenHeader> putAndGetRefreshTokenHeaders(Long memberId, HttpServletRequest request) {
+        TokenHeader tokenHeader = refreshTokenService.putRefreshToken(memberId, request);
+        return List.of(tokenHeader,
+                refreshTokenProvider.getLoginCheckHeader());
+    }
+
+    public TokenHeader getAccessTokenHeaders(Long memberId) {
+        Member member = findMemberById(memberId);
 
         Map<String, Object> claims = new HashMap<>();
-        claims.put("role", memberDto.getMemberRole().getRole());
-        String accessToken = accessTokenProvider.create(String.valueOf(memberId), claims);
+        claims.put("role", member.getMemberRole().getRole());
+        String accessToken = accessTokenProvider.create(String.valueOf(memberId), claims, null);
 
-        return accessTokenProvider.setAccessTokenHeader(accessToken);
+        return accessTokenProvider.getTokenHeader(accessToken);
     }
 
-    public Long getMemberId(HttpServletRequest request, String oldRefreshTokenString) {
-        return Long.parseLong(refreshTokenProvider.validate(oldRefreshTokenString, request));
+    public void expiredRefreshToken(String oldRefreshTokenString, HttpServletRequest request) {
+        Long memberId = refreshTokenService.validateTokenAndGetMemberId(oldRefreshTokenString, request);
+        refreshTokenService.expiredRefreshToken(memberId);
     }
 
+    public List<TokenHeader> getClearTokenHeaders() {
+        List<TokenHeader> headers = new ArrayList<>();
+        headers.addAll(accessTokenProvider.clearTokenHeader());
+        headers.addAll(refreshTokenProvider.clearTokenHeader());
+        return headers;
+    }
+
+    private Member findMemberById(Long memberId) {
+        return memberRepository.findById(memberId).orElseThrow(MemberNotFoundException::new);
+    }
 }

@@ -44,7 +44,7 @@ public class AccessTokenAuthenticationFilter extends OncePerRequestFilter {
                 return;
             }
 
-            Claims validate = accessTokenProvider.validate(accessToken);
+            Claims validate = accessTokenProvider.validate(accessToken, null);
             Long memberId = Long.parseLong(validate.getSubject());
 
             if(loginCheckHandler.checkLogin(memberId) == false){

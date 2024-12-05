@@ -39,10 +39,7 @@ public class BasketCommandServiceImpl implements BasketCommandService {
     public void addProperties(Long memberId, final List<BasketProperty> properties) {
         Member member = findMemberById(memberId);
 
-        Basket basket = member.getBasket();
-        if (basket == null) {
-            throw new BasketNotFoundException();
-        }
+        Basket basket = basketRepository.findByMemberId(member.getId()).orElseThrow(BasketNotFoundException::new);
 
         List<BasketProperty> basketProperties = basket.getProperties();
         checkBasketCountLtMax(basketProperties);
@@ -54,10 +51,7 @@ public class BasketCommandServiceImpl implements BasketCommandService {
     public void removeProperty(Long memberId, Long dppId, final List<Long> optionIds) {
         Member member = findMemberById(memberId);
 
-        Basket basket = member.getBasket();
-        if (basket == null) {
-            throw new BasketNotFoundException();
-        }
+        Basket basket = basketRepository.findByMemberId(member.getId()).orElseThrow(BasketNotFoundException::new);
 
         List<BasketProperty> properties = basket.getProperties();
         if (properties.isEmpty()) {

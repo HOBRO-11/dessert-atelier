@@ -63,6 +63,18 @@ public class MemberQueryRepoImpl implements MemberQueryRepo {
         .fetchOne();
 	}
 
+    @Override
+    public MemberDto findByEmail(String email) {
+        return queryFactory.select(MemberDto.asDto())
+        .from(member)
+        .where(equalMemberEmail(email))
+        .fetchOne();
+    }
+
+    private BooleanExpression equalMemberEmail(String email) {
+        return member.email.eq(email);
+    }
+
 	private BooleanExpression equalMemberId(Long id) {
 		return member.id.eq(id);
 	}
@@ -74,4 +86,5 @@ public class MemberQueryRepoImpl implements MemberQueryRepo {
   private BooleanExpression equalMemberOrigin(MemberOrigin memberOrigin) {
     return memberOrigin != null ? member.memberOrigin.eq(memberOrigin) : null;
   }
+
 }

@@ -15,6 +15,8 @@ public interface MemberQueryRepo {
 	MemberDto findByMemberStatusAndMemberOrigin(MemberStatus memberStatus, MemberOrigin memberOrigin,
 			PageOption pageOption);
 
+    MemberDto findByEmail(String email);
+
 	List<MemberSimpleDto> findSimplesByMemberStatusAndMemberOrigin(MemberStatus memberStatus,
 			MemberOrigin memberOrigin, PageOption pageOption);
 

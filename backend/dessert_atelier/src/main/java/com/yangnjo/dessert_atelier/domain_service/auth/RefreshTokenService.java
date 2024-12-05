@@ -1,22 +1,14 @@
 package com.yangnjo.dessert_atelier.domain_service.auth;
 
-import java.time.LocalDateTime;
-
-import com.yangnjo.dessert_atelier.domain.auth.RefreshToken;
+import com.yangnjo.dessert_atelier.provider.TokenHeader;
 
 import jakarta.servlet.http.HttpServletRequest;
 
 public interface RefreshTokenService {
 
-    public Long validateTokenAndGetMemberId(String refreshTokenString, HttpServletRequest request);
+    Long validateTokenAndGetMemberId(String refreshTokenString, HttpServletRequest request);
 
-    RefreshToken findRefreshToken(Long memberId);
-
-    Long createRefreshToken(Long memberId, String refreshToken, LocalDateTime expiredDate);
-
-    void updateRefreshToken(Long memberId, String refreshToken, LocalDateTime expiredDate);
-
-    void validateRefreshToken(Long memberId, String refreshToken, LocalDateTime expectedExpiredDate);
+    TokenHeader putRefreshToken(Long memberId, HttpServletRequest request);
 
     void deleteRefreshToken(Long memberId);
 

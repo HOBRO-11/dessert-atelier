@@ -1,22 +1,17 @@
 package com.yangnjo.dessert_atelier.handler;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.yangnjo.dessert_atelier.domain.auth.RefreshToken;
 import com.yangnjo.dessert_atelier.domain.member.Member;
-import com.yangnjo.dessert_atelier.domain_service.auth.RefreshTokenService;
 import com.yangnjo.dessert_atelier.domain_service.member.exception.MemberNotFoundException;
-import com.yangnjo.dessert_atelier.provider.AccessTokenProvider;
-import com.yangnjo.dessert_atelier.provider.RefreshTokenProvider;
+import com.yangnjo.dessert_atelier.provider.TokenHeader;
 import com.yangnjo.dessert_atelier.repository.MemberRepository;
-import com.yangnjo.dessert_atelier.repository.RefreshTokenRepository;
+import com.yangnjo.dessert_atelier.service.auth.AuthTokenService;
 import com.yangnjo.dessert_atelier.service.auth.OAuth2MemberInfo;
 
 import jakarta.servlet.ServletException;
@@ -29,25 +24,26 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
-    private final RefreshTokenRepository refreshTokenRepo;
-    private final RefreshTokenService refreshTokenService;
     private final MemberRepository memberRepository;
-    private final RefreshTokenProvider refreshTokenProvider;
-    private final AccessTokenProvider accessTokenProvider;
+    private final AuthTokenService authTokenService;
     private final LoginCheckHandler loginCheckHandler;
 
     @Override
-    @Transactional
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
             Authentication authentication) throws IOException, ServletException {
+        clearTokenHeaders(response);
 
         OAuth2MemberInfo memberInfo = (OAuth2MemberInfo) authentication.getPrincipal();
         Member member = memberRepository.findByEmail(memberInfo.getEmail()).orElseThrow(MemberNotFoundException::new);
 
-        expirePrevRefreshToken(request, member);
-        setAccessTokenHeader(response, member);
-        setRefreshTokenHeader(request, response, member);
-
+        try {
+            expirePrevRefreshToken(request, member);
+            setRefreshTokenHeader(request, response, member);
+            setAccessTokenHeader(response, member);
+            loginCheckHandler.login(member.getId());
+        } catch (Exception e) {
+        }
+        
         getRedirectStrategy().sendRedirect(request, response, "/");
     }
 
@@ -56,13 +52,13 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("refreshToken")) {
                 try {
-                    Long jwtMemberId = refreshTokenService.validateTokenAndGetMemberId(cookie.getValue(), request);
+                    Long jwtMemberId = authTokenService.validateTokenAndGetMemberId(cookie.getValue(), request);
 
                     if (jwtMemberId == member.getId()) {
                         break;
                     }
 
-                    refreshTokenService.expiredRefreshToken(jwtMemberId);
+                    authTokenService.expiredRefreshToken(cookie.getValue(), request);
                     loginCheckHandler.logout(jwtMemberId);
                     break;
                 } catch (Exception e) {
@@ -71,28 +67,22 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         }
     }
 
-    private void setRefreshTokenHeader(HttpServletRequest request, HttpServletResponse response, Member member) {
-        String refreshTokenString = refreshTokenProvider.create(member.getId().toString(), request);
-        refreshTokenRepo.findById(member.getId())
-                .ifPresentOrElse(
-                        rt -> rt.updateToken(refreshTokenProvider.getSignature(refreshTokenString),
-                                refreshTokenProvider.getExpiredDuration()),
-                        () -> refreshTokenRepo.save(
-                                new RefreshToken(member,
-                                        refreshTokenProvider.getSignature(refreshTokenString),
-                                        refreshTokenProvider.getExpiredDuration())));
+    private void clearTokenHeaders(HttpServletResponse response) {
+        authTokenService.getClearTokenHeaders().forEach(th -> th.addCookie(response));
+    }
 
-        Map<String, String> refreshTokenHeader = refreshTokenProvider.getRefreshTokenCookieHeader(refreshTokenString);
-        refreshTokenHeader.forEach((k, v) -> response.setHeader(k, v));
-        loginCheckHandler.login(member.getId());
+    private void setRefreshTokenHeader(HttpServletRequest request, HttpServletResponse response, Member member) {
+        try {
+            List<TokenHeader> tokenHeaders = authTokenService.putAndGetRefreshTokenHeaders(member.getId(), request);
+            tokenHeaders.forEach(th -> th.addCookie(response));
+        } catch (Exception e) {
+            throw new IllegalArgumentException("cant issue refresh token", e);
+        }
     }
 
     private void setAccessTokenHeader(HttpServletResponse response, Member member) {
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("role", member.getMemberRole().getRole());
-        String accessTokenString = accessTokenProvider.create(member.getId().toString(), claims);
-        Map<String, String> accessTokenHeader = accessTokenProvider.setAccessTokenHeader(accessTokenString);
-        accessTokenHeader.forEach((k, v) -> response.setHeader(k, v));
+        TokenHeader tokenHeader = authTokenService.getAccessTokenHeaders(member.getId());
+        tokenHeader.addCookie(response);
     }
 
 }
