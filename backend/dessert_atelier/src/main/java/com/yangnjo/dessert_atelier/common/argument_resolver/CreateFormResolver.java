@@ -12,12 +12,9 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yangnjo.dessert_atelier.common.web_util.MultipartParser;
 import com.yangnjo.dessert_atelier.common.web_util.MultipartParserContext;
-import com.yangnjo.dessert_atelier.web.requestDto.CreateForm;
 
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Component
 public class CreateFormResolver implements HandlerMethodArgumentResolver {
 
@@ -49,8 +46,7 @@ public class CreateFormResolver implements HandlerMethodArgumentResolver {
             createFrom.setMultipartParserContext(mpc);
             return createFrom;
         } catch (IllegalArgumentException e) {
-            log.debug("Failed to convert textMap");
-            throw e;
+            throw null;
         }
     }
 
