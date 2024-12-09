@@ -33,7 +33,7 @@ public class AddressCommandServiceImpl implements AddressCommandService {
     @Override
     public Long createAddress(final AddressCreateDto dto) {
         Member member = findMemberById(dto.getMemberId());
-        
+        checkAddressCountLtMax(member);
         Address address = dto.toEntity();
         member.addAddress(address);
         Address savedAddress = addressRepository.save(address);
@@ -45,7 +45,7 @@ public class AddressCommandServiceImpl implements AddressCommandService {
         Long addressId = dto.getAddressId();
         Long memberId = dto.getMemberId();
         String naming = dto.getNaming();
-        Destination destination = dto.getDestination();
+        Destination destination = dto.getDestinationDto().toDestination();
 
         Address address = findAddressById(addressId);
 
@@ -77,16 +77,14 @@ public class AddressCommandServiceImpl implements AddressCommandService {
     @Override
     public void deleteAddress(Long addressId, Long memberId) {
         Address address = findAddressById(addressId);
-        
+
         checkExistMember(memberId);
         checkAuthMember(memberId, address);
 
         addressRepository.deleteById(addressId);
     }
 
-    @Override
-    public void checkAddressCountLtMax(Long memberId) {
-        Member member = findMemberById(memberId);
+    private void checkAddressCountLtMax(Member member) {
         int count = member.getAddresses().size();
         if (count >= ADDRESS_MAX_COUNT) {
             throw new AddressCountMaxException();

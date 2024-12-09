@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.yangnjo.dessert_atelier.common.token_util.RefreshTokenProvider;
+import com.yangnjo.dessert_atelier.common.token_util.TokenHeader;
 import com.yangnjo.dessert_atelier.domain.auth.RefreshToken;
 import com.yangnjo.dessert_atelier.domain.member.Member;
 import com.yangnjo.dessert_atelier.domain_service.auth.RefreshTokenService;
@@ -13,8 +15,6 @@ import com.yangnjo.dessert_atelier.domain_service.auth.exception.RefreshTokenExp
 import com.yangnjo.dessert_atelier.domain_service.auth.exception.RefreshTokenNotFoundException;
 import com.yangnjo.dessert_atelier.domain_service.auth.exception.RefreshTokenNotMatchedException;
 import com.yangnjo.dessert_atelier.domain_service.member.exception.MemberNotFoundException;
-import com.yangnjo.dessert_atelier.provider.RefreshTokenProvider;
-import com.yangnjo.dessert_atelier.provider.TokenHeader;
 import com.yangnjo.dessert_atelier.repository.MemberRepository;
 import com.yangnjo.dessert_atelier.repository.RefreshTokenRepository;
 
@@ -91,14 +91,10 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     }
 
     private RefreshToken findRefreshTokenByMemberId(Long memberId) {
-        RefreshToken refreshTokenEntity = refreshTokenRepository.findByMemberId(memberId).orElse(null);
-        // RefreshToken refreshTokenEntity =
-        // refreshTokenRepository.findByMemberId(memberId).orElseThrow(RefreshTokenNotFoundException::new);
-        return refreshTokenEntity;
+        return refreshTokenRepository.findByMemberId(memberId).orElse(null);
     }
 
     private Member findMemberById(Long memberId) {
-        Member member = memberRepository.findById(memberId).orElseThrow(MemberNotFoundException::new);
-        return member;
+        return memberRepository.findById(memberId).orElseThrow(MemberNotFoundException::new);
     }
 }

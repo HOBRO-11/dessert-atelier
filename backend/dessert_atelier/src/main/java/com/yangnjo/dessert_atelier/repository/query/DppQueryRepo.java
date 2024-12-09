@@ -10,28 +10,32 @@ import com.yangnjo.dessert_atelier.repository.dto.DppSimpleDto;
 
 public interface DppQueryRepo {
 
-  Optional<DppDto> find(Long dppId);
+    Optional<DppDto> find(Long dppId);
 
-  List<DppSimpleDto> findSimpleByDpId(Long dpId, PageOption pageOption, PeriodOption periodOption);
+    Optional<DppSimpleDto> findSimple(Long dppId);
 
-  Long countSimpleByDpId(Long dpId, PeriodOption periodOption);
+    List<DppSimpleDto> findSimpleByDpId(Long dpId, PageOption pageOption, PeriodOption periodOption);
 
-  List<DppSimpleDto> findSimpleLikeNaming(String naming, PageOption pageOption, PeriodOption periodOption);
+    Long countSimpleByDpId(Long dpId, PeriodOption periodOption);
 
-  Long countSimpleLikeNaming(String naming, PeriodOption periodOption);
+    List<DppSimpleDto> findSimpleLikeNaming(String naming, PageOption pageOption, PeriodOption periodOption);
 
-  List<DppSimpleDto> findSimpleByDpIdAndLikeNaming(Long dpId, String naming, PageOption pageOption,
-      PeriodOption periodOption);
+    Long countSimpleLikeNaming(String naming, PeriodOption periodOption);
 
-  Long countSimpleByDpIdAndLikeNaming(Long dpId, String naming, PeriodOption periodOption);
+    List<DppSimpleDto> findSimpleByDpIdAndLikeNaming(Long dpId, String naming, PageOption pageOption,
+            PeriodOption periodOption);
 
-  List<DppSimpleDto> findSimpleByDpIdAndLikeTitle(Long dpId, String title, PageOption pageOption,
-      PeriodOption periodOption);
+    Long countSimpleByDpIdAndLikeNaming(Long dpId, String naming, PeriodOption periodOption);
 
-  Long countSimpleByDpIdAndLikeTitle(Long dpId, String title, PeriodOption periodOption);
+    List<DppSimpleDto> findSimpleByDpIdAndLikeTitle(Long dpId, String title, PageOption pageOption,
+            PeriodOption periodOption);
 
-  List<DppSimpleDto> findByDpIdsAndDefault(List<Long> dpIds, PageOption pageOption);
+    Long countSimpleByDpIdAndLikeTitle(Long dpId, String title, PeriodOption periodOption);
 
-  Long countByDpIdsAndDefault(List<Long> dpIds);
+    List<DppSimpleDto> findByDpIdsAndDefault(List<Long> dpIds, PageOption pageOption);
+
+    Long countByDpIdsAndDefault(List<Long> dpIds);
+
+    List<DppSimpleDto> findByDppIds(List<Long> dppIds);
 
 }

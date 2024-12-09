@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.yangnjo.dessert_atelier.domain.delivery.Delivery;
 import com.yangnjo.dessert_atelier.domain.member.Member;
 import com.yangnjo.dessert_atelier.domain.value_type.Destination;
 
@@ -19,7 +18,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import lombok.AccessLevel;
@@ -40,16 +38,11 @@ public class Orders {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    private String password;
+    private String guestPhone;
 
     @Setter
     @Embedded
     private Destination destination;
-
-    @Setter
-    @JoinColumn(name = "delivery_id")
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    private Delivery delivery;
 
     @Setter
     @Enumerated(EnumType.STRING)
@@ -58,6 +51,8 @@ public class Orders {
 
     private Long totalPrice;
 
+    private Long deliveryFee;
+
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
@@ -65,23 +60,25 @@ public class Orders {
     @OneToMany(mappedBy = "orders", cascade = CascadeType.REMOVE)
     private List<OptionQuantity> optionQuantities = new ArrayList<>();
 
-    public static Orders createUserOrder(Long orderCode, Member member, Destination destination, Long totalPrice) {
+    public static Orders createUserOrder(Long orderCode, Member member, Destination destination, Long totalPrice, Long deliveryFee) {
         Orders orders = new Orders();
         orders.orderCode = orderCode;
         orders.member = member;
         member.addOrder(orders);
         orders.destination = destination;
         orders.totalPrice = totalPrice;
+        orders.deliveryFee = deliveryFee;
         orders.orderStatus = OrderStatus.PAYMENT_IN_PROGRESS;
         return orders;
     }
 
-    public static Orders createGuestOrder(Long orderCode, String password, Destination destination, Long totalPrice) {
+    public static Orders createGuestOrder(Long orderCode, String guestPhone, Destination destination, Long totalPrice, Long deliveryFee) {
         Orders orders = new Orders();
         orders.orderCode = orderCode;
-        orders.password = password;
+        orders.guestPhone = guestPhone;
         orders.destination = destination;
         orders.totalPrice = totalPrice;
+        orders.deliveryFee = deliveryFee;
         orders.orderStatus = OrderStatus.PAYMENT_IN_PROGRESS;
         return orders;
     }

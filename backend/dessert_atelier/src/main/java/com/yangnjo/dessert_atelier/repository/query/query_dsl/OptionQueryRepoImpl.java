@@ -23,64 +23,76 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class OptionQueryRepoImpl implements OptionQueryRepo {
 
-  private final JPAQueryFactory queryFactory;
+    private final JPAQueryFactory queryFactory;
 
-  @Override
-  public List<OptionSimpleDto> findAllByDppIdAndStatus(Long dppId, OptionStatus status,
-      PageOption pageOption) {
-    return queryFactory.select(OptionSimpleDto.asDto())
-        .from(option)
-        .where(equalDppId(dppId), equalStatus(status))
-        .offset(pageOption.getOffset())
-        .limit(pageOption.getSize())
-        .orderBy(pageOption.getDirection(option.optionLayer))
-        .fetch();
-  }
-
-  @Override
-  public Long countByDppIdAndStatus(Long dppId, OptionStatus status) {
-    return queryFactory.select(option.count())
-        .from(option)
-        .where(equalDppId(dppId), equalStatus(status))
-        .fetchOne();
-  }
-
-  @Override
-  public Optional<OptionDetailDto> findDetailByOptionId(Long optionId) {
-    OptionDetailDto dto = queryFactory
-        .select(OptionDetailDto.asIncompleteDto())
-        .from(option)
-        .where(equalOptionId(optionId))
-        .fetchOne();
-    if (dto == null) {
-      return Optional.empty();
+    @Override
+    public List<OptionSimpleDto> findAllByDppIdAndStatus(Long dppId, OptionStatus status,
+            PageOption pageOption) {
+        return queryFactory.select(OptionSimpleDto.asDto())
+                .from(option)
+                .where(equalDppId(dppId), equalStatus(status))
+                .offset(pageOption.getOffset())
+                .limit(pageOption.getSize())
+                .orderBy(pageOption.getDirection(option.optionLayer))
+                .fetch();
     }
 
-    List<ProductQuantityDto> dtos = queryFactory
-        .select(ProductQuantityDto.asDto())
-        .from(productQuantity)
-        .where(equalProductIdAtProductQuantity(optionId))
-        .fetch();
-    if (dtos != null && (dtos.isEmpty() == false)) {
-      dto.setProductQuantityDtos(dtos);
+    @Override
+    public Long countByDppIdAndStatus(Long dppId, OptionStatus status) {
+        return queryFactory.select(option.count())
+                .from(option)
+                .where(equalDppId(dppId), equalStatus(status))
+                .fetchOne();
     }
-    return Optional.of(dto);
-  }
 
-  private BooleanExpression equalOptionId(Long optionId) {
-    return option.id.eq(optionId);
-  }
+    @Override
+    public Optional<OptionDetailDto> findDetailByOptionId(Long optionId) {
+        OptionDetailDto dto = queryFactory
+                .select(OptionDetailDto.asIncompleteDto())
+                .from(option)
+                .where(equalOptionId(optionId))
+                .fetchOne();
+        if (dto == null) {
+            return Optional.empty();
+        }
 
-  private BooleanExpression equalProductIdAtProductQuantity(Long optionId) {
-    return productQuantity.option.id.eq(optionId);
-  }
+        List<ProductQuantityDto> dtos = queryFactory
+                .select(ProductQuantityDto.asDto())
+                .from(productQuantity)
+                .where(equalProductIdAtProductQuantity(optionId))
+                .fetch();
+        if (dtos != null && (dtos.isEmpty() == false)) {
+            dto.setProductQuantityDtos(dtos);
+        }
+        return Optional.of(dto);
+    }
 
-  private BooleanExpression equalStatus(OptionStatus status) {
-    return status != null ? option.optionStatus.eq(status) : null;
-  }
+    @Override
+    public List<OptionSimpleDto> findByOptionIds(List<Long> optionIds) {
+        return queryFactory.select(OptionSimpleDto.asDto())
+                .from(option)
+                .where(inOptionIds(optionIds))
+                .fetch();
+    }
 
-  private BooleanExpression equalDppId(Long dppId) {
-    return dppId != null ? option.displayProductPreset.id.eq(dppId) : null;
-  }
+    private BooleanExpression inOptionIds(List<Long> optionIds) {
+        return option.id.in(optionIds);
+    }
+
+    private BooleanExpression equalOptionId(Long optionId) {
+        return option.id.eq(optionId);
+    }
+
+    private BooleanExpression equalProductIdAtProductQuantity(Long optionId) {
+        return productQuantity.option.id.eq(optionId);
+    }
+
+    private BooleanExpression equalStatus(OptionStatus status) {
+        return status != null ? option.optionStatus.eq(status) : null;
+    }
+
+    private BooleanExpression equalDppId(Long dppId) {
+        return dppId != null ? option.displayProductPreset.id.eq(dppId) : null;
+    }
 
 }

@@ -1,6 +1,6 @@
 package com.yangnjo.dessert_atelier.domain_service.auth;
 
-import com.yangnjo.dessert_atelier.provider.TokenHeader;
+import com.yangnjo.dessert_atelier.common.token_util.TokenHeader;
 
 import jakarta.servlet.http.HttpServletRequest;
 

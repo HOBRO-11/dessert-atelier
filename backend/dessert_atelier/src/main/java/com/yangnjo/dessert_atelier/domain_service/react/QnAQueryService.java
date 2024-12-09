@@ -8,6 +8,10 @@ import com.yangnjo.dessert_atelier.repository.dto.QnADto;
 
 public interface QnAQueryService {
 
-  Page<QnADto> getQnAsByDpIdAndStatus(Long dpId, QnAStatus status, PageOption pageOption);
+    QnADto getQnA(Long id);
+
+    Page<QnADto> getQnAsByDpIdAndStatus(Long dpId, QnAStatus status, PageOption pageOption);
+
+    Page<QnADto> getQnAsByDpIdAndExceptStatus(Long dpId, QnAStatus status, PageOption pageOption);
 
 }

@@ -10,10 +10,9 @@ import com.yangnjo.dessert_atelier.repository.dto.MemberSimpleDto;
 
 public interface MemberQueryRepo {
 
-	MemberSimpleDto findMemberById(Long id);
+	MemberSimpleDto findSimpleById(Long id);
 
-	MemberDto findByMemberStatusAndMemberOrigin(MemberStatus memberStatus, MemberOrigin memberOrigin,
-			PageOption pageOption);
+    MemberDto findById(Long id);
 
     MemberDto findByEmail(String email);
 

@@ -33,6 +33,15 @@ public class DppQueryRepoImpl implements DppQueryRepo {
     }
 
     @Override
+    public Optional<DppSimpleDto> findSimple(Long dppId) {
+        return Optional.ofNullable(
+                queryFactory.select(DppSimpleDto.asDto())
+                        .from(displayProductPreset)
+                        .where(equalDppId(dppId))
+                        .fetchOne());
+    }
+
+    @Override
     public List<DppSimpleDto> findSimpleByDpId(Long dpId, PageOption pageOption, PeriodOption periodOption) {
         return queryFactory.select(DppSimpleDto.asDto())
                 .from(displayProductPreset)
@@ -129,6 +138,18 @@ public class DppQueryRepoImpl implements DppQueryRepo {
                 .fetchOne();
     }
 
+    @Override
+    public List<DppSimpleDto> findByDppIds(List<Long> dppIds) {
+        return queryFactory.select(DppSimpleDto.asDto())
+                .from(displayProductPreset)
+                .where(inDppIds(dppIds))
+                .fetch();
+    }
+
+    private BooleanExpression inDppIds(List<Long> dppIds) {
+        return displayProductPreset.id.in(dppIds);
+    }
+
     private BooleanExpression equalDppId(Long dppId) {
         return dppId != null ? displayProductPreset.id.eq(dppId) : null;
     }
@@ -156,4 +177,5 @@ public class DppQueryRepoImpl implements DppQueryRepo {
     private BooleanExpression isDefault() {
         return displayProductPreset.isDefault.eq(true);
     }
+
 }

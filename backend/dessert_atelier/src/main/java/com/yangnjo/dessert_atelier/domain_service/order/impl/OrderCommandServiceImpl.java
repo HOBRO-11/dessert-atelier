@@ -6,7 +6,6 @@ import java.time.format.DateTimeFormatter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yangnjo.dessert_atelier.domain.delivery.Delivery;
 import com.yangnjo.dessert_atelier.domain.member.Member;
 import com.yangnjo.dessert_atelier.domain.order.OrderStatus;
 import com.yangnjo.dessert_atelier.domain.order.Orders;
@@ -31,7 +30,7 @@ public class OrderCommandServiceImpl implements OrderCommandService {
     private static final int GENERATE_ORDER_CODE_MAX_COUNT = 3;
 
     @Override
-    public Long createUserOrder(final OrderCreateDto dto) {
+    public Long createMemberOrder(final OrderCreateDto dto) {
         Member member = findMemberById(dto.getMemberId());
         Long orderCode = generateOrderCode();
         Orders order = dto.toUserOrderEntity(orderCode, member);
@@ -48,15 +47,25 @@ public class OrderCommandServiceImpl implements OrderCommandService {
     }
 
     @Override
-    public void updateOrderStatus(Long orderCode, OrderStatus status) {
+    public void updateMemberOrderStatus(Long orderCode, Long memberId, OrderStatus status) {
+        Member member = findMemberById(memberId);
         Orders order = findOrderByCode(orderCode);
+        checkAuthMember(member, order);
         order.setOrderStatus(status);
     }
 
     @Override
-    public void setDelivery(Long orderCode, Delivery delivery) {
-        Orders orders = findOrderByCode(orderCode);
-        orders.setDelivery(delivery);
+    public void updateGuestOrderStatus(Long orderCode, String guestPhone, OrderStatus status) {
+        Orders order = findOrderByCode(orderCode);
+        checkAuthGuest(guestPhone, order.getGuestPhone());
+        order.setOrderStatus(status);
+    }
+
+    private void checkAuthMember(Member member, Orders order) {
+        if (order.getMember() != member) {
+            throw new OrderNotFoundException();
+        }
+        ;
     }
 
     private Orders findOrderByCode(Long orderCode) {
@@ -107,4 +116,9 @@ public class OrderCommandServiceImpl implements OrderCommandService {
         return orderRepository.existsByOrderCode(orderCode);
     }
 
+    private void checkAuthGuest(String guestPhone, String savedGuestPhone) {
+        if (savedGuestPhone == null || !savedGuestPhone.equals(guestPhone)) {
+            throw new OrderNotFoundException();
+        }
+    }
 }
