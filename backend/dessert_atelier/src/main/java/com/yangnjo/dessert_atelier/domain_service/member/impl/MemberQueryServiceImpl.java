@@ -25,13 +25,15 @@ public class MemberQueryServiceImpl implements MemberQueryService {
     private final MemberQueryRepo memberQueryRepo;
 
     @Override
-    public MemberDto getMemberByStatusAndOrigin(MemberStatus status, MemberOrigin origin, PageOption pageOption) {
-        return memberQueryRepo.findByMemberStatusAndMemberOrigin(status, origin, pageOption);
+    public MemberDto getById(Long id) {
+        return memberQueryRepo.findById(id);
     }
 
     @Override
-    public Page<MemberSimpleDto> getSimpleMembersByStatusAndOrigin(MemberStatus status, MemberOrigin origin, PageOption pageOption) {
-        List<MemberSimpleDto> dtos = memberQueryRepo.findSimplesByMemberStatusAndMemberOrigin(status, origin, pageOption);
+    public Page<MemberSimpleDto> getSimpleMembersByStatusAndOrigin(MemberStatus status, MemberOrigin origin,
+            PageOption pageOption) {
+        List<MemberSimpleDto> dtos = memberQueryRepo.findSimplesByMemberStatusAndMemberOrigin(status, origin,
+                pageOption);
         int size = dtos.size();
         if (size <= pageOption.getSize()) {
             return PageResponse.ofSizeLePageOptionSize(dtos, pageOption);
@@ -41,8 +43,8 @@ public class MemberQueryServiceImpl implements MemberQueryService {
     }
 
     @Override
-    public MemberSimpleDto getMemberById(Long id) {
-        return memberQueryRepo.findMemberById(id);
+    public MemberSimpleDto getSimpleById(Long id) {
+        return memberQueryRepo.findSimpleById(id);
     }
 
 }

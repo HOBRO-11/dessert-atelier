@@ -28,7 +28,7 @@ public class Basket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "member_id", nullable = true)
     @OneToOne(fetch = FetchType.LAZY)
     private Member member;
 
@@ -38,7 +38,6 @@ public class Basket {
 
     public Basket(Member member) {
         this.member = member;
-        member.setBasket(this);
     }
 
     public void addProperty(BasketProperty property) {

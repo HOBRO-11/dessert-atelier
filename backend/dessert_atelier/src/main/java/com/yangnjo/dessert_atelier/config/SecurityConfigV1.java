@@ -2,8 +2,10 @@ package com.yangnjo.dessert_atelier.config;
 
 import java.util.Arrays;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -41,6 +43,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SecurityConfigV1 {
 
+    @Value("${jwt.refresh-token.name}")
+    private String refreshTokenName;
+
+    @Value("${jwt.access-token.name}")
+    private String accessTokenName;
+
+    @Value("${jwt.refresh-token.path}")
+    private String refreshTokenPath;
+
     private static final String DOMAIN_AND_PORT = "http://localhost:8070";
     private static final String GET = HttpMethod.GET.name();
     private static final String POST = HttpMethod.POST.name();
@@ -73,6 +84,7 @@ public class SecurityConfigV1 {
                         .permissionsPolicy(permission -> permission.policy("payment=()")))
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(CsrfConfigurer::disable)
+                // .csrf(csrf -> csrf.ignoringRequestMatchers("/", "/auth/login", ))
                 .httpBasic(HttpBasicConfigurer::disable)
                 .formLogin(FormLoginConfigurer::disable)
                 .sessionManagement(sessionManagement -> sessionManagement
@@ -101,7 +113,7 @@ public class SecurityConfigV1 {
                 .logout(logoutConfig -> logoutConfig
                         .logoutUrl("/auth/logout")
                         .logoutSuccessUrl("/")
-                        .deleteCookies("refreshToken")
+                        .deleteCookies(refreshTokenName, accessTokenName, "LoginChecker")
                         .addLogoutHandler(logoutHandler));
         return http.build();
     }
@@ -115,17 +127,17 @@ public class SecurityConfigV1 {
         config1.setAllowedMethods(Arrays.asList(GET, POST, PUT, DELETE, PATCH));
         config1.setAllowedHeaders(Arrays.asList("*"));
         config1.setAllowCredentials(true);
-        config1.setExposedHeaders(Arrays.asList("access-token", "Set-Cookie")); // AccessToken 헤더 노출
+        config1.setExposedHeaders(Arrays.asList(accessTokenName, HttpHeaders.SET_COOKIE)); // AccessToken 헤더 노출
 
         UrlBasedCorsConfigurationSource source1 = new UrlBasedCorsConfigurationSource();
+        source1.registerCorsConfiguration(refreshTokenPath, config1);
         source1.registerCorsConfiguration("/", config1);
-        source1.registerCorsConfiguration("/auth/**", config1);
 
         // api require authentication -> use access token
         CorsConfiguration config2 = new CorsConfiguration();
         config2.setAllowedOrigins(Arrays.asList(DOMAIN_AND_PORT));
         config2.setAllowedMethods(Arrays.asList(GET, POST, PUT, DELETE, PATCH));
-        config2.setAllowedHeaders(Arrays.asList("Authorization", "*"));
+        config2.setAllowedHeaders(Arrays.asList(HttpHeaders.AUTHORIZATION, "*"));
         config2.setAllowCredentials(false);
 
         UrlBasedCorsConfigurationSource source2 = new UrlBasedCorsConfigurationSource();

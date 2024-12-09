@@ -17,4 +17,6 @@ public interface OptionQueryRepo {
 
   Optional<OptionDetailDto> findDetailByOptionId(Long optionId);
 
+  List<OptionSimpleDto> findByOptionIds(List<Long> optionIds);
+
 }

@@ -8,8 +8,14 @@ import com.yangnjo.dessert_atelier.repository.dto.QnADto;
 
 public interface QnAQueryRepo {
 
+  QnADto findById(Long id);
+
   List<QnADto> findAllByDpIdAndStatus(Long dpId, QnAStatus status, PageOption pageOption);
 
+  List<QnADto> findAllByDpIdAndExceptStatus(Long dpId, QnAStatus status, PageOption pageOption);
+
   Long countByDpIdAndStatus(Long dpId, QnAStatus status);
+
+  Long countByDpIdAndExceptStatus(Long dpId, QnAStatus status);
 
 }

@@ -1,5 +1,6 @@
 package com.yangnjo.dessert_atelier.domain_service.display_product;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -17,4 +18,5 @@ public interface DisplayProductPresetQueryService {
 
   Page<DppSimpleDto> getSimpleDPPsLikeNaming(String naming, PageOption pageOption, PeriodOption periodOption);
 
+  List<DppSimpleDto> getSimpleDppsByDppIds(List<Long> dppIds);
 }

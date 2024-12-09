@@ -38,11 +38,12 @@ public class RefreshToken {
         this.expiredDate = expiredDate;
     }
 
-    public void updateToken(String refreshTokenSignature, LocalDateTime expiredDate) {
+    public RefreshToken updateToken(String refreshTokenSignature, LocalDateTime expiredDate) {
         if(refreshTokenSignature != null){
             this.refreshTokenSignature = refreshTokenSignature;
         }
         this.expiredDate = expiredDate;
+        return this;
     }
 
 }

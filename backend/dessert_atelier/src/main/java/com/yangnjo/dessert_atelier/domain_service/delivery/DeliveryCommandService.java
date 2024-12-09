@@ -1,16 +1,18 @@
 package com.yangnjo.dessert_atelier.domain_service.delivery;
 
-import com.yangnjo.dessert_atelier.domain.delivery.DeliveryStatus;
+import java.util.List;
+
 import com.yangnjo.dessert_atelier.domain_service.delivery.dto.DeliveryCreateDto;
+import com.yangnjo.dessert_atelier.domain_service.delivery.dto.DeliveryCreateResult;
+import com.yangnjo.dessert_atelier.domain_service.delivery.dto.DeliveryUpdateDto;
+import com.yangnjo.dessert_atelier.domain_service.delivery.dto.DeliveryUpdateResult;
 
 public interface DeliveryCommandService {
 
-  Long createDelivery(DeliveryCreateDto dto);
+    DeliveryCreateResult createDeliveries(List<DeliveryCreateDto> dtos);
 
-  void updateDeliveryStatus(Long deliveryId, DeliveryStatus status);
+    DeliveryUpdateResult updateDeliveries(List<DeliveryUpdateDto> dtos);
 
-  void deleteDelivery(Long deliveryId);
-
-  void deleteDelivery(String deliveryCode, Long deliveryCompanyId);
+    void deleteDelivery(String deliveryCode, Long deliveryCompanyId);
 
 }

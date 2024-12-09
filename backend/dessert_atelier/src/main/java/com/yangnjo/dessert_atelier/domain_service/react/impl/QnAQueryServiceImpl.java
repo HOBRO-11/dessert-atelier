@@ -23,6 +23,11 @@ public class QnAQueryServiceImpl implements QnAQueryService {
     private final QnAQueryRepo qnaQueryRepo;
 
     @Override
+    public QnADto getQnA(Long id) {
+        return qnaQueryRepo.findById(id);
+    }
+
+    @Override
     public Page<QnADto> getQnAsByDpIdAndStatus(Long dpId, QnAStatus status, PageOption pageOption) {
         List<QnADto> dtos = qnaQueryRepo.findAllByDpIdAndStatus(dpId, status, pageOption);
         int size = dtos.size();
@@ -30,6 +35,17 @@ public class QnAQueryServiceImpl implements QnAQueryService {
             return PageResponse.ofSizeLePageOptionSize(dtos, pageOption);
         }
         Long total = qnaQueryRepo.countByDpIdAndStatus(dpId, status);
+        return PageResponse.of(dtos, pageOption, total);
+    }
+
+    @Override
+    public Page<QnADto> getQnAsByDpIdAndExceptStatus(Long dpId, QnAStatus status, PageOption pageOption) {
+        List<QnADto> dtos = qnaQueryRepo.findAllByDpIdAndExceptStatus(dpId, status, pageOption);
+        int size = dtos.size();
+        if (size <= pageOption.getSize()) {
+            return PageResponse.ofSizeLePageOptionSize(dtos, pageOption);
+        }
+        Long total = qnaQueryRepo.countByDpIdAndExceptStatus(dpId, status);
         return PageResponse.of(dtos, pageOption, total);
     }
 

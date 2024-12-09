@@ -37,6 +37,11 @@ public class OptionQueryServiceImpl implements OptionQueryService {
     }
 
     @Override
+    public List<OptionSimpleDto> getAllOptionsByDppIdAndStatus(Long dppId, OptionStatus status) {
+        return optionQueryRepo.findAllByDppIdAndStatus(dppId, status, null);
+    }
+
+    @Override
     public OptionDetailDto getOptionDetail(Long optionId) {
         OptionDetailDto dto = optionQueryRepo.findDetailByOptionId(optionId)
                 .orElseThrow(() -> new OptionNotFoundException());
@@ -45,5 +50,10 @@ public class OptionQueryServiceImpl implements OptionQueryService {
             throw new OptionNotAvailableException();
         }
         return dto;
+    }
+
+    @Override
+    public List<OptionSimpleDto> getOptionSimpleDtosByOptionIds(List<Long> optionIds) {
+        return optionQueryRepo.findByOptionIds(optionIds);
     }
 }

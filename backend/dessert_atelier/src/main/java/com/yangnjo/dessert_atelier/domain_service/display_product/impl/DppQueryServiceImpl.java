@@ -51,4 +51,9 @@ public class DppQueryServiceImpl implements DisplayProductPresetQueryService {
         return PageResponse.of(dtos, pageOption, total);
     }
 
+    @Override
+    public List<DppSimpleDto> getSimpleDppsByDppIds(List<Long> dppIds) {
+        return dppQueryRepo.findByDppIds(dppIds);
+    }
+
 }

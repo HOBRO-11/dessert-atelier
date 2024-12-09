@@ -2,6 +2,9 @@ package com.yangnjo.dessert_atelier.domain.delivery;
 
 import java.time.LocalDateTime;
 
+import com.yangnjo.dessert_atelier.domain.order.Orders;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -12,6 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -34,17 +38,22 @@ public class Delivery {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private DeliveryCompany deliveryCompany;
 
+    @JoinColumn(name = "order_code")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private Orders orders;
+
+    private LocalDateTime createdAt;
+
     @Setter
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private DeliveryStatus deliveryStatus;
 
-    private LocalDateTime createdAt;
-
-    public Delivery(String deliveryCode, DeliveryCompany deliveryCompany) {
+    public Delivery(Orders orders,String deliveryCode, DeliveryCompany deliveryCompany) {
+        this.orders = orders;
         this.deliveryCode = deliveryCode;
         this.deliveryCompany = deliveryCompany;
-        this.deliveryStatus = DeliveryStatus.PREPARING;
+        this.deliveryStatus = DeliveryStatus.IN_PROGRESS;
     }
 
     @PrePersist

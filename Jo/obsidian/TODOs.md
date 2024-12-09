@@ -33,3 +33,5 @@
 	- orderQuantity 확인 연관관계도 확인
 - [x] Bearer Header 에 대해 알아보기
 - [ ] 이미지 리사이징 관련하여선 잠시 미루자
+- [ ] 1차 캐시 사용을 위한 domain service 최적화
+- [ ] 본격적으로 query 및 command 페이지 작성하기

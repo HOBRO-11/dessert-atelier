@@ -12,7 +12,4 @@ public interface AddressCommandService {
   void setDefaultAddress(Long addressId, Long memberId, boolean isDefault);
 
   void deleteAddress(Long addressId, Long memberId);
-
-  void checkAddressCountLtMax(Long memberId);
-
 }

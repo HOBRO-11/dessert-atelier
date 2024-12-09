@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.yangnjo.dessert_atelier.domain.model.BaseEntity;
-import com.yangnjo.dessert_atelier.domain.order.Basket;
 import com.yangnjo.dessert_atelier.domain.order.Orders;
 import com.yangnjo.dessert_atelier.domain.react.QnA;
 import com.yangnjo.dessert_atelier.domain.react.Review;
@@ -15,7 +14,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -65,10 +63,6 @@ public class Member extends BaseEntity {
 
     @OneToMany(mappedBy = "member")
     private List<Orders> orders = new ArrayList<>();
-
-    @Setter
-    @OneToOne(mappedBy = "member", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private Basket basket;
 
     public Member(String email, String password, String name, String phone, MemberRole memberRole, MemberOrigin memberOrigin) {
         this.email = email;

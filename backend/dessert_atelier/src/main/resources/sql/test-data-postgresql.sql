@@ -12,9 +12,9 @@ DROP TABLE IF EXISTS review_image;
 
 DROP TABLE IF EXISTS option_quantity;
 
-DROP TABLE IF EXISTS orders;
-
 DROP TABLE IF EXISTS delivery;
+
+DROP TABLE IF EXISTS orders;
 
 DROP TABLE IF EXISTS delivery_company;
 
@@ -186,30 +186,35 @@ CREATE TABLE delivery_company (
     phone VARCHAR(11) NOT NULL
 );
 
-CREATE TABLE delivery (
-    id BIGSERIAL PRIMARY KEY,
-    delivery_code VARCHAR(20) NOT NULL,
-    delivery_company_id BIGINT NOT NULL,
-    delivery_status VARCHAR(20) NOT NULL,
-    created_at TIMESTAMP,
-    FOREIGN KEY (delivery_company_id) REFERENCES delivery_company (id)
-);
-
 CREATE TABLE orders (
     order_code BIGINT NOT NULL UNIQUE PRIMARY KEY,
     member_id BIGINT,
-    password VARCHAR(20),
+    guest_phone VARCHAR(11),
     post_code VARCHAR(10),
     detail_address VARCHAR(50),
     receiver VARCHAR(20),
     phone VARCHAR(11),
-    delivery_id BIGINT,
     order_status VARCHAR(20) NOT NULL,
+    delivery_fee BIGINT,
     total_price BIGINT,
     created_at TIMESTAMP,
     updated_at TIMESTAMP,
-    FOREIGN KEY (member_id) REFERENCES member (id) ON DELETE SET NULL,
-    FOREIGN KEY (delivery_id) REFERENCES delivery (id)
+    FOREIGN KEY (member_id) REFERENCES member (id) ON DELETE SET NULL
+);
+
+CREATE TABLE delivery (
+    id BIGSERIAL PRIMARY KEY,
+    order_code BIGINT NOT NULL,
+    delivery_code VARCHAR(20) NOT NULL,
+    delivery_company_id BIGINT NOT NULL,
+    delivery_status VARCHAR(20) NOT NULL,
+    created_at TIMESTAMP,
+    FOREIGN KEY (order_code) REFERENCES orders (order_code),
+    FOREIGN KEY (delivery_company_id) REFERENCES delivery_company (id),
+    CONSTRAINT unique_code_delivery_code_and_dc_id UNIQUE (
+        delivery_company_id,
+        delivery_code
+    )
 );
 
 CREATE TABLE option_quantity (
