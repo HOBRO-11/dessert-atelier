@@ -17,9 +17,4 @@ public class StaticPathController {
     public String hello(HttpServletRequest request) {
         return "forward:/html/hello.html";
     }
-
-    @GetMapping("/access-deny")
-    public String accessDeny() {
-        return "forward:/html/accessDeny.html";
-    }
 }

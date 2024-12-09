@@ -8,12 +8,12 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.yangnjo.dessert_atelier.common.token_util.AccessTokenProvider;
+import com.yangnjo.dessert_atelier.common.token_util.RefreshTokenProvider;
+import com.yangnjo.dessert_atelier.common.token_util.TokenHeader;
 import com.yangnjo.dessert_atelier.domain.member.Member;
 import com.yangnjo.dessert_atelier.domain_service.auth.RefreshTokenService;
 import com.yangnjo.dessert_atelier.domain_service.member.exception.MemberNotFoundException;
-import com.yangnjo.dessert_atelier.provider.AccessTokenProvider;
-import com.yangnjo.dessert_atelier.provider.RefreshTokenProvider;
-import com.yangnjo.dessert_atelier.provider.TokenHeader;
 import com.yangnjo.dessert_atelier.repository.MemberRepository;
 
 import jakarta.servlet.http.HttpServletRequest;

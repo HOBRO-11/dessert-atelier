@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.yangnjo.dessert_atelier.provider.TokenHeader;
+import com.yangnjo.dessert_atelier.common.token_util.TokenHeader;
 import com.yangnjo.dessert_atelier.service.auth.AuthTokenService;
 
 import jakarta.servlet.http.HttpServletRequest;
