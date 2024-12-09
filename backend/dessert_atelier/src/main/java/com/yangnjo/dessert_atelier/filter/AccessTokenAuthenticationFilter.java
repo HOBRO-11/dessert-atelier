@@ -14,8 +14,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.yangnjo.dessert_atelier.common.token_util.AccessTokenProvider;
 import com.yangnjo.dessert_atelier.handler.LoginCheckHandler;
-import com.yangnjo.dessert_atelier.provider.AccessTokenProvider;
 
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;

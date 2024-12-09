@@ -98,12 +98,12 @@ public class MultipartParser {
             String newName = null;
 
             for (ImgMetadata m : imgMetadatas) {
-                String originName = m.originName();
+                String originName = m.getOriginName();
                 String normalizedName = Normalizer.normalize(originName, Form.NFC);
                 if (normalizedName.equals(extractedName)) {
-                    size = m.size();
-                    newName = m.newName();
-                    fileExtension = assertAndExtractFileExtension(m.type());
+                    size = m.getSize();
+                    newName = m.getNewName();
+                    fileExtension = assertAndExtractFileExtension(m.getType());
                     break;
                 }
             }

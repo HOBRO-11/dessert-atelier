@@ -1,4 +1,4 @@
-package com.yangnjo.dessert_atelier.provider;
+package com.yangnjo.dessert_atelier.common.token_util;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;

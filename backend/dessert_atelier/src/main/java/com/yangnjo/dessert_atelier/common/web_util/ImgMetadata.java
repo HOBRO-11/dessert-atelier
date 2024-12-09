@@ -6,12 +6,27 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public record ImgMetadata(String originName, @JsonIgnore String newName, String type, long size) {
+import lombok.Getter;
+
+@Getter
+public class ImgMetadata {
+    private String originName;
+    @JsonIgnore
+    private String newName;
+    private String type;
+    private long size;
 
     @JsonCreator
     public ImgMetadata(@JsonProperty("name") String name, @JsonProperty("type") String type,
             @JsonProperty("size") long size) {
-        this(name, UUID.randomUUID().toString(), type, size);
+        this.originName = name;
+        this.type = type;
+        this.size = size;
+        this.newName = createUUIDName(type);
+    }
+
+    private String createUUIDName(String type) {
+        return UUID.randomUUID().toString() + "." + type;
     }
 
 }
