@@ -3,19 +3,19 @@ package com.yangnjo.dessert_atelier.domain_service.react.impl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yangnjo.dessert_atelier.domain.display_product.DisplayProduct;
-import com.yangnjo.dessert_atelier.domain.member.Member;
-import com.yangnjo.dessert_atelier.domain.react.QnA;
-import com.yangnjo.dessert_atelier.domain.react.QnAStatus;
-import com.yangnjo.dessert_atelier.domain_service.display_product.exception.DisplayProductNotFountException;
+import com.yangnjo.dessert_atelier.domain_model.member.Member;
+import com.yangnjo.dessert_atelier.domain_model.product.DisplayProduct;
+import com.yangnjo.dessert_atelier.domain_model.react.QnA;
+import com.yangnjo.dessert_atelier.domain_model.react.QnAStatus;
 import com.yangnjo.dessert_atelier.domain_service.member.exception.MemberNotFoundException;
+import com.yangnjo.dessert_atelier.domain_service.product.exception.DisplayProductNotFountException;
 import com.yangnjo.dessert_atelier.domain_service.react.QnACommandService;
 import com.yangnjo.dessert_atelier.domain_service.react.dto.QnaCreateDto;
 import com.yangnjo.dessert_atelier.domain_service.react.exception.QnANonAuthException;
 import com.yangnjo.dessert_atelier.domain_service.react.exception.QnANotFoundException;
-import com.yangnjo.dessert_atelier.repository.DisplayProductRepository;
-import com.yangnjo.dessert_atelier.repository.MemberRepository;
-import com.yangnjo.dessert_atelier.repository.QnARepository;
+import com.yangnjo.dessert_atelier.repository.member.MemberRepository;
+import com.yangnjo.dessert_atelier.repository.product.DisplayProductRepository;
+import com.yangnjo.dessert_atelier.repository.react.QnARepository;
 
 import lombok.RequiredArgsConstructor;
 

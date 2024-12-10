@@ -3,22 +3,20 @@ package com.yangnjo.dessert_atelier.domain_service.react.impl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yangnjo.dessert_atelier.domain.display_product.DisplayProduct;
-import com.yangnjo.dessert_atelier.domain.member.Member;
-import com.yangnjo.dessert_atelier.domain.react.Review;
-import com.yangnjo.dessert_atelier.domain.react.ReviewImage;
-import com.yangnjo.dessert_atelier.domain.react.ReviewStatus;
-import com.yangnjo.dessert_atelier.domain_service.display_product.exception.DisplayProductNotFountException;
+import com.yangnjo.dessert_atelier.domain_model.member.Member;
+import com.yangnjo.dessert_atelier.domain_model.product.DisplayProduct;
+import com.yangnjo.dessert_atelier.domain_model.react.Review;
+import com.yangnjo.dessert_atelier.domain_model.react.ReviewStatus;
 import com.yangnjo.dessert_atelier.domain_service.member.exception.MemberNotFoundException;
+import com.yangnjo.dessert_atelier.domain_service.product.exception.DisplayProductNotFountException;
 import com.yangnjo.dessert_atelier.domain_service.react.ReviewCommandService;
 import com.yangnjo.dessert_atelier.domain_service.react.dto.ReviewCreateDto;
 import com.yangnjo.dessert_atelier.domain_service.react.dto.ReviewUpdateDto;
 import com.yangnjo.dessert_atelier.domain_service.react.exception.ReviewNonAuthException;
 import com.yangnjo.dessert_atelier.domain_service.react.exception.ReviewNotFoundException;
-import com.yangnjo.dessert_atelier.repository.DisplayProductRepository;
-import com.yangnjo.dessert_atelier.repository.MemberRepository;
-import com.yangnjo.dessert_atelier.repository.ReviewImageRepository;
-import com.yangnjo.dessert_atelier.repository.ReviewRepository;
+import com.yangnjo.dessert_atelier.repository.member.MemberRepository;
+import com.yangnjo.dessert_atelier.repository.product.DisplayProductRepository;
+import com.yangnjo.dessert_atelier.repository.react.ReviewRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,7 +26,6 @@ import lombok.RequiredArgsConstructor;
 public class ReviewCommandServiceImpl implements ReviewCommandService {
 
     private final ReviewRepository reviewRepository;
-    private final ReviewImageRepository reviewImageRepository;
     private final DisplayProductRepository displayProductRepository;
     private final MemberRepository memberRepository;
 
@@ -36,10 +33,8 @@ public class ReviewCommandServiceImpl implements ReviewCommandService {
     public Long createMemberReview(final ReviewCreateDto dto) {
         DisplayProduct displayProduct = findDpById(dto.getDpId());
         Member member = findMemberById(dto.getMemberId());
-        ReviewImage reviewImage = new ReviewImage(dto.getImageUrls());
-        ReviewImage savedReviewImage = reviewImageRepository.save(reviewImage);
 
-        Review review = dto.toMemberReviewEntity(displayProduct, member, savedReviewImage);
+        Review review = dto.toMemberReviewEntity(displayProduct, member);
         Review savedReview = reviewRepository.save(review);
         return savedReview.getId();
     }
@@ -47,10 +42,8 @@ public class ReviewCommandServiceImpl implements ReviewCommandService {
     @Override
     public Long createStoreReview(final ReviewCreateDto dto) {
         DisplayProduct displayProduct = findDpById(dto.getDpId());
-        ReviewImage reviewImage = new ReviewImage(dto.getImageUrls());
-        ReviewImage savedReviewImage = reviewImageRepository.save(reviewImage);
 
-        Review review = dto.toStoreReviewEntity(displayProduct, savedReviewImage);
+        Review review = dto.toStoreReviewEntity(displayProduct);
         Review savedReview = reviewRepository.save(review);
         return savedReview.getId();
     }

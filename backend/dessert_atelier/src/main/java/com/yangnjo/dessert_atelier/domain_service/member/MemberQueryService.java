@@ -1,20 +1,20 @@
 package com.yangnjo.dessert_atelier.domain_service.member;
 
-import org.springframework.data.domain.Page;
+import java.util.List;
 
 import com.yangnjo.dessert_atelier.common.page_util.PageOption;
-import com.yangnjo.dessert_atelier.domain.member.MemberOrigin;
-import com.yangnjo.dessert_atelier.domain.member.MemberStatus;
-import com.yangnjo.dessert_atelier.repository.dto.MemberDto;
-import com.yangnjo.dessert_atelier.repository.dto.MemberSimpleDto;
+import com.yangnjo.dessert_atelier.domain_model.member.MemberStatus;
+import com.yangnjo.dessert_atelier.repository.member.dto.MemberDto;
+import com.yangnjo.dessert_atelier.repository.member.dto.MemberSimpleDto;
 
 public interface MemberQueryService {
 
-  MemberSimpleDto getSimpleById(Long id);
+    MemberSimpleDto getSimpleById(Long id);
 
-  MemberDto getById(Long id);
+    MemberDto getById(Long id);
 
-  Page<MemberSimpleDto> getSimpleMembersByStatusAndOrigin(MemberStatus status, MemberOrigin origin,
-      PageOption pageOption);
+    MemberDto getByEmail(String email);
+
+    List<MemberSimpleDto> getSimplesByMemberStatus(MemberStatus memberStatus, PageOption pageOption);
 
 }

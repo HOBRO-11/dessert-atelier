@@ -9,10 +9,10 @@ import com.yangnjo.dessert_atelier.domain_service.delivery.dto.DeliveryUpdateRes
 
 public interface DeliveryCommandService {
 
-    DeliveryCreateResult createDeliveries(List<DeliveryCreateDto> dtos);
+    DeliveryCreateResult matchOrderAndDelivery(List<DeliveryCreateDto> dtos);
 
-    DeliveryUpdateResult updateDeliveries(List<DeliveryUpdateDto> dtos);
+    DeliveryUpdateResult updateDeliveryStatus(List<DeliveryUpdateDto> dtos);
 
-    void deleteDelivery(String deliveryCode, Long deliveryCompanyId);
+    void delete(String deliveryCode);
 
 }

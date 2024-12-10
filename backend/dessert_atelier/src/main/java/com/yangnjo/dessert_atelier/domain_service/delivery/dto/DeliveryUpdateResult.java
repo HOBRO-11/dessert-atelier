@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @Getter
 public class DeliveryUpdateResult {
-    
+
     private Integer totalCount;
     private Integer successCount;
     private Integer errorCount;
@@ -21,15 +21,14 @@ public class DeliveryUpdateResult {
         this.errors = errors;
     }
 
-    public static DeliveryUpdateErrorMessage create(String deliveryCode, Long deliveryCompanyId, String message) {
-        return new DeliveryUpdateErrorMessage(deliveryCode, deliveryCompanyId, message);
+    public static DeliveryUpdateErrorMessage create(String deliveryCode, String message) {
+        return new DeliveryUpdateErrorMessage(deliveryCode, message);
     }
 
     @Getter
     @AllArgsConstructor
     public static class DeliveryUpdateErrorMessage {
         private String deliveryCode;
-        private Long deliveryCompanyId;
         private String message;
     }
 }

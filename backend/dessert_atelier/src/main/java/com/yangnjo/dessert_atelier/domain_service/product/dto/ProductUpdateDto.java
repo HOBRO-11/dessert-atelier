@@ -6,8 +6,8 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class ProductUpdateDto {
-  Long productId;
-  String name;
-  Integer price;
-  String thumb;
+    Long productId;
+    String name;
+    Integer price;
+    String thumb;
 }

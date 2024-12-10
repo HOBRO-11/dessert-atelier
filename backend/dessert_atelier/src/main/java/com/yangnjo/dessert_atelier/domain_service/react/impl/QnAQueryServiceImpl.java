@@ -8,10 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yangnjo.dessert_atelier.common.page_util.PageOption;
 import com.yangnjo.dessert_atelier.common.page_util.PageResponse;
-import com.yangnjo.dessert_atelier.domain.react.QnAStatus;
+import com.yangnjo.dessert_atelier.common.page_util.PeriodOption;
+import com.yangnjo.dessert_atelier.domain_model.react.QnAStatus;
 import com.yangnjo.dessert_atelier.domain_service.react.QnAQueryService;
-import com.yangnjo.dessert_atelier.repository.dto.QnADto;
-import com.yangnjo.dessert_atelier.repository.query.QnAQueryRepo;
+import com.yangnjo.dessert_atelier.repository.react.dto.QnADto;
+import com.yangnjo.dessert_atelier.repository.react.query.QnAQueryRepo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,29 +24,35 @@ public class QnAQueryServiceImpl implements QnAQueryService {
     private final QnAQueryRepo qnaQueryRepo;
 
     @Override
-    public QnADto getQnA(Long id) {
-        return qnaQueryRepo.findById(id);
+    public Page<QnADto> getAllByMemberId(Long memberId, PageOption pageOption, PeriodOption periodOption) {
+        List<QnADto> dtos = qnaQueryRepo.findAllByMemberId(memberId, pageOption, periodOption);
+        int size = dtos.size();
+        if (size <= pageOption.getSize()) {
+            return PageResponse.ofSizeLePageOptionSize(dtos, pageOption);
+        }
+        Long total = qnaQueryRepo.countAllByMemberId(memberId);
+        return PageResponse.of(dtos, pageOption, total);
     }
 
     @Override
-    public Page<QnADto> getQnAsByDpIdAndStatus(Long dpId, QnAStatus status, PageOption pageOption) {
+    public Page<QnADto> getAllByDpIdAndStatus(Long dpId, QnAStatus status, PageOption pageOption) {
         List<QnADto> dtos = qnaQueryRepo.findAllByDpIdAndStatus(dpId, status, pageOption);
         int size = dtos.size();
         if (size <= pageOption.getSize()) {
             return PageResponse.ofSizeLePageOptionSize(dtos, pageOption);
         }
-        Long total = qnaQueryRepo.countByDpIdAndStatus(dpId, status);
+        Long total = qnaQueryRepo.countAllByDpIdAndStatus(dpId, status);
         return PageResponse.of(dtos, pageOption, total);
     }
 
     @Override
-    public Page<QnADto> getQnAsByDpIdAndExceptStatus(Long dpId, QnAStatus status, PageOption pageOption) {
+    public Page<QnADto> getAllByDpIdAndExceptStatus(Long dpId, QnAStatus status, PageOption pageOption) {
         List<QnADto> dtos = qnaQueryRepo.findAllByDpIdAndExceptStatus(dpId, status, pageOption);
         int size = dtos.size();
         if (size <= pageOption.getSize()) {
             return PageResponse.ofSizeLePageOptionSize(dtos, pageOption);
         }
-        Long total = qnaQueryRepo.countByDpIdAndExceptStatus(dpId, status);
+        Long total = qnaQueryRepo.countAllByDpIdAndExceptStatus(dpId, status);
         return PageResponse.of(dtos, pageOption, total);
     }
 

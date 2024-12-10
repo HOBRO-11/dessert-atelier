@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class MemberUpdateDto {
-  Long memberId;
-  String name;
-  String phone;
+    Long memberId;
+    String name;
+    String phone;
 }

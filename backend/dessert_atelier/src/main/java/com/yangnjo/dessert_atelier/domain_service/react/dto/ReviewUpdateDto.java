@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class ReviewUpdateDto {
-  Long reviewId;
-  Long memberId;
-  String comment;
+    Long reviewId;
+    Long memberId;
+    String comment;
 }

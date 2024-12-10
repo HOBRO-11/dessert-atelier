@@ -1,12 +1,13 @@
 package com.yangnjo.dessert_atelier.domain_service.react.dto;
 
+import java.util.List;
 import java.util.Map;
 
-import com.yangnjo.dessert_atelier.domain.display_product.DisplayProduct;
-import com.yangnjo.dessert_atelier.domain.member.Member;
-import com.yangnjo.dessert_atelier.domain.react.Review;
-import com.yangnjo.dessert_atelier.domain.react.ReviewImage;
-import com.yangnjo.dessert_atelier.domain.react.ReviewOrigin;
+import com.yangnjo.dessert_atelier.domain_model.member.Member;
+import com.yangnjo.dessert_atelier.domain_model.model.ImageSrc;
+import com.yangnjo.dessert_atelier.domain_model.product.DisplayProduct;
+import com.yangnjo.dessert_atelier.domain_model.react.Review;
+import com.yangnjo.dessert_atelier.domain_model.react.ReviewOrigin;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,13 +20,14 @@ public class ReviewCreateDto {
     Map<String,String> imageUrls;
     Integer rate;
     String comment;
+    List<ImageSrc> images;
     ReviewOrigin origin;
 
-    public Review toMemberReviewEntity(DisplayProduct dp, Member member, ReviewImage reviewImage) {
-        return Review.createUserReviews(dp, member, reviewImage, rate, comment);
+    public Review toMemberReviewEntity(DisplayProduct dp, Member member) {
+        return Review.createUserReviews(dp, member, images, rate, comment);
     }
 
-    public Review toStoreReviewEntity(DisplayProduct dp, ReviewImage reviewImage) {
-        return Review.createStoreReviews(dp, reviewImage, rate, comment, origin);
+    public Review toStoreReviewEntity(DisplayProduct dp) {
+        return Review.createStoreReviews(dp, images, rate, comment, origin); 
     }
 }

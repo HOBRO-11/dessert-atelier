@@ -31,7 +31,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import com.yangnjo.dessert_atelier.domain.member.MemberRole;
+import com.yangnjo.dessert_atelier.domain_model.member.MemberRole;
 import com.yangnjo.dessert_atelier.filter.AccessTokenAuthenticationFilter;
 import com.yangnjo.dessert_atelier.filter.CacheControlFilter;
 

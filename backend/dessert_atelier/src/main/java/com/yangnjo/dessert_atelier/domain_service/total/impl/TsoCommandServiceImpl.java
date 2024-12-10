@@ -3,8 +3,8 @@ package com.yangnjo.dessert_atelier.domain_service.total.impl;
 import org.springframework.stereotype.Service;
 
 import com.yangnjo.dessert_atelier.domain_service.total.TotalSaleOptionCommandService;
-import com.yangnjo.dessert_atelier.repository.TotalSaleOptionRepository;
-import com.yangnjo.dessert_atelier.repository.dto.TotalSaleOptionDto;
+import com.yangnjo.dessert_atelier.repository.total.TotalSaleOptionRepository;
+import com.yangnjo.dessert_atelier.repository.total.dto.TotalSaleOptionDto;
 
 import lombok.RequiredArgsConstructor;
 
