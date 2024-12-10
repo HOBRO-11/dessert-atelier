@@ -1,8 +1,7 @@
 package com.yangnjo.dessert_atelier.domain_service.delivery.dto;
 
-import com.yangnjo.dessert_atelier.domain.delivery.Delivery;
-import com.yangnjo.dessert_atelier.domain.delivery.DeliveryCompany;
-import com.yangnjo.dessert_atelier.domain.order.Orders;
+import com.yangnjo.dessert_atelier.domain_model.delivery.Delivery;
+import com.yangnjo.dessert_atelier.domain_model.order.Orders;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,9 +11,8 @@ import lombok.Getter;
 public class DeliveryCreateDto {
     Long orderCode;
     String deliveryCode;
-    Long deliveryCompanyId;
 
-    public Delivery toEntity(Orders orders, DeliveryCompany deliveryCompany) {
-        return new Delivery(orders, deliveryCode, deliveryCompany);
+    public Delivery toEntity(Orders orders) {
+        return new Delivery(deliveryCode, orders);
     }
 }

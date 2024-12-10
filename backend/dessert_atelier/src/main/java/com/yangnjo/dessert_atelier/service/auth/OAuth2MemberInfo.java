@@ -8,9 +8,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
-import com.yangnjo.dessert_atelier.domain.member.Member;
-import com.yangnjo.dessert_atelier.domain.member.MemberOrigin;
-import com.yangnjo.dessert_atelier.domain.member.MemberRole;
+import com.yangnjo.dessert_atelier.domain_model.member.Member;
+import com.yangnjo.dessert_atelier.domain_model.member.MemberOrigin;
+import com.yangnjo.dessert_atelier.domain_model.member.MemberRole;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -62,7 +62,7 @@ public class OAuth2MemberInfo implements OAuth2User {
 
     private static OAuth2MemberInfo ofNaver(Map<String, Object> attributes) {
         Object responseObj = attributes.get("response");
-        
+
         if (responseObj instanceof Map) {
             @SuppressWarnings("unchecked")
             Map<String, String> map = (Map<String, String>) responseObj;
@@ -75,8 +75,8 @@ public class OAuth2MemberInfo implements OAuth2User {
 
     public Member toEntity() {
         Member entity = switch (origin.name().toLowerCase()) {
-            case GOOGLE -> new Member(email, null, nickname, null, memberRole, MemberOrigin.GOOGLE);
-            case NAVER -> new Member(email, null, nickname, null, memberRole, MemberOrigin.NAVER);
+            case GOOGLE -> new Member(email, nickname, null, memberRole, MemberOrigin.GOOGLE);
+            case NAVER -> new Member(email, nickname, null, memberRole, MemberOrigin.NAVER);
             default -> throw new RuntimeException();
         };
         return entity;

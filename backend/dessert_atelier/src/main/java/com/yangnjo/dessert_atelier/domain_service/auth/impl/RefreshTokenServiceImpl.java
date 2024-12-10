@@ -8,15 +8,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yangnjo.dessert_atelier.common.token_util.RefreshTokenProvider;
 import com.yangnjo.dessert_atelier.common.token_util.TokenHeader;
-import com.yangnjo.dessert_atelier.domain.auth.RefreshToken;
-import com.yangnjo.dessert_atelier.domain.member.Member;
+import com.yangnjo.dessert_atelier.domain_model.auth.RefreshToken;
+import com.yangnjo.dessert_atelier.domain_model.member.Member;
 import com.yangnjo.dessert_atelier.domain_service.auth.RefreshTokenService;
 import com.yangnjo.dessert_atelier.domain_service.auth.exception.RefreshTokenExpiredException;
 import com.yangnjo.dessert_atelier.domain_service.auth.exception.RefreshTokenNotFoundException;
 import com.yangnjo.dessert_atelier.domain_service.auth.exception.RefreshTokenNotMatchedException;
 import com.yangnjo.dessert_atelier.domain_service.member.exception.MemberNotFoundException;
-import com.yangnjo.dessert_atelier.repository.MemberRepository;
-import com.yangnjo.dessert_atelier.repository.RefreshTokenRepository;
+import com.yangnjo.dessert_atelier.repository.auth.RefreshTokenRepository;
+import com.yangnjo.dessert_atelier.repository.member.MemberRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;

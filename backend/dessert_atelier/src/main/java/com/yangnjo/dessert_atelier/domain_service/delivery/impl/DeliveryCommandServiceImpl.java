@@ -4,15 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yangnjo.dessert_atelier.domain.delivery.Delivery;
-import com.yangnjo.dessert_atelier.domain.delivery.DeliveryCompany;
-import com.yangnjo.dessert_atelier.domain.order.Orders;
+import com.yangnjo.dessert_atelier.domain_model.delivery.Delivery;
+import com.yangnjo.dessert_atelier.domain_model.order.Orders;
 import com.yangnjo.dessert_atelier.domain_service.delivery.DeliveryCommandService;
 import com.yangnjo.dessert_atelier.domain_service.delivery.dto.DeliveryCreateDto;
 import com.yangnjo.dessert_atelier.domain_service.delivery.dto.DeliveryCreateResult;
@@ -20,10 +18,8 @@ import com.yangnjo.dessert_atelier.domain_service.delivery.dto.DeliveryCreateRes
 import com.yangnjo.dessert_atelier.domain_service.delivery.dto.DeliveryUpdateDto;
 import com.yangnjo.dessert_atelier.domain_service.delivery.dto.DeliveryUpdateResult;
 import com.yangnjo.dessert_atelier.domain_service.delivery.dto.DeliveryUpdateResult.DeliveryUpdateErrorMessage;
-import com.yangnjo.dessert_atelier.domain_service.delivery.exception.DeliveryNotFoundException;
-import com.yangnjo.dessert_atelier.repository.DeliveryCompanyRepository;
-import com.yangnjo.dessert_atelier.repository.DeliveryRepository;
-import com.yangnjo.dessert_atelier.repository.OrderRepository;
+import com.yangnjo.dessert_atelier.repository.delivery.DeliveryRepository;
+import com.yangnjo.dessert_atelier.repository.order.OrderRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -34,12 +30,10 @@ public class DeliveryCommandServiceImpl implements DeliveryCommandService {
 
     private final OrderRepository orderRepository;
     private final DeliveryRepository deliveryRepository;
-    private final DeliveryCompanyRepository deliveryCompanyRepository;
 
     @Override
-    public DeliveryCreateResult createDeliveries(List<DeliveryCreateDto> dtos) {
+    public DeliveryCreateResult matchOrderAndDelivery(List<DeliveryCreateDto> dtos) {
         Map<Long, Orders> ordersMap = getOrdersMap(dtos);
-        Map<Long, DeliveryCompany> dcMap = getDcMap(dtos);
         Map<Long, Delivery> deliveryMap = getDeliveryMapByOrderCode(dtos);
 
         List<DeliveryCreateErrorMessage> errors = new ArrayList<>();
@@ -51,36 +45,22 @@ public class DeliveryCommandServiceImpl implements DeliveryCommandService {
 
         for (DeliveryCreateDto dto : dtos) {
             Long orderCode = dto.getOrderCode();
-            Long deliveryCompanyId = dto.getDeliveryCompanyId();
 
             Orders orders = ordersMap.get(orderCode);
-            DeliveryCompany dc = dcMap.get(deliveryCompanyId);
-
-            if (orders == null && dc == null) {
-                errors.add(DeliveryCreateResult.create(orderCode, deliveryCompanyId, "주문 및 배송업체 정보가 존재하지 않습니다."));
-                errorCount++;
-                continue;
-            }
 
             if (orders == null) {
-                errors.add(DeliveryCreateResult.create(orderCode, deliveryCompanyId, "주문 정보가 존재하지 않습니다."));
-                errorCount++;
-                continue;
-            }
-
-            if (dc == null) {
-                errors.add(DeliveryCreateResult.create(orderCode, deliveryCompanyId, "배송업체 정보가 존재하지 않습니다."));
+                errors.add(DeliveryCreateResult.create(orderCode, "주문 정보가 존재하지 않습니다."));
                 errorCount++;
                 continue;
             }
 
             if (deliveryMap.get(orderCode) != null) {
-                errors.add(DeliveryCreateResult.create(orderCode, deliveryCompanyId, "해당 주문에 대하여 이미 배달이 등록되어있습니다."));
+                errors.add(DeliveryCreateResult.create(orderCode, "해당 주문에 대하여 이미 배달이 등록되어있습니다."));
                 errorCount++;
                 continue;
             }
 
-            deliveries.add(dto.toEntity(orders, dc));
+            deliveries.add(dto.toEntity(orders));
             successCount++;
         }
 
@@ -90,7 +70,7 @@ public class DeliveryCommandServiceImpl implements DeliveryCommandService {
     }
 
     @Override
-    public DeliveryUpdateResult updateDeliveries(List<DeliveryUpdateDto> dtos) {
+    public DeliveryUpdateResult updateDeliveryStatus(List<DeliveryUpdateDto> dtos) {
 
         if (dtos == null || dtos.isEmpty()) {
             return new DeliveryUpdateResult(0, 0, 0, new ArrayList<>());
@@ -103,10 +83,10 @@ public class DeliveryCommandServiceImpl implements DeliveryCommandService {
         List<DeliveryUpdateErrorMessage> errors = new ArrayList<>();
 
         for (DeliveryUpdateDto dto : dtos) {
-            Delivery delivery = getDelivery(dto.getDeliveryCode(), dto.getDeliveryCompanyId());
+            Delivery delivery = getDelivery(dto.getDeliveryCode());
 
             if (delivery == null) {
-                errors.add(DeliveryUpdateResult.create(dto.getDeliveryCode(), dto.getDeliveryCompanyId(),
+                errors.add(DeliveryUpdateResult.create(dto.getDeliveryCode(),
                         "주문 및 배송업체 정보가 존재하지 않습니다."));
                 errorCount++;
                 continue;
@@ -120,28 +100,15 @@ public class DeliveryCommandServiceImpl implements DeliveryCommandService {
     }
 
     @Override
-    public void deleteDelivery(String deliveryCode, Long deliveryCompanyId) {
-        Delivery delivery = deliveryRepository.findByDeliveryCodeAndDeliveryCompanyId(deliveryCode, deliveryCompanyId)
-                .orElseThrow(() -> new DeliveryNotFoundException());
-        deliveryRepository.deleteById(delivery.getId());
+    public void delete(String deliveryCode) {
+        deliveryRepository.deleteById(deliveryCode);
     }
 
-    private Delivery getDelivery(String deliveryCode, Long deliveryCompanyId) {
+    private Delivery getDelivery(String deliveryCode) {
         Delivery delivery = deliveryRepository
-                .findByDeliveryCodeAndDeliveryCompanyId(deliveryCode, deliveryCompanyId)
+                .findById(deliveryCode)
                 .orElse(null);
         return delivery;
-    }
-
-    private Map<Long, DeliveryCompany> getDcMap(List<DeliveryCreateDto> dtos) {
-        if (dtos == null || dtos.isEmpty()) {
-            return new HashMap<>();
-        }
-
-        Set<Long> dcIds = dtos.stream().map(DeliveryCreateDto::getDeliveryCompanyId).collect(Collectors.toSet());
-        Map<Long, DeliveryCompany> dcMap = deliveryCompanyRepository.findAllById(dcIds).stream()
-                .collect(Collectors.toMap(DeliveryCompany::getId, t -> t));
-        return dcMap;
     }
 
     private Map<Long, Orders> getOrdersMap(List<DeliveryCreateDto> dtos) {

@@ -1,7 +1,6 @@
 package com.yangnjo.dessert_atelier.domain_service.product.dto;
 
-import com.yangnjo.dessert_atelier.domain.product.Product;
-import com.yangnjo.dessert_atelier.domain.product.ProductStatus;
+import com.yangnjo.dessert_atelier.domain_model.product.Product;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,12 +8,11 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class ProductCreateDto {
-  String name;
-  Integer price;
-  String thumb;
-  ProductStatus status;
+    String name;
+    Integer price;
+    String thumb;
 
-  public Product toEntity() {
-    return new Product(name, price, thumb, status);
-  }
+    public Product toEntity() {
+        return new Product(name, price, thumb);
+    }
 }

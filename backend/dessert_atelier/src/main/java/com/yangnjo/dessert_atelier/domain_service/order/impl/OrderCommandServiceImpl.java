@@ -6,16 +6,16 @@ import java.time.format.DateTimeFormatter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yangnjo.dessert_atelier.domain.member.Member;
-import com.yangnjo.dessert_atelier.domain.order.OrderStatus;
-import com.yangnjo.dessert_atelier.domain.order.Orders;
+import com.yangnjo.dessert_atelier.domain_model.member.Member;
+import com.yangnjo.dessert_atelier.domain_model.order.OrderStatus;
+import com.yangnjo.dessert_atelier.domain_model.order.Orders;
 import com.yangnjo.dessert_atelier.domain_service.member.exception.MemberNotFoundException;
 import com.yangnjo.dessert_atelier.domain_service.order.OrderCommandService;
 import com.yangnjo.dessert_atelier.domain_service.order.dto.OrderCreateDto;
 import com.yangnjo.dessert_atelier.domain_service.order.exception.OrderCodeGenerateFailedException;
 import com.yangnjo.dessert_atelier.domain_service.order.exception.OrderNotFoundException;
-import com.yangnjo.dessert_atelier.repository.MemberRepository;
-import com.yangnjo.dessert_atelier.repository.OrderRepository;
+import com.yangnjo.dessert_atelier.repository.member.MemberRepository;
+import com.yangnjo.dessert_atelier.repository.order.OrderRepository;
 
 import lombok.RequiredArgsConstructor;
 

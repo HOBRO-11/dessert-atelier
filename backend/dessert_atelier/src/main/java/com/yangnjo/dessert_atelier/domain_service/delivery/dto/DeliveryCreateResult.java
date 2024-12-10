@@ -21,16 +21,14 @@ public class DeliveryCreateResult {
         this.errors = errors;
     }
 
-    public static DeliveryCreateErrorMessage create(Long orderCode, Long deliveryCompanyId,
-            String message) {
-        return new DeliveryCreateErrorMessage(orderCode, deliveryCompanyId, message);
+    public static DeliveryCreateErrorMessage create(Long orderCode, String message) {
+        return new DeliveryCreateErrorMessage(orderCode, message);
     }
 
     @Getter
     @AllArgsConstructor
     public static class DeliveryCreateErrorMessage {
         private Long orderCode;
-        private Long deliveryCompanyId;
         private String message;
     }
 }

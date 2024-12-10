@@ -9,9 +9,9 @@ import com.yangnjo.dessert_atelier.common.page_util.PageOption;
 import com.yangnjo.dessert_atelier.common.page_util.PageResponse;
 import com.yangnjo.dessert_atelier.common.page_util.PeriodOption;
 import com.yangnjo.dessert_atelier.domain_service.total.TotalSaleOptionQueryService;
-import com.yangnjo.dessert_atelier.repository.dto.TotalSaleOptionDto;
-import com.yangnjo.dessert_atelier.repository.dto.TotalSaleOptionGraphDto;
-import com.yangnjo.dessert_atelier.repository.query.TotalSaleOptionQueryRepo;
+import com.yangnjo.dessert_atelier.repository.total.dto.TotalSaleOptionDto;
+import com.yangnjo.dessert_atelier.repository.total.dto.TotalSaleOptionGraphDto;
+import com.yangnjo.dessert_atelier.repository.total.query.TotalSaleOptionQueryRepo;
 
 import lombok.RequiredArgsConstructor;
 

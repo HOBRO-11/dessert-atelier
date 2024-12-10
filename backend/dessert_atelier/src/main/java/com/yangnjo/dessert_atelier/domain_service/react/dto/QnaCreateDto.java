@@ -1,9 +1,8 @@
 package com.yangnjo.dessert_atelier.domain_service.react.dto;
 
-import com.yangnjo.dessert_atelier.common.TextEscapeUtil;
-import com.yangnjo.dessert_atelier.domain.display_product.DisplayProduct;
-import com.yangnjo.dessert_atelier.domain.member.Member;
-import com.yangnjo.dessert_atelier.domain.react.QnA;
+import com.yangnjo.dessert_atelier.domain_model.member.Member;
+import com.yangnjo.dessert_atelier.domain_model.product.DisplayProduct;
+import com.yangnjo.dessert_atelier.domain_model.react.QnA;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,12 +16,10 @@ public class QnaCreateDto {
     String comment;
 
     public QnA toMemberQnAEntity(DisplayProduct dp, Member member) {
-        String sanitizedComment = TextEscapeUtil.escapeUserInput(comment);
-        return QnA.createMemberQnA(dp, member, sanitizedComment);
+        return QnA.createMemberQnA(dp, member, comment);
     }
 
     public QnA toGuestQnAEntity(DisplayProduct dp) {
-        String sanitizedComment = TextEscapeUtil.escapeUserInput(comment);
-        return QnA.createGuestQnA(dp, password, sanitizedComment);
+        return QnA.createGuestQnA(dp, password, comment);
     }
 }

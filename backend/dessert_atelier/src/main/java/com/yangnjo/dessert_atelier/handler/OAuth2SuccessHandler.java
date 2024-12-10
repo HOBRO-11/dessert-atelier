@@ -8,9 +8,9 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 import org.springframework.stereotype.Component;
 
 import com.yangnjo.dessert_atelier.common.token_util.TokenHeader;
-import com.yangnjo.dessert_atelier.domain.member.Member;
+import com.yangnjo.dessert_atelier.domain_model.member.Member;
 import com.yangnjo.dessert_atelier.domain_service.member.exception.MemberNotFoundException;
-import com.yangnjo.dessert_atelier.repository.MemberRepository;
+import com.yangnjo.dessert_atelier.repository.member.MemberRepository;
 import com.yangnjo.dessert_atelier.service.auth.AuthTokenService;
 import com.yangnjo.dessert_atelier.service.auth.OAuth2MemberInfo;
 

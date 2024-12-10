@@ -1,6 +1,6 @@
 package com.yangnjo.dessert_atelier.domain_service.member.exception;
 
-import com.yangnjo.dessert_atelier.domain.member.MemberOrigin;
+import com.yangnjo.dessert_atelier.domain_model.member.MemberOrigin;
 
 import lombok.Getter;
 

@@ -8,11 +8,11 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
-import com.yangnjo.dessert_atelier.domain.member.Member;
-import com.yangnjo.dessert_atelier.domain.member.MemberOrigin;
-import com.yangnjo.dessert_atelier.domain.member.MemberRole;
+import com.yangnjo.dessert_atelier.domain_model.member.Member;
+import com.yangnjo.dessert_atelier.domain_model.member.MemberOrigin;
+import com.yangnjo.dessert_atelier.domain_model.member.MemberRole;
 import com.yangnjo.dessert_atelier.domain_service.member.exception.MemberAlreadyExistException;
-import com.yangnjo.dessert_atelier.repository.MemberRepository;
+import com.yangnjo.dessert_atelier.repository.member.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
 
