@@ -10,12 +10,11 @@ import lombok.Getter;
 @AllArgsConstructor
 public class OptionCreateDto {
     Long dpId;
-    Integer totalQuantity;
     String description;
     Integer price;
     Integer optionLayer;
 
     public Option toEntity(DisplayProduct dp) {
-        return new Option(dp, totalQuantity, description, price, optionLayer);
+        return new Option(dp, description, price, optionLayer);
     }
 }

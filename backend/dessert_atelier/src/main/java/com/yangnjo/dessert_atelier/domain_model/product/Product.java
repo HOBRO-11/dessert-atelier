@@ -24,6 +24,10 @@ public class Product extends BaseEntity {
 
     @Setter
     @Column(nullable = false)
+    private Integer quantity;
+
+    @Setter
+    @Column(nullable = false)
     private String thumb;
 
     public Product(String name, int price, String thumb) {

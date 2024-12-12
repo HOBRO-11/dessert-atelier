@@ -34,9 +34,6 @@ public class Option {
     private DisplayProduct displayProduct;
 
     @Setter
-    private Integer totalQuantity;
-
-    @Setter
     private Integer optionLayer;
 
     @Setter
@@ -55,9 +52,8 @@ public class Option {
     /*
      * totalQuantity set infinitely, if totalQuantity is null
      */
-    public Option(DisplayProduct dp, Integer totalQuantity, String description, Integer price, Integer optionLayer) {
+    public Option(DisplayProduct dp, String description, Integer price, Integer optionLayer) {
         this.displayProduct = dp;
-        this.totalQuantity = totalQuantity;
         this.optionLayer = optionLayer;
         this.description = description;
         this.price = price;

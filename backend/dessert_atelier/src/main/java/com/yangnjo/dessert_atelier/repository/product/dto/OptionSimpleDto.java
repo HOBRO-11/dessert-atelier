@@ -13,7 +13,6 @@ import lombok.Getter;
 public class OptionSimpleDto {
     private Long id;
     private Long displayProductId;
-    private Integer totalQuantity;
     private Integer optionLayer;
     private OptionStatus optionStatus;
     private String description;
@@ -23,7 +22,6 @@ public class OptionSimpleDto {
         QOption option = QOption.option;
         return Projections.constructor(OptionSimpleDto.class,
                 option.id,
-                option.totalQuantity,
                 option.optionLayer,
                 option.optionStatus,
                 option.description,

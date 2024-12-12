@@ -17,7 +17,6 @@ public class OptionDto {
 
     private Long id;
     private Long displayProductId;
-    private Integer totalQuantity;
     private Integer optionLayer;
     private OptionStatus optionStatus;
     private String description;
@@ -30,11 +29,10 @@ public class OptionDto {
      * 
      * @see productQuantityDtos
      */
-    public OptionDto(Long id, Long displayProductId, Integer totalQuantity, Integer optionLayer,
+    public OptionDto(Long id, Long displayProductId, Integer optionLayer,
             OptionStatus optionStatus, String description, Integer price) {
         this.id = id;
         this.displayProductId = displayProductId;
-        this.totalQuantity = totalQuantity;
         this.optionLayer = optionLayer;
         this.optionStatus = optionStatus;
         this.description = description;
@@ -46,7 +44,6 @@ public class OptionDto {
         return Projections.constructor(OptionDto.class,
                 option.id,
                 option.displayProduct.id,
-                option.totalQuantity,
                 option.optionLayer,
                 option.optionStatus,
                 option.description,
@@ -61,6 +58,7 @@ public class OptionDto {
         private Integer price;
         private String thumb;
         private Integer quantity;
+        private Integer remainQuantity;
 
         public static Expression<ProductQuantityDto> asDto() {
             QProductQuantity productQuantity = QProductQuantity.productQuantity;
@@ -69,7 +67,9 @@ public class OptionDto {
                     productQuantity.product.name,
                     productQuantity.product.price,
                     productQuantity.product.thumb,
-                    productQuantity.quantity);
+                    productQuantity.quantity,
+                    productQuantity.product.quantity
+                    );
         }
     }
 }

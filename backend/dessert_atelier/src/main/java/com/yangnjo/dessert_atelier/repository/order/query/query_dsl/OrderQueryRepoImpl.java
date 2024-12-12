@@ -15,6 +15,7 @@ import com.yangnjo.dessert_atelier.common.page_util.PageOption;
 import com.yangnjo.dessert_atelier.common.page_util.PeriodOption;
 import com.yangnjo.dessert_atelier.domain_model.order.OrderStatus;
 import com.yangnjo.dessert_atelier.domain_model.order.OrderedOption;
+import com.yangnjo.dessert_atelier.domain_model.order.OrderedOptionStatus;
 import com.yangnjo.dessert_atelier.domain_model.order.QOrders;
 import com.yangnjo.dessert_atelier.domain_model.product.QOption;
 import com.yangnjo.dessert_atelier.repository.order.dto.OrderDto;
@@ -51,7 +52,8 @@ public class OrderQueryRepoImpl implements OrderQueryRepo {
             String title = getTitle(optionIds);
             List<String> desc = getDesc(optionIds);
             Integer quantity = orderedOption.getQuantity();
-            opDtos.add(new OrderedOptionDto(title, desc, quantity));
+            OrderedOptionStatus status = orderedOption.getStatus();
+            opDtos.add(new OrderedOptionDto(title, desc, status, quantity));
         }
 
         dto.setOrderedOptionDtos(opDtos);
@@ -75,7 +77,8 @@ public class OrderQueryRepoImpl implements OrderQueryRepo {
     }
 
     @Override
-    public List<OrderSimpleDto> findAllSimpleByMemberId(Long memberId, PageOption pageOption, PeriodOption periodOption) {
+    public List<OrderSimpleDto> findAllSimpleByMemberId(Long memberId, PageOption pageOption,
+            PeriodOption periodOption) {
         List<OrderSimpleDto> dtos = queryFactory.select(OrderSimpleDto.asIncompleteDto())
                 .from(orders)
                 .where(equalMemberId(memberId), PeriodOption.betweenLDT(orders.createdAt, periodOption))

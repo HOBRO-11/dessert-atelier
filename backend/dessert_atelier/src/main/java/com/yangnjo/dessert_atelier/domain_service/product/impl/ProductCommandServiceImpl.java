@@ -60,4 +60,16 @@ public class ProductCommandServiceImpl implements ProductCommandService {
         }
     }
 
+    @Override
+    public void setQuantity(Long id, int quantity) {
+        Product product = findProductById(id);
+
+        if (quantity < 0) {
+            product.setQuantity(0);
+            return;
+        }
+
+        product.setQuantity(quantity);
+    }
+
 }
