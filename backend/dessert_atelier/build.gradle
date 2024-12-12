@@ -63,6 +63,9 @@ dependencies {
     // validation
     implementation 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20240325.1'
 
+    // poi
+    implementation 'org.apache.poi:poi:5.2.3' // HSSF: Excel 97-2003 (.xls)
+    implementation 'org.apache.poi:poi-ooxml:5.2.3' // XSSF: Excel 2007+ (.xlsx)
 }
 
 tasks.named('test') {

@@ -5,6 +5,7 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @AllArgsConstructor
@@ -12,6 +13,8 @@ import lombok.NoArgsConstructor;
 public class OrderedOption {
     private List<Long> optionIds;
     private Integer quantity;
+    @Setter
+    private OrderedOptionStatus status;
 
     @Override
     public int hashCode() {

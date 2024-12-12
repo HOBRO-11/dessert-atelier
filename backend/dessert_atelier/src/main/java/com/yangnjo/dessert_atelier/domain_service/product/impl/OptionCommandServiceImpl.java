@@ -35,12 +35,6 @@ public class OptionCommandServiceImpl implements OptionCommandService {
         option.setOptionStatus(status);
     }
 
-    @Override
-    public void updateOptionTotalQuantity(Long optionId, Integer totalQuantity) {
-        Option option = findOptionById(optionId);
-        option.setTotalQuantity(totalQuantity);
-    }
-
     private DisplayProduct findDpById(OptionCreateDto dto) {
         return dpRepository.findById(dto.getDpId()).orElseThrow(DisplayProductNotFountException::new);
     }

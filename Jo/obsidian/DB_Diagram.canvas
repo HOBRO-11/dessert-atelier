@@ -1,14 +1,13 @@
 {
 	"nodes":[
-		{"id":"ffe4552ea8dbb709","type":"group","x":-1437,"y":1312,"width":1857,"height":1268,"label":"DB"},
+		{"id":"ffe4552ea8dbb709","type":"group","x":-1437,"y":1312,"width":1857,"height":1368,"label":"DB"},
 		{"id":"c498262071d7b798","type":"group","x":-1062,"y":1340,"width":671,"height":336,"label":"react"},
 		{"id":"df09d968cff7b6ab","type":"text","text":"- [x] Basket - JSON\n\nid\nmember_id\n\\[\nupdatedAt, \noptionIds,\nquantity\n]\n","x":-1417,"y":1360,"width":250,"height":258},
 		{"id":"c39390c30ac95379","type":"text","text":"- [x] Address\n\nid\nnaming\nmember_id\ndestination\nisDefault","x":-1417,"y":1756,"width":250,"height":286},
 		{"id":"ef694bb644c7476d","type":"text","text":"- [x] display_product\n\nid\ntitle\nthumb\ndesc\nimages\ndpStatus\n\n\n","x":-661,"y":1768,"width":250,"height":260},
 		{"id":"669a9d965ae9b4ee","type":"text","text":"- [x] Member\n\nid\nemail\nname\nphone\norigin\nrole\nstatus\n\n","x":-1042,"y":1757,"width":250,"height":283},
 		{"id":"08927715202ff1d1","type":"text","text":"- [x] Review\n\nid\ndp_id\nmember_id\nimages\nstatus\nrate\ncomment\norigin","x":-1042,"y":1360,"width":250,"height":296},
-		{"id":"0ba2c5f51117bb33","type":"text","text":"- [x] Delivery\n\ndelivery_code\norders_code\ndelivery_status\ncreatedAt","x":-1417,"y":2236,"width":250,"height":237},
-		{"id":"222296dd9ae2896a","type":"text","text":"- [x] Orders\n\ncode\nmember_id\nguestPhone\npost_code\ndetail_address\nreceiver\nphone\nstatus\ntotalPrice\ndeliveryFee\n\\[\noptionIds, \nquantity\n\\]\n","x":-1042,"y":2161,"width":250,"height":388},
+		{"id":"222296dd9ae2896a","type":"text","text":"- [x] Orders\n\ncode\nmember_id\nguestPhone\npost_code\ndetail_address\nreceiver\nphone\nstatus\ntotalPrice\ndeliveryFee\n\\[\noptionIds, \nquantity\n==status== (부분환불)\n\\]\n","x":-1042,"y":2161,"width":250,"height":439},
 		{"id":"54159cd153a7cdad","type":"text","text":"- [x] QnA\n\nid\ndp_id\nmember_id\npassword\ncomment\ncomment_at\nstatus\nanswer\nanswer_at\n","x":-661,"y":1360,"width":250,"height":296},
 		{"id":"d2dc6261c22664ba","type":"text","text":"- [x] PresetTable\n\nid\ndpId\nnumbering\n","x":-661,"y":2128,"width":250,"height":139},
 		{"id":"f84c0933bcaf93df","type":"text","text":"- [x] Option\n\nid\ndp_id\ntotal quantity\noptionLayer\nstatus\ndesc\nprice\n\n\n","x":-240,"y":1771,"width":250,"height":260},
@@ -16,8 +15,8 @@
 		{"id":"65fa7ac075da30e3","type":"text","text":"- [x] Product\n\nid\nname\nprice\nthumb\n\n","x":137,"y":1359,"width":250,"height":229},
 		{"id":"e3d24a88dc557172","type":"text","text":"Payment","x":-810,"y":2369,"width":149,"height":180},
 		{"id":"38bfe7d8465aff41","type":"text","text":"- [x] TotalSaleOption\n\nid\noption_id\nsaleAmount\ncreatedAt","x":-240,"y":2180,"width":250,"height":169},
-		{"id":"1c34975e2d60bd7f","type":"text","text":"image","x":-736,"y":1088,"width":250,"height":60},
-		{"id":"1de9f9ce31f3aa38","type":"text","text":"- [x] TotalSaleProduct\n\nid\nproduct_id\nsaleAmount\ncreatedAt","x":137,"y":1772,"width":250,"height":259}
+		{"id":"1de9f9ce31f3aa38","type":"text","text":"- [x] TotalSaleProduct\n\nid\nproduct_id\nsaleAmount\ncreatedAt","x":137,"y":1772,"width":250,"height":259},
+		{"id":"0ba2c5f51117bb33","type":"text","text":"- [x] Delivery\n\ndelivery_code\norders_code\ndelivery_status\ncreatedAt","x":-1417,"y":2262,"width":250,"height":237}
 	],
 	"edges":[
 		{"id":"e13f0dfa1283c7e0","fromNode":"c498262071d7b798","fromSide":"bottom","toNode":"669a9d965ae9b4ee","toSide":"top","label":"1:N"},
@@ -31,9 +30,6 @@
 		{"id":"d41c600d9a05aae1","fromNode":"38bfe7d8465aff41","fromSide":"top","toNode":"f84c0933bcaf93df","toSide":"bottom","label":"1\n :\n N"},
 		{"id":"24656b2ba88b757a","fromNode":"222296dd9ae2896a","fromSide":"left","toNode":"0ba2c5f51117bb33","toSide":"right","label":"1:1"},
 		{"id":"ac81b63bd51eab99","fromNode":"169bc8c9b17a02b5","fromSide":"bottom","toNode":"f84c0933bcaf93df","toSide":"top","label":"N\n:\n1"},
-		{"id":"4db07bdb7b35e3aa","fromNode":"f84c0933bcaf93df","fromSide":"left","toNode":"ef694bb644c7476d","toSide":"right","label":"1:N"},
-		{"id":"f256281eeb4db222","fromNode":"1c34975e2d60bd7f","fromSide":"bottom","toNode":"08927715202ff1d1","toSide":"top"},
-		{"id":"fdb73e7f1b17cfe3","fromNode":"1c34975e2d60bd7f","fromSide":"bottom","toNode":"ef694bb644c7476d","toSide":"left"},
-		{"id":"e4e6e4c3bbf0caba","fromNode":"1c34975e2d60bd7f","fromSide":"bottom","toNode":"65fa7ac075da30e3","toSide":"top"}
+		{"id":"4db07bdb7b35e3aa","fromNode":"f84c0933bcaf93df","fromSide":"left","toNode":"ef694bb644c7476d","toSide":"right","label":"1:N"}
 	]
 }

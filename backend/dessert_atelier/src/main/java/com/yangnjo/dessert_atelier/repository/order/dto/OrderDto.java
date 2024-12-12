@@ -7,6 +7,7 @@ import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.Projections;
 import com.yangnjo.dessert_atelier.domain_model.order.OrderStatus;
 import com.yangnjo.dessert_atelier.domain_model.order.OrderedOption;
+import com.yangnjo.dessert_atelier.domain_model.order.OrderedOptionStatus;
 import com.yangnjo.dessert_atelier.domain_model.order.QOrders;
 import com.yangnjo.dessert_atelier.domain_model.value_type.Destination;
 
@@ -67,6 +68,7 @@ public class OrderDto {
     public static class OrderedOptionDto {
         private String displayProductTitle;
         private List<String> optionDescriptions;
+        private OrderedOptionStatus status;
         private Integer quantity;
     }
 }

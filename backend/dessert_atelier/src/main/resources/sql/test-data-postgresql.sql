@@ -56,6 +56,7 @@ CREATE TABLE product (
     id BIGSERIAL PRIMARY KEY,
     name VARCHAR(20) NOT NULL UNIQUE,
     price INT NOT NULL,
+    quantity INT,
     thumb VARCHAR(100) NOT NULL,
     created_at TIMESTAMP,
     updated_at TIMESTAMP
@@ -84,7 +85,6 @@ CREATE TABLE preset_table (
 CREATE TABLE option (
     id BIGSERIAL PRIMARY KEY,
     display_product_id BIGINT NOT NULL,
-    total_quantity INT,
     option_layer INT,
     option_status VARCHAR(20),
     description VARCHAR(50) NOT NULL,

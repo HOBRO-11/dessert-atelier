@@ -9,4 +9,6 @@ public interface ProductCommandService {
 
     void update(ProductUpdateDto dto);
 
+    void setQuantity(Long id, int quantity);
+
 }
