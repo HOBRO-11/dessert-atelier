@@ -1,18 +1,18 @@
 ## 멤버 사이드
-- C : 발급 (put, ByMemberId)
-- R : 
+C : 발급 (put, ByMemberId)
+R : 
 	검사 (ByToken, request)
 	단 건 조회 (ByMemberId)
-- U : 만료 (ByMemberId)
-- D : 삭제 (ByMemberId)
+U : 만료 (ByMemberId)
+D : 삭제 (ByMemberId)
 
 ## 어드민 사이드
-- C : 발급 (put, ByMemberId)
-- R : 
+C : 발급 (put, ByMemberId)
+R : 
 	검사 (ByToken, request)
 	단 건 조회 (ByMemberId)
-- U : 만료 (ByMemberId)
-- D : 삭제 (ByMemberId)
+U : 만료 (ByMemberId)
+D : 삭제 (ByMemberId)
 
 ~~~
 MEMO
