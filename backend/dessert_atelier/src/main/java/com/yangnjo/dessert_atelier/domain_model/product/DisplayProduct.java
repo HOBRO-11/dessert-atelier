@@ -35,6 +35,9 @@ public class DisplayProduct extends BaseEntity {
     private String description;
 
     @Setter
+    private Integer optionLayer;
+
+    @Setter
     @Column(nullable = false)
     private String thumb;
 

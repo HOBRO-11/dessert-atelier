@@ -9,7 +9,6 @@ public enum DisplayProductStatus {
     PREPARE,
     HIDE,
     ON_SALE,
-    SOLD_OUT,
-    DISCOUNT;
+    SOLD_OUT;
 
 }
