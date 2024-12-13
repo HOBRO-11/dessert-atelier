@@ -34,6 +34,6 @@ public class OptionQueryServiceImpl implements OptionQueryService {
 
     @Override
     public Optional<OptionDto> getByOptionId(Long optionId) {
-        return getByOptionId(optionId);
+        return optionQueryRepo.findByOptionId(optionId);
     }
 }

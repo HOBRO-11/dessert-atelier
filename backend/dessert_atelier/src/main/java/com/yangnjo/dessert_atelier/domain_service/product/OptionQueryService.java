@@ -15,7 +15,6 @@ public interface OptionQueryService {
 
     Optional<OptionDto> getByOptionId(Long optionId);
 
-    @Deprecated
     List<OptionSimpleDto> getAllSimpleByOptionIdIn(List<Long> optionIds);
 
 }

@@ -22,6 +22,7 @@ public class OptionSimpleDto {
         QOption option = QOption.option;
         return Projections.constructor(OptionSimpleDto.class,
                 option.id,
+                option.displayProduct.id,
                 option.optionLayer,
                 option.optionStatus,
                 option.description,

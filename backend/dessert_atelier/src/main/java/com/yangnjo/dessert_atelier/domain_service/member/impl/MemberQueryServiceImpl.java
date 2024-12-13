@@ -1,6 +1,7 @@
 package com.yangnjo.dessert_atelier.domain_service.member.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +23,7 @@ public class MemberQueryServiceImpl implements MemberQueryService {
     private final MemberQueryRepo memberQueryRepo;
 
     @Override
-    public MemberDto getByEmail(String email) {
+    public Optional<MemberDto> getByEmail(String email) {
         return memberQueryRepo.findByEmail(email);
     }
 
@@ -32,12 +33,12 @@ public class MemberQueryServiceImpl implements MemberQueryService {
     }
 
     @Override
-    public MemberDto getById(Long id) {
+    public Optional<MemberDto> getById(Long id) {
         return memberQueryRepo.findById(id);
     }
 
     @Override
-    public MemberSimpleDto getSimpleById(Long id) {
+    public Optional<MemberSimpleDto> getSimpleById(Long id) {
         return memberQueryRepo.findSimpleById(id);
     }
 

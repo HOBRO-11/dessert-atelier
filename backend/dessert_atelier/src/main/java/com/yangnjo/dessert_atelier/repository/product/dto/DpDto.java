@@ -17,6 +17,7 @@ public class DpDto {
     private Long id;
     private String title;
     private String thumb;
+    private Integer optionLayer;
     private String description;
     private List<ImageSrc> images;
     private DisplayProductStatus dpStatus;
@@ -27,6 +28,7 @@ public class DpDto {
                 displayProduct.id,
                 displayProduct.title,
                 displayProduct.thumb,
+                displayProduct.optionLayer,
                 displayProduct.description,
                 displayProduct.images,
                 displayProduct.displayProductStatus);

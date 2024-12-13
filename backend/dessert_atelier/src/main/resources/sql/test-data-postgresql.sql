@@ -66,6 +66,7 @@ CREATE TABLE display_product (
     id BIGSERIAL PRIMARY KEY,
     title VARCHAR(30) NOT NULL UNIQUE,
     thumb VARCHAR(100) NOT NULL,
+    option_layer INT NOT NULL,
     description VARCHAR(100) NOT NULL,
     display_product_status VARCHAR(20),
     images JSONB,

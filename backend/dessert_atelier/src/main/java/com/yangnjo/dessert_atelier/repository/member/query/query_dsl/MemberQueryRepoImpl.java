@@ -1,6 +1,7 @@
 package com.yangnjo.dessert_atelier.repository.member.query.query_dsl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
@@ -34,27 +35,27 @@ public class MemberQueryRepoImpl implements MemberQueryRepo {
     }
 
     @Override
-    public MemberSimpleDto findSimpleById(Long id) {
-        return queryFactory.select(MemberSimpleDto.asDto())
+    public Optional<MemberSimpleDto> findSimpleById(Long id) {
+        return Optional.ofNullable(queryFactory.select(MemberSimpleDto.asDto())
                 .from(member)
                 .where(equalMemberId(id))
-                .fetchOne();
+                .fetchOne());
     }
 
     @Override
-    public MemberDto findById(Long id) {
-        return queryFactory.select(MemberDto.asDto())
+    public Optional<MemberDto> findById(Long id) {
+        return Optional.ofNullable(queryFactory.select(MemberDto.asDto())
                 .from(member)
                 .where(equalMemberId(id))
-                .fetchOne();
+                .fetchOne());
     }
 
     @Override
-    public MemberDto findByEmail(String email) {
-        return queryFactory.select(MemberDto.asDto())
+    public Optional<MemberDto> findByEmail(String email) {
+        return Optional.ofNullable(queryFactory.select(MemberDto.asDto())
                 .from(member)
                 .where(equalMemberEmail(email))
-                .fetchOne();
+                .fetchOne());
     }
 
     @Override
