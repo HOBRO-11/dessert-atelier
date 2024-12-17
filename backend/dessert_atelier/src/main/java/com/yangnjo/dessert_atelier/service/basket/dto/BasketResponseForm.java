@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class BasketResponseFrom {
+public class BasketResponseForm {
     private List<BasketPropertyDetail> basketPropertyDetails = new ArrayList<>();
 
     public static BasketPropertyDetail create(BasketProperty prop, Map<Long, OptionSimpleDto> osds,

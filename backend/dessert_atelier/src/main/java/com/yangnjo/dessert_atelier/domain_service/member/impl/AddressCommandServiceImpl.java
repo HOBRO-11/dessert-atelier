@@ -1,8 +1,8 @@
 package com.yangnjo.dessert_atelier.domain_service.member.impl;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +27,7 @@ import lombok.RequiredArgsConstructor;
 @Transactional(readOnly = false)
 public class AddressCommandServiceImpl implements AddressCommandService {
 
-    private static final int ADDRESS_MAX_COUNT = 20;
+    private static final int ADDRESS_MAX_COUNT = 5;
     private final AddressRepository addressRepository;
     private final MemberRepository memberRepository;
 
@@ -36,20 +36,18 @@ public class AddressCommandServiceImpl implements AddressCommandService {
         Member member = findMemberById(memberId);
 
         List<Address> addresses = member.getAddresses();
-        int size = addresses.size();
-
-        Iterator<AddressCreateDto> iterator = dto.iterator();
-        List<Address> saveAddresses = new ArrayList<>();
-
-        while (iterator.hasNext()) {
-
-            if (size >= ADDRESS_MAX_COUNT) {
-                break;
-            }
-
-            saveAddresses.add(iterator.next().toEntity());
+        if (addresses.size() + dto.size() > ADDRESS_MAX_COUNT) {
+            throw new IllegalArgumentException("주소록에 저장할 수 있는 최대 개수를 넘겼습니다.");
         }
 
+        long defaultCnt = dto.stream().filter(acd -> acd.isDefault()).count();
+        if (defaultCnt > 1) {
+            throw new IllegalArgumentException("기본 주소는 하나만 설정할 수 있습니바.");
+        } else if (defaultCnt == 1) {
+            addresses.forEach(address -> address.setDefault(false));
+        }
+
+        List<Address> saveAddresses = dto.stream().map(acd -> acd.toEntity(member)).collect(Collectors.toList());
         return addressRepository.saveAll(saveAddresses).size();
     }
 

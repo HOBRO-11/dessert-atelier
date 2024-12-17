@@ -72,6 +72,7 @@ public class BasketCommandServiceImpl implements BasketCommandService {
                 }
 
                 currentBp.addQuantity(quantity);
+                currentBp.setUpdatedAt();
                 quantityByOptionIds.remove(currentOptionIds);
             }
         }
@@ -92,7 +93,7 @@ public class BasketCommandServiceImpl implements BasketCommandService {
 
     private Basket findBasketByMemberId(Member member) {
         return basketRepository.findByMemberId(member.getId())
-                .orElse(basketRepository.save(new Basket(member)));
+        .orElseGet(() -> basketRepository.save(new Basket(member)));
     }
 
     private Member findMemberById(Long memberId) {

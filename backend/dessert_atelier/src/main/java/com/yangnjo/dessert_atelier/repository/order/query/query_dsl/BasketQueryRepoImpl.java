@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.yangnjo.dessert_atelier.domain_model.order.BasketProperty;
 import com.yangnjo.dessert_atelier.domain_model.order.QBasket;
@@ -25,6 +26,7 @@ public class BasketQueryRepoImpl implements BasketQueryRepo {
         BasketDto dto = queryFactory
                 .select(BasketDto.asDto())
                 .from(basket)
+                .where(equalMemberId(memberId))
                 .fetchOne();
 
         if (dto == null) {
@@ -34,6 +36,10 @@ public class BasketQueryRepoImpl implements BasketQueryRepo {
         dto.getProperties().sort(intoLatest());
 
         return Optional.of(dto);
+    }
+
+    private BooleanExpression equalMemberId(Long memberId) {
+        return basket.member.id.eq(memberId);
     }
 
     private Comparator<? super BasketProperty> intoLatest() {

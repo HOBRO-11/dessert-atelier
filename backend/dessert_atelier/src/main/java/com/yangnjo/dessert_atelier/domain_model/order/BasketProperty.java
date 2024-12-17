@@ -24,7 +24,15 @@ public class BasketProperty implements Serializable {
     }
 
     public void addQuantity(int amount) {
+        if (quantity == null && amount > 0) {
+            this.quantity = amount;
+            return;
+        }
         this.quantity += amount;
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    public void setUpdatedAt() {
         this.updatedAt = LocalDateTime.now();
     }
 
@@ -33,6 +41,7 @@ public class BasketProperty implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((optionIds == null) ? 0 : optionIds.hashCode());
+        result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
         return result;
     }
 
@@ -50,7 +59,12 @@ public class BasketProperty implements Serializable {
                 return false;
         } else if (!optionIds.equals(other.optionIds))
             return false;
+        if (updatedAt == null) {
+            if (other.updatedAt != null)
+                return false;
+        } else if (!updatedAt.equals(other.updatedAt))
+            return false;
         return true;
-    };
+    }
 
 }

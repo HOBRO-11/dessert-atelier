@@ -44,7 +44,7 @@ CREATE TABLE address (
     id BIGSERIAL PRIMARY KEY,
     naming VARCHAR(20) NOT NULL,
     member_id BIGINT NOT NULL,
-    post_code VARCHAR(10),
+    post_code VARCHAR(100),
     detail_address VARCHAR(50),
     receiver VARCHAR(20),
     phone VARCHAR(11),
