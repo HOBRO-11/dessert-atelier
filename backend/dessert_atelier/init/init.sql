@@ -8,11 +8,11 @@ VALUES
 
 INSERT INTO address (naming, member_id, post_code, detail_address, receiver, phone, is_default)
 VALUES
-    ('Home', 1, '12345', '123 Main St.', 'Alice', '01012345678', TRUE),
-    ('Office', 1, '67890', '456 Office Rd.', 'Alice', '01098765432', FALSE),
-    ('Home', 2, '54321', '789 Elm St.', 'Bob', '01023456789', TRUE),
-    ('Vacation', 3, NULL, 'Unknown St.', 'Charlie', NULL, FALSE),
-    ('Home', 4, '11111', '555 Maple Ave.', 'Daisy', '01076543210', TRUE);
+    ('Home', 1, '부산 남구 대연동 12', '123 Main St.', 'Alice', '01012345678', TRUE),
+    ('Office', 1, '부산 진구 전포동 47', '456 Office Rd.', 'Alice', '01098765432', FALSE),
+    ('Home', 2, '부산 사상구 주례동 36', '789 Elm St.', 'Bob', '01023456789', FALSE),
+    ('Vacation', 3, '부산 동래구 온천동 2', 'Unknown St.', 'Charlie', NULL, FALSE),
+    ('Home', 4, '부산 남구 대연동 34', '555 Maple Ave.', 'Daisy', '01076543210', FALSE);
     
 INSERT INTO product (name, price, quantity, thumb, created_at, updated_at)
 VALUES

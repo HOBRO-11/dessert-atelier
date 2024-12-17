@@ -42,8 +42,10 @@ public class Address {
     @Column(nullable = false)
     private boolean isDefault;
 
-    public Address(String naming, String postCode, String detailAddress, String receiver,
+    public Address(Member member, String naming, String postCode, String detailAddress, String receiver,
             String phone, boolean isDefault) {
+        this.member = member;
+        member.addAddress(this);
         this.naming = naming;
         Destination newDestination = new Destination(postCode, detailAddress, receiver, phone);
         this.destination = newDestination;
