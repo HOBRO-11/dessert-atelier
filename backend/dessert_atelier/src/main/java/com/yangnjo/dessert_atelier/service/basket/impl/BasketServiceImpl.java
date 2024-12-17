@@ -21,8 +21,8 @@ import com.yangnjo.dessert_atelier.repository.product.dto.OptionSimpleDto;
 import com.yangnjo.dessert_atelier.service.basket.BasketService;
 import com.yangnjo.dessert_atelier.service.basket.dto.BasketAddForm;
 import com.yangnjo.dessert_atelier.service.basket.dto.BasketRemoveForm;
-import com.yangnjo.dessert_atelier.service.basket.dto.BasketResponseFrom;
-import com.yangnjo.dessert_atelier.service.basket.dto.BasketResponseFrom.BasketPropertyDetail;
+import com.yangnjo.dessert_atelier.service.basket.dto.BasketResponseForm;
+import com.yangnjo.dessert_atelier.service.basket.dto.BasketResponseForm.BasketPropertyDetail;
 
 import lombok.RequiredArgsConstructor;
 
@@ -37,11 +37,11 @@ public class BasketServiceImpl implements BasketService {
     private final PresetTableQueryService presetTableQueryService;
 
     @Override
-    public BasketResponseFrom getBasket(Long memberId) {
+    public BasketResponseForm getBasket(Long memberId) {
         BasketDto basketDto = getBasketDto(memberId);
 
         if (basketDto == null) {
-            return new BasketResponseFrom();
+            return new BasketResponseForm();
         }
 
         List<BasketProperty> props = basketDto.getProperties();
@@ -50,11 +50,11 @@ public class BasketServiceImpl implements BasketService {
         List<Long> presetTableDpIds = getPresetTableDpId();
 
         if (optionMap == null || DpMap == null || presetTableDpIds == null) {
-            return new BasketResponseFrom();
+            return new BasketResponseForm();
         }
 
         List<BasketPropertyDetail> dpds = getBasketPropertyDetails(props, optionMap, DpMap, presetTableDpIds);
-        return new BasketResponseFrom(dpds);
+        return new BasketResponseForm(dpds);
     }
 
     /**
@@ -102,7 +102,7 @@ public class BasketServiceImpl implements BasketService {
         return props.stream().map(prop -> {
             boolean available = isAvailable(prop.getOptionIds(), optionMap, DpMap,
                     presetTableDpIds);
-            return BasketResponseFrom.create(prop, optionMap, DpMap, available);
+            return BasketResponseForm.create(prop, optionMap, DpMap, available);
         }).collect(Collectors.toList());
     }
 

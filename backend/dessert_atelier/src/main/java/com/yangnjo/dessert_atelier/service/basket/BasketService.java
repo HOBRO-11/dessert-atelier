@@ -2,11 +2,11 @@ package com.yangnjo.dessert_atelier.service.basket;
 
 import com.yangnjo.dessert_atelier.service.basket.dto.BasketAddForm;
 import com.yangnjo.dessert_atelier.service.basket.dto.BasketRemoveForm;
-import com.yangnjo.dessert_atelier.service.basket.dto.BasketResponseFrom;
+import com.yangnjo.dessert_atelier.service.basket.dto.BasketResponseForm;
 
 public interface BasketService {
 
-    BasketResponseFrom getBasket(Long memberId);
+    BasketResponseForm getBasket(Long memberId);
 
     /**
      * @param memberId
