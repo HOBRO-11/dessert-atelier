@@ -39,7 +39,7 @@ public class OptionValidationUtil {
         }
 
         int dpOptionLayer = getDpOptionLayer(optionIds, optionSimpleMap, DpSimpleMap);
-        Long dpId = getDpId(optionIds, DpSimpleMap);
+        Long dpId = getDpId(optionIds, optionSimpleMap);
 
         if (dpId == null) {
             return false;
@@ -102,7 +102,7 @@ public class OptionValidationUtil {
         }
 
         int dpOptionLayer = getDpOptionLayer(optionIds, optionSimpleMap, DpSimpleMap);
-        Long dpId = getDpId(optionIds, DpSimpleMap);
+        Long dpId = getDpId(optionIds, optionSimpleMap);
 
         if (dpId == null) {
             throw new OptionValidateException("현재 판매하지 않는 상품있니다.");
@@ -145,8 +145,8 @@ public class OptionValidationUtil {
         return;
     }
 
-    private static Long getDpId(List<Long> optionIds, Map<Long, DpSimpleDto> dsdMap) {
-        return dsdMap.get(optionIds.get(0)).getId();
+    private static Long getDpId(List<Long> optionIds, Map<Long, OptionSimpleDto> osds) {
+        return osds.get(optionIds.get(0)).getDisplayProductId();
     }
 
     private static Integer getDpOptionLayer(List<Long> optionIds, Map<Long, OptionSimpleDto> osds,
