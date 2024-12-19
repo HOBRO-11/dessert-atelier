@@ -25,6 +25,13 @@ public class PQCreateResult {
         return new PQCreateErrorMessage(optionId, productId, message);
     }
 
+    public void addCreateResult(PQCreateResult result) {
+        this.totalCount += result.getTotalCount();
+        this.successCount += result.getSuccessCount();
+        this.errorCount += result.getErrorCount();
+        this.errors.addAll(result.getErrors());
+    }
+
     @Getter
     @AllArgsConstructor
     public static class PQCreateErrorMessage {
