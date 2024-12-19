@@ -14,9 +14,10 @@ public class DisplayProductCreateDto {
     String title;
     String thumb;
     String desc;
+    Integer optionLayer;
     List<ImageSrc> images;
 
     public DisplayProduct toEntity() {
-        return new DisplayProduct(title, desc, thumb, images);
+        return new DisplayProduct(title, desc, thumb, optionLayer, images);
     }
 }

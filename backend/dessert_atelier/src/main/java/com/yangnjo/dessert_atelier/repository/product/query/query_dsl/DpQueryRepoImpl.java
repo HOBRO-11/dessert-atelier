@@ -95,11 +95,11 @@ public class DpQueryRepoImpl implements DpQueryRepo {
     }
 
     private BooleanExpression equalDpStatus(DisplayProductStatus displayProductStatus) {
-        return displayProduct.displayProductStatus.eq(displayProductStatus);
+        return displayProductStatus != null ? displayProduct.displayProductStatus.eq(displayProductStatus) : null;
     }
 
     private BooleanExpression exceptDpStatus(DisplayProductStatus displayProductStatus) {
-        return displayProduct.displayProductStatus.ne(displayProductStatus);
+        return displayProductStatus != null ? displayProduct.displayProductStatus.ne(displayProductStatus) : null;
     }
 
 }
