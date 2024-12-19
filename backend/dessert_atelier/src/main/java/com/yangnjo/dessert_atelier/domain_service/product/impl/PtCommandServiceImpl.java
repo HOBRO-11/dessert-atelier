@@ -24,7 +24,9 @@ public class PtCommandServiceImpl implements PresetTableCommandService {
     @Override
     public Long create(PresetTableCreateDto dto) {
         DisplayProduct dp = findDisplayProductById(dto.getDpId());
-        return presetTableRepository.save(dto.toEntity(dp)).getId();
+        PresetTable presetTable = presetTableRepository.save(dto.toEntity(dp));
+        presetTable.setNumbering(dto.getNumbering());
+        return presetTable.getId();
     }
 
     @Override

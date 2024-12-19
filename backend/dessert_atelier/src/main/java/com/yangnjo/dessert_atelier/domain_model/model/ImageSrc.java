@@ -3,9 +3,11 @@ package com.yangnjo.dessert_atelier.domain_model.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
+@AllArgsConstructor
 public class ImageSrc {
 
     private String name;
@@ -14,15 +16,10 @@ public class ImageSrc {
     public static List<ImageSrc> create(List<String> imageNames, String path) {
         List<ImageSrc> images = new ArrayList<>();
         for(String imageName : imageNames){
-            images.add(new ImageSrc(imageName, path));
+            images.add(new ImageSrc(imageName, path + "/" + imageName));
         }
 
         return images;
-    }
-
-    public ImageSrc(String name, String path){
-        this.name = name;
-        this.url = path + "/" + name;
     }
 
     @Override
