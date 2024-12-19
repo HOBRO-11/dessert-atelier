@@ -14,5 +14,6 @@ public class DisplayProductUpdateDto {
     String title;
     String thumb;
     String desc;
+    Integer optionLayer;
     List<ImageSrc> images;
 }

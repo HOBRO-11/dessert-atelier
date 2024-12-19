@@ -41,6 +41,7 @@ public class DisplayProduct extends BaseEntity {
     @Column(nullable = false)
     private String thumb;
 
+    @Setter
     @Type(JsonType.class)
     private List<ImageSrc> images;
 
@@ -54,10 +55,11 @@ public class DisplayProduct extends BaseEntity {
     @OneToMany(mappedBy = "displayProduct")
     private List<QnA> qnas = new ArrayList<>();
 
-    public DisplayProduct(String title, String desc, String thumb, List<ImageSrc> images) {
+    public DisplayProduct(String title, String desc, String thumb, Integer optionLayer, List<ImageSrc> images) {
         this.title = title;
         this.description = desc;
         this.thumb = thumb;
+        this.optionLayer = optionLayer;
         this.images = images;
         this.displayProductStatus = DisplayProductStatus.PREPARE;
     }

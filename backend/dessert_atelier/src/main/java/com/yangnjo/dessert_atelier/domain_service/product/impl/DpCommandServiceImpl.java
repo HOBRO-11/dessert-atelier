@@ -1,9 +1,12 @@
 package com.yangnjo.dessert_atelier.domain_service.product.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import com.yangnjo.dessert_atelier.domain_model.model.ImageSrc;
 import com.yangnjo.dessert_atelier.domain_model.product.DisplayProduct;
 import com.yangnjo.dessert_atelier.domain_model.product.DisplayProductStatus;
 import com.yangnjo.dessert_atelier.domain_service.product.DisplayProductCommandService;
@@ -31,19 +34,31 @@ public class DpCommandServiceImpl implements DisplayProductCommandService {
     @Override
     public void update(final DisplayProductUpdateDto dto) {
         Long dpId = dto.getDpId();
-        String title = dto.getTitle();
         String description = dto.getDesc();
         String thumb = dto.getThumb();
+        Integer optionLayer = dto.getOptionLayer();
+        List<ImageSrc> images = dto.getImages();
 
         DisplayProduct displayProduct = findDisplayProductById(dpId);
-        if (StringUtils.hasText(title)) {
-            displayProduct.setTitle(title);
-        }
         if (StringUtils.hasText(description)) {
             displayProduct.setDescription(description);
+            return;
         }
         if (StringUtils.hasText(thumb)) {
             displayProduct.setThumb(thumb);
+            displayProduct.setImages(images);
+            return;
+        }
+        if (optionLayer != null) {
+            if(optionLayer < 1) {
+                throw new IllegalArgumentException("옵션 레이어는 1 이상이어야 합니다.");
+            }
+            displayProduct.setOptionLayer(optionLayer);
+            return;
+        }
+        if (images != null) {
+            displayProduct.setImages(images);
+            return;
         }
     }
 
