@@ -1,5 +1,6 @@
 package com.yangnjo.dessert_atelier.domain_model.product;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -47,7 +48,7 @@ public class Option {
     private Integer price;
 
     @OneToMany(mappedBy = "option", cascade = CascadeType.REMOVE)
-    private List<ProductQuantity> productQuantities;
+    private List<ProductQuantity> productQuantities = new ArrayList<>();
 
     /*
      * totalQuantity set infinitely, if totalQuantity is null

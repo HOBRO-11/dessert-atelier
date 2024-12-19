@@ -8,5 +8,5 @@ import lombok.RequiredArgsConstructor;
 public enum MemberStatus {
     BAN,
     ACTIVE,
-    UNACTIVE;
+    INACTIVE;
 }
