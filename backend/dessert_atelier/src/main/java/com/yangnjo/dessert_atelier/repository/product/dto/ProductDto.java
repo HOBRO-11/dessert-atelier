@@ -14,6 +14,7 @@ public class ProductDto {
     private String name;
     private Integer price;
     private String thumb;
+    private Integer quantity;
 
     public static Expression<ProductDto> asDto() {
         QProduct product = QProduct.product;
@@ -21,6 +22,7 @@ public class ProductDto {
                 product.id,
                 product.name,
                 product.price,
-                product.thumb);
+                product.thumb,
+                product.quantity);
     }
 }

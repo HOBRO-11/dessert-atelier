@@ -30,9 +30,10 @@ public class Product extends BaseEntity {
     @Column(nullable = false)
     private String thumb;
 
-    public Product(String name, int price, String thumb) {
+    public Product(String name, int price, String thumb, Integer quantity) {
         this.name = name;
         this.price = price;
         this.thumb = thumb;
+        this.quantity = quantity;
     }
 }
