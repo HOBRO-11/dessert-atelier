@@ -14,6 +14,6 @@ public interface ReviewCommandService {
 
     void updateReviewStatus(Long reviewId, ReviewStatus status);
 
-    void deleteReview(Long reviewId, Long memberId);
+    void deleteReview(Long reviewId);
 
 }

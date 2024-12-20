@@ -1,7 +1,6 @@
 package com.yangnjo.dessert_atelier.domain_service.react.dto;
 
 import java.util.List;
-import java.util.Map;
 
 import com.yangnjo.dessert_atelier.domain_model.member.Member;
 import com.yangnjo.dessert_atelier.domain_model.model.ImageSrc;
@@ -17,7 +16,6 @@ import lombok.Getter;
 public class ReviewCreateDto {
     Long dpId;
     Long memberId;
-    Map<String,String> imageUrls;
     Integer rate;
     String comment;
     List<ImageSrc> images;

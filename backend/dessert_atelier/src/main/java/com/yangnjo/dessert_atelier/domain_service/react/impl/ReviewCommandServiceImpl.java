@@ -69,12 +69,7 @@ public class ReviewCommandServiceImpl implements ReviewCommandService {
     }
 
     @Override
-    public void deleteReview(Long reviewId, Long memberId) {
-        Review review = findReviewById(reviewId);
-
-        checkExistMember(memberId);
-        checkAuthMember(memberId, review);
-
+    public void deleteReview(Long reviewId) {
         reviewRepository.deleteById(reviewId);
     }
 
