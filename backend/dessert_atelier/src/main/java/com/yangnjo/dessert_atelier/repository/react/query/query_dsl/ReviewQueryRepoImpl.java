@@ -96,27 +96,36 @@ public class ReviewQueryRepoImpl implements ReviewQueryRepo {
     }
 
     private void setMemberNameAtDtos(List<ReviewDto> dtos) {
-        Set<Long> memberIds = dtos.stream().map(ReviewDto::getMemberId).collect(Collectors.toSet());
+        Set<Long> memberIds = dtos.stream().map(ReviewDto::getMemberId).filter(id -> id != null).collect(Collectors.toSet());
 
-        Map<Long, String> memberIdAndName = queryFactory.select(member.id, member.name)
-                .from(member)
-                .where(member.id.in(memberIds))
-                .fetch()
-                .stream()
-                .collect(Collectors.toMap(tuple -> tuple.get(member.id),
-                        tuple -> tuple.get(member.name)));
+        Map<Long, String> memberIdAndName = null;
 
-        dtos.stream().forEach(dto -> {
-            String name = memberIdAndName.get(dto.getMemberId());
+        if (memberIds != null && (memberIds.isEmpty() == false)) {
+            memberIdAndName = queryFactory.select(member.id, member.name)
+                    .from(member)
+                    .where(member.id.in(memberIds))
+                    .fetch()
+                    .stream()
+                    .collect(Collectors.toMap(tuple -> tuple.get(member.id),
+                            tuple -> tuple.get(member.name)));
+        }
+
+        for (ReviewDto dto : dtos) {
+            String name = null;
+
+            if (memberIdAndName != null) {
+                name = memberIdAndName.get(dto.getMemberId());
+            }
+
             if (name == null) {
                 name = "GUEST";
             }
             dto.setName(name);
-        });
+        }
     }
 
     private BooleanExpression exceptReviewStatus(ReviewStatus status) {
-        return review.reviewStatus.ne(status);
+        return status == null ? null : review.reviewStatus.ne(status);
     }
 
     private BooleanExpression equalDpId(Long dpId) {
@@ -128,6 +137,6 @@ public class ReviewQueryRepoImpl implements ReviewQueryRepo {
     }
 
     private BooleanExpression equalMemberId(Long memberId) {
-        return review.member.id.eq(memberId);
+        return memberId == null ? null : review.member.id.eq(memberId);
     }
 }

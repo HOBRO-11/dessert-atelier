@@ -1,4 +1,4 @@
-package com.yangnjo.dessert_atelier.domain_service.total;
+package com.yangnjo.dessert_atelier.service.total;
 
 import java.util.List;
 
@@ -9,11 +9,10 @@ import com.yangnjo.dessert_atelier.common.page_util.PeriodOption;
 import com.yangnjo.dessert_atelier.repository.total.dto.TotalSaleOptionDto;
 import com.yangnjo.dessert_atelier.repository.total.dto.TotalSaleOptionGraphDto;
 
-public interface TotalSaleOptionQueryService {
+public interface TotalSaleOptionService {
 
-    Page<TotalSaleOptionDto> findForPageByOptionId(Long optionId, PageOption pageOption,
+    Page<TotalSaleOptionDto> getByOptionId(Long optionId, PageOption pageOption,
             PeriodOption periodOption);
 
-    List<TotalSaleOptionGraphDto> findForGraphByOptionId(Long optionId, PeriodOption periodOption);
-
+    List<TotalSaleOptionGraphDto> getGraphByOptionId(Long optionId, PeriodOption periodOption);
 }

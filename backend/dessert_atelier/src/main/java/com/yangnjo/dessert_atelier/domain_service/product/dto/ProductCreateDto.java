@@ -11,8 +11,9 @@ public class ProductCreateDto {
     String name;
     Integer price;
     String thumb;
+    Integer quantity;
 
     public Product toEntity() {
-        return new Product(name, price, thumb);
+        return new Product(name, price, thumb, quantity);
     }
 }
