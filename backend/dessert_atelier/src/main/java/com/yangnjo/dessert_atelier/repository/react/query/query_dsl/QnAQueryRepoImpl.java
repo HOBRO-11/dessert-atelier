@@ -98,31 +98,41 @@ public class QnAQueryRepoImpl implements QnAQueryRepo {
     }
 
     private void setMemberNameAtDtos(List<QnADto> dtos) {
-        Set<Long> memberIds = dtos.stream().map(QnADto::getMemberId).collect(Collectors.toSet());
+        Set<Long> memberIds = dtos.stream().map(QnADto::getMemberId).filter(id -> id != null)
+                .collect(Collectors.toSet());
 
-        Map<Long, String> memberIdAndName = queryFactory.select(member.id, member.name)
-                .from(member)
-                .where(member.id.in(memberIds))
-                .fetch()
-                .stream()
-                .collect(Collectors.toMap(tuple -> tuple.get(member.id),
-                        tuple -> tuple.get(member.name)));
+        Map<Long, String> memberIdAndName = null;
 
-        dtos.stream().forEach(dto -> {
-            String name = memberIdAndName.get(dto.getMemberId());
-            if(name == null) {
+        if (memberIds != null && (memberIds.isEmpty() == false)) {
+            memberIdAndName = queryFactory.select(member.id, member.name)
+                    .from(member)
+                    .where(member.id.in(memberIds))
+                    .fetch()
+                    .stream()
+                    .collect(Collectors.toMap(tuple -> tuple.get(member.id),
+                            tuple -> tuple.get(member.name)));
+        }
+
+        for (QnADto dto : dtos) {
+            String name = null;
+
+            if (memberIdAndName != null) {
+                name = memberIdAndName.get(dto.getMemberId());
+            }
+
+            if (name == null) {
                 name = "GUEST";
             }
             dto.setName(name);
-        });
+        }
     }
 
     private BooleanExpression equalDpId(Long dpId) {
-        return qnA.displayProduct.id.eq(dpId);
+        return dpId == null ? null : qnA.displayProduct.id.eq(dpId);
     }
 
     private BooleanExpression notEqualStatus(QnAStatus status) {
-        return qnA.qnaStatus.ne(status);
+        return status == null ? null : qnA.qnaStatus.ne(status);
     }
 
     private BooleanExpression equalStatus(QnAStatus status) {
