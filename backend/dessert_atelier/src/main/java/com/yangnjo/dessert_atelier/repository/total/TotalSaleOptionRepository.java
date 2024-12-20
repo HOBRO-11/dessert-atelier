@@ -13,21 +13,21 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TotalSaleOptionRepository {
 
-  private final EntityManager em;
+    private final EntityManager em;
 
-  @Transactional(readOnly = false)
-  public Integer upsert(LocalDate localDate, Long optionId, Integer saleAmount) {
-    String nativeSqlString = "INSERT INTO total_sale_option (created_at, option_id, sale_amount) " +
-        "VALUES (:date, :optionId, :saleAmount) " +
-        "ON CONFLICT (created_at, option_id) " +
-        "DO UPDATE SET sale_amount = total_sale_option.sale_amount + EXCLUDED.sale_amount";
+    @Transactional(readOnly = false)
+    public Integer upsert(LocalDate localDate, Long optionId, Integer saleAmount) {
+        String nativeSqlString = "INSERT INTO total_sale_option (created_at, option_id, sale_amount) " +
+                "VALUES (:date, :optionId, :saleAmount) " +
+                "ON CONFLICT (created_at, option_id) " +
+                "DO UPDATE SET sale_amount = total_sale_option.sale_amount + EXCLUDED.sale_amount";
 
-    Query query = em.createNativeQuery(nativeSqlString, Integer.class);
-    query.setParameter("date", localDate);
-    query.setParameter("optionId", optionId);
-    query.setParameter("saleAmount", saleAmount);
+        Query query = em.createNativeQuery(nativeSqlString, Integer.class);
+        query.setParameter("date", localDate);
+        query.setParameter("optionId", optionId);
+        query.setParameter("saleAmount", saleAmount);
 
-    return query.executeUpdate();
-  }
+        return query.executeUpdate();
+    }
 
 }
