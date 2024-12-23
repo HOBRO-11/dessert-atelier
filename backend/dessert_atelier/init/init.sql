@@ -16,19 +16,19 @@ VALUES
     
 INSERT INTO product (name, price, quantity, thumb, created_at, updated_at)
 VALUES
-    ('Product1', 1000, 50, '/images/product1.jpg', NOW(), NOW()),
-    ('Product2', 2000, 30, '/images/product2.jpg', NOW(), NOW()),
-    ('Product3', 1500, 20, '/images/product3.jpg', NOW(), NOW()),
-    ('Product4', 2500, 10, '/images/product4.jpg', NOW(), NOW()),
-    ('Product5', 3000, 5, '/images/product5.jpg', NOW(), NOW());
+    ('Product1', 1000, 50, 'product1.jpg', NOW(), NOW()),
+    ('Product2', 2000, 30, 'product2.jpg', NOW(), NOW()),
+    ('Product3', 1500, 20, 'product3.jpg', NOW(), NOW()),
+    ('Product4', 2500, 10, 'product4.jpg', NOW(), NOW()),
+    ('Product5', 3000, 5, 'product5.jpg', NOW(), NOW());
     
-INSERT INTO display_product (title, thumb, option_layer, description, display_product_status, images, created_at, updated_at)
+INSERT INTO display_product (title, thumb, option_layer, description, display_product_status, created_at, updated_at)
 VALUES
-    ('Display1', '/images/display1.jpg', 2, 'Description1', 'ON_SALE', '[{"url":"/images/1.jpg"}]', NOW(), NOW()),
-    ('Display2', '/images/display2.jpg', 2, 'Description2', 'ON_SALE', '[{"url":"/images/2.jpg"}]', NOW(), NOW()),
-    ('Display3', '/images/display3.jpg', 1, 'Description3', 'PREPARE', '[{"url":"/images/3.jpg"}]', NOW(), NOW()),
-    ('Display4', '/images/display4.jpg', 1, 'Description4', 'HIDE', '[{"url":"/images/4.jpg"}]', NOW(), NOW()),
-    ('Display5', '/images/display5.jpg', 1, 'Description5', 'SOLD_OUT', '[{"url":"/images/5.jpg"}]', NOW(), NOW());
+    ('Display1', null, 2, 'Description1', 'ON_SALE', NOW(), NOW()),
+    ('Display2', null, 2, 'Description2', 'ON_SALE', NOW(), NOW()),
+    ('Display3', null, 1, 'Description3', 'PREPARE', NOW(), NOW()),
+    ('Display4', null, 1, 'Description4', 'HIDE', NOW(), NOW()),
+    ('Display5', null, 1, 'Description5', 'SOLD_OUT', NOW(), NOW());
     
 INSERT INTO preset_table (display_product_id, numbering, created_at, updated_at)
 VALUES

@@ -1,5 +1,7 @@
 package com.yangnjo.dessert_atelier.repository.product.dto;
 
+import java.util.List;
+
 import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.Projections;
 import com.yangnjo.dessert_atelier.domain_model.product.DisplayProductStatus;
@@ -13,7 +15,7 @@ import lombok.Getter;
 public class DpSimpleDto {
     private Long id;
     private String title;
-    private String thumb;
+    private List<String> thumb;
     private Integer optionLayer;
     private DisplayProductStatus dpStatus;
 

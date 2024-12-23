@@ -6,7 +6,6 @@ import java.util.List;
 import org.hibernate.annotations.Type;
 
 import com.yangnjo.dessert_atelier.domain_model.model.BaseEntity;
-import com.yangnjo.dessert_atelier.domain_model.model.ImageSrc;
 import com.yangnjo.dessert_atelier.domain_model.react.QnA;
 import com.yangnjo.dessert_atelier.domain_model.react.Review;
 
@@ -39,11 +38,8 @@ public class DisplayProduct extends BaseEntity {
 
     @Setter
     @Column(nullable = false)
-    private String thumb;
-
-    @Setter
     @Type(JsonType.class)
-    private List<ImageSrc> images;
+    private List<String> thumb;
 
     @Setter
     @Enumerated(value = EnumType.STRING)
@@ -55,12 +51,11 @@ public class DisplayProduct extends BaseEntity {
     @OneToMany(mappedBy = "displayProduct")
     private List<QnA> qnas = new ArrayList<>();
 
-    public DisplayProduct(String title, String desc, String thumb, Integer optionLayer, List<ImageSrc> images) {
+    public DisplayProduct(String title, String desc, List<String> thumb, Integer optionLayer) {
         this.title = title;
         this.description = desc;
         this.thumb = thumb;
         this.optionLayer = optionLayer;
-        this.images = images;
         this.displayProductStatus = DisplayProductStatus.PREPARE;
     }
 
