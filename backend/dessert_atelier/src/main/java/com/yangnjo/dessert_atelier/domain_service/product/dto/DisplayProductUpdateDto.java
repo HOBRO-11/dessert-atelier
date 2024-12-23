@@ -2,8 +2,6 @@ package com.yangnjo.dessert_atelier.domain_service.product.dto;
 
 import java.util.List;
 
-import com.yangnjo.dessert_atelier.domain_model.model.ImageSrc;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -12,8 +10,7 @@ import lombok.Getter;
 public class DisplayProductUpdateDto {
     Long dpId;
     String title;
-    String thumb;
+    List<String> thumb;
     String desc;
     Integer optionLayer;
-    List<ImageSrc> images;
 }

@@ -50,7 +50,7 @@ public class BasketResponseForm {
 
             this.displayProductId = dpDto.getId();
             this.displayProductTitle = dpDto.getTitle();
-            this.dpThumb = dpDto.getThumb();
+            this.dpThumb = dpDto.getThumb().get(0);
             this.optionDetails = arrayList;
             this.quantity = prop.getQuantity();
             this.updatedAt = prop.getUpdatedAt();

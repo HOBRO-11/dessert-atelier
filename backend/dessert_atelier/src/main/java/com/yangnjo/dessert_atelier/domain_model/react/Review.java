@@ -6,7 +6,6 @@ import org.hibernate.annotations.Type;
 
 import com.yangnjo.dessert_atelier.domain_model.member.Member;
 import com.yangnjo.dessert_atelier.domain_model.model.BaseEntity;
-import com.yangnjo.dessert_atelier.domain_model.model.ImageSrc;
 import com.yangnjo.dessert_atelier.domain_model.product.DisplayProduct;
 
 import io.hypersistence.utils.hibernate.type.json.JsonType;
@@ -36,7 +35,7 @@ public class Review extends BaseEntity {
     private Member member;
 
     @Type(JsonType.class)
-    private List<ImageSrc> images;
+    private List<String> images;
 
     @Setter
     @Enumerated(EnumType.STRING)
@@ -53,7 +52,7 @@ public class Review extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private ReviewOrigin origin;
 
-    public static Review createUserReviews(DisplayProduct displayProduct, Member member, List<ImageSrc> images,
+    public static Review createUserReviews(DisplayProduct displayProduct, Member member, List<String> images,
             Integer rate, String comment) {
         Review reviews = new Review();
         reviews.displayProduct = displayProduct;
@@ -68,7 +67,7 @@ public class Review extends BaseEntity {
         return reviews;
     }
 
-    public static Review createStoreReviews(DisplayProduct displayProduct, List<ImageSrc> images,
+    public static Review createStoreReviews(DisplayProduct displayProduct, List<String> images,
             Integer rate, String comment, ReviewOrigin origin) {
         Review reviews = new Review();
         reviews.displayProduct = displayProduct;

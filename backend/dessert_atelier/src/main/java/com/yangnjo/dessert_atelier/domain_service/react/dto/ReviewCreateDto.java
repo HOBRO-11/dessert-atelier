@@ -3,7 +3,6 @@ package com.yangnjo.dessert_atelier.domain_service.react.dto;
 import java.util.List;
 
 import com.yangnjo.dessert_atelier.domain_model.member.Member;
-import com.yangnjo.dessert_atelier.domain_model.model.ImageSrc;
 import com.yangnjo.dessert_atelier.domain_model.product.DisplayProduct;
 import com.yangnjo.dessert_atelier.domain_model.react.Review;
 import com.yangnjo.dessert_atelier.domain_model.react.ReviewOrigin;
@@ -18,7 +17,7 @@ public class ReviewCreateDto {
     Long memberId;
     Integer rate;
     String comment;
-    List<ImageSrc> images;
+    List<String> images;
     ReviewOrigin origin;
 
     public Review toMemberReviewEntity(DisplayProduct dp, Member member) {

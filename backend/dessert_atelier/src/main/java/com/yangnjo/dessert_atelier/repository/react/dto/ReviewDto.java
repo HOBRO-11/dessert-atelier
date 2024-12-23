@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.Projections;
-import com.yangnjo.dessert_atelier.domain_model.model.ImageSrc;
 import com.yangnjo.dessert_atelier.domain_model.react.QReview;
 import com.yangnjo.dessert_atelier.domain_model.react.ReviewOrigin;
 import com.yangnjo.dessert_atelier.domain_model.react.ReviewStatus;
@@ -20,7 +19,7 @@ public class ReviewDto {
     private Long memberId;
     @Setter
     private String name;
-    private List<ImageSrc> images;
+    private List<String> images;
     private ReviewStatus status;
     private Integer rate;
     private String comment;
@@ -29,7 +28,7 @@ public class ReviewDto {
     private LocalDateTime updatedAt;
     
 
-    public ReviewDto(Long id, Long displayProductId, Long memberId, List<ImageSrc> images, ReviewStatus status,
+    public ReviewDto(Long id, Long displayProductId, Long memberId, List<String> images, ReviewStatus status,
             Integer rate, String comment, ReviewOrigin origin, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.displayProductId = displayProductId;
