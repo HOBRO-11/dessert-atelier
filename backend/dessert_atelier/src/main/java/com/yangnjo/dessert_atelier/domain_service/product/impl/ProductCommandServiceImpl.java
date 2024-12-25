@@ -31,15 +31,11 @@ public class ProductCommandServiceImpl implements ProductCommandService {
     @Override
     public void update(final ProductUpdateDto dto) {
         Long productId = dto.getProductId();
-        String name = dto.getName();
         Integer price = dto.getPrice();
         String thumb = dto.getThumb();
 
         Product product = findProductById(productId);
 
-        if (name != null && (name.isEmpty() == false)) {
-            product.setName(name);
-        }
         if (price != 0) {
             product.setPrice(price);
         }
