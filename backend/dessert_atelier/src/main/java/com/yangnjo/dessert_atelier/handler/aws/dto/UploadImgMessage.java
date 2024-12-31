@@ -1,14 +1,6 @@
-package com.yangnjo.dessert_atelier.service.aws.dto;
+package com.yangnjo.dessert_atelier.handler.aws.dto;
 
 public class UploadImgMessage {
-
-    public static String create(String bucketName, String savedPath, String[] filenames) {
-        String[] files = getFiles(filenames);
-        String join = String.join(",", files);
-
-        return "{\"operator\": \"create\", \"filename\": [" + join
-                + "], \"path\": \"" + savedPath + "\", \"bucketname\": \"" + bucketName + "\"}";
-    }
 
     public static String delete(String bucketName, String savedPath, String[] filenames) {
         String[] files = getFiles(filenames);

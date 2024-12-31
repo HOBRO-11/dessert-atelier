@@ -1,4 +1,4 @@
-package com.yangnjo.dessert_atelier.service.aws.dto;
+package com.yangnjo.dessert_atelier.handler.aws.dto;
 
 import java.io.IOException;
 
