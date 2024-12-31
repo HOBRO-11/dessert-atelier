@@ -26,34 +26,19 @@ public class QnAQueryServiceImpl implements QnAQueryService {
     @Override
     public Page<QnADto> getAllByMemberId(Long memberId, PageOption pageOption, PeriodOption periodOption) {
         List<QnADto> dtos = qnaQueryRepo.findAllByMemberId(memberId, pageOption, periodOption);
-        int size = dtos.size();
-        if (size <= pageOption.getSize()) {
-            return PageResponse.ofSizeLePageOptionSize(dtos, pageOption);
-        }
-        Long total = qnaQueryRepo.countAllByMemberId(memberId);
-        return PageResponse.of(dtos, pageOption, total);
+        return PageResponse.of(dtos, pageOption, () -> qnaQueryRepo.countAllByMemberId(memberId));
     }
 
     @Override
     public Page<QnADto> getAllByDpIdAndStatus(Long dpId, QnAStatus status, PageOption pageOption) {
         List<QnADto> dtos = qnaQueryRepo.findAllByDpIdAndStatus(dpId, status, pageOption);
-        int size = dtos.size();
-        if (size <= pageOption.getSize()) {
-            return PageResponse.ofSizeLePageOptionSize(dtos, pageOption);
-        }
-        Long total = qnaQueryRepo.countAllByDpIdAndStatus(dpId, status);
-        return PageResponse.of(dtos, pageOption, total);
+        return PageResponse.of(dtos, pageOption, () -> qnaQueryRepo.countAllByDpIdAndStatus(dpId, status));
     }
 
     @Override
     public Page<QnADto> getAllByDpIdAndExceptStatus(Long dpId, QnAStatus status, PageOption pageOption) {
         List<QnADto> dtos = qnaQueryRepo.findAllByDpIdAndExceptStatus(dpId, status, pageOption);
-        int size = dtos.size();
-        if (size <= pageOption.getSize()) {
-            return PageResponse.ofSizeLePageOptionSize(dtos, pageOption);
-        }
-        Long total = qnaQueryRepo.countAllByDpIdAndExceptStatus(dpId, status);
-        return PageResponse.of(dtos, pageOption, total);
+        return PageResponse.of(dtos, pageOption, () -> qnaQueryRepo.countAllByDpIdAndExceptStatus(dpId, status));
     }
 
 }

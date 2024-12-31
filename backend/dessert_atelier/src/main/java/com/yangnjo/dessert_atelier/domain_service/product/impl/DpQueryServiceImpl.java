@@ -32,28 +32,15 @@ public class DpQueryServiceImpl implements DisplayProductQueryService {
     @Override
     public Page<DpSimpleDto> getAllSimpleByDpStatus(DisplayProductStatus displayProductStatus, PageOption pageOption) {
         List<DpSimpleDto> dtos = dpQueryRepo.findAllSimpleByDpStatus(displayProductStatus, pageOption);
-        int size = dtos.size();
 
-        if (size <= pageOption.getSize()) {
-            return PageResponse.ofSizeLePageOptionSize(dtos, pageOption);
-        }
-
-        Long count = dpQueryRepo.countByDpStatus(displayProductStatus);
-        return PageResponse.of(dtos, pageOption, count);
+        return PageResponse.of(dtos, pageOption, () -> dpQueryRepo.countByDpStatus(displayProductStatus));
     }
 
     @Override
     public Page<DpSimpleDto> getAllSimpleByExceptDpStatus(DisplayProductStatus displayProductStatus,
             PageOption pageOption) {
         List<DpSimpleDto> dtos = dpQueryRepo.findAllSimpleByExceptDpStatus(displayProductStatus, pageOption);
-        int size = dtos.size();
-
-        if (size <= pageOption.getSize()) {
-            return PageResponse.ofSizeLePageOptionSize(dtos, pageOption);
-        }
-
-        Long count = dpQueryRepo.countByDpStatus(displayProductStatus);
-        return PageResponse.of(dtos, pageOption, count);
+        return PageResponse.of(dtos, pageOption, () -> dpQueryRepo.countByExceptDpStatus(displayProductStatus));
 
     }
 

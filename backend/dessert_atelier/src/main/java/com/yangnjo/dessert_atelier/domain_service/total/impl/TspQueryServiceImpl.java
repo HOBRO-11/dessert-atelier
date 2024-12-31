@@ -19,25 +19,19 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TspQueryServiceImpl implements TotalSaleProductQueryService {
 
-  private final TotalSaleProductQueryRepo totalSaleProductQueryRepo;
+    private final TotalSaleProductQueryRepo totalSaleProductQueryRepo;
 
-  @Override
-  public Page<TotalSaleProductDto> findForPageByOptionId(Long productId, PageOption pageOption,
-      PeriodOption periodOption) {
-    List<TotalSaleProductDto> dtos = totalSaleProductQueryRepo.findForPageByProductId(productId, pageOption,
-        periodOption);
-    int size = dtos.size();
-    if (size <= pageOption.getSize()) {
-      return PageResponse.ofSizeLePageOptionSize(dtos, pageOption);
+    @Override
+    public Page<TotalSaleProductDto> findForPageByOptionId(Long productId, PageOption pageOption,
+            PeriodOption periodOption) {
+        List<TotalSaleProductDto> dtos = totalSaleProductQueryRepo.findForPageByProductId(productId, pageOption,
+                periodOption);
+        return PageResponse.of(dtos, pageOption,
+                () -> totalSaleProductQueryRepo.countForPageByProductId(productId, periodOption));
     }
 
-    Long count = totalSaleProductQueryRepo.countForPageByProductId(productId, periodOption);
-
-    return PageResponse.of(dtos, pageOption, count);
-  }
-
-  @Override
-  public List<TotalSaleProductGraphDto> findForGraphByProductId(Long productId, PeriodOption periodOption) {
-    return totalSaleProductQueryRepo.findForGraphByProductId(productId, periodOption);
-  }
+    @Override
+    public List<TotalSaleProductGraphDto> findForGraphByProductId(Long productId, PeriodOption periodOption) {
+        return totalSaleProductQueryRepo.findForGraphByProductId(productId, periodOption);
+    }
 }

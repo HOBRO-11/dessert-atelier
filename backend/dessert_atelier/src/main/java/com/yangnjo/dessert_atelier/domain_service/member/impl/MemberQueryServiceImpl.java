@@ -32,13 +32,7 @@ public class MemberQueryServiceImpl implements MemberQueryService {
     @Override
     public Page<MemberSimpleDto> getSimplesByMemberStatus(MemberStatus memberStatus, PageOption pageOption) {
         List<MemberSimpleDto> dtos = memberQueryRepo.findSimplesByMemberStatus(memberStatus, pageOption);
-
-        if (dtos.size() > pageOption.getSize()) {
-            dtos.remove(pageOption.getSize());
-        }
-
-        Long count = memberQueryRepo.countSimplesByMemberStatus(memberStatus);
-        return PageResponse.of(dtos, pageOption, count);
+        return PageResponse.of(dtos, pageOption, () -> memberQueryRepo.countSimplesByMemberStatus(memberStatus));
     }
 
     @Override
