@@ -36,11 +36,13 @@ public class ProductCommandServiceImpl implements ProductCommandService {
 
         Product product = findProductById(productId);
 
-        if (price != 0) {
+        if (price != null &&price != 0) {
             product.setPrice(price);
+            return;
         }
         if (thumb != null) {
             product.setThumb(thumb);
+            return;
         }
     }
 

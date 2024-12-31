@@ -12,7 +12,9 @@ public interface ProductService {
 
     Long create(ProductCreateForm form);
 
-    void update(ProductUpdateForm form);
+    void updateThumb(ProductUpdateForm form);
+
+    void updatePrice(ProductUpdateForm form);
 
     void setQuantity(Long id, int quantity);
 
