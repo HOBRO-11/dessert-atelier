@@ -3,6 +3,7 @@ package com.yangnjo.dessert_atelier.domain_service.member.impl;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -13,7 +14,6 @@ import com.yangnjo.dessert_atelier.domain_model.value_type.Destination;
 import com.yangnjo.dessert_atelier.domain_service.member.AddressCommandService;
 import com.yangnjo.dessert_atelier.domain_service.member.dto.AddressCreateDto;
 import com.yangnjo.dessert_atelier.domain_service.member.dto.AddressUpdateDto;
-import com.yangnjo.dessert_atelier.domain_service.member.exception.AddressNonAuthException;
 import com.yangnjo.dessert_atelier.domain_service.member.exception.AddressNotFoundException;
 import com.yangnjo.dessert_atelier.domain_service.member.exception.MemberNotFoundException;
 import com.yangnjo.dessert_atelier.repository.member.AddressRepository;
@@ -106,7 +106,7 @@ public class AddressCommandServiceImpl implements AddressCommandService {
 
     private void checkIsMine(Long memberId, Address address) {
         if (address.getMember().getId() != memberId) {
-            throw new AddressNonAuthException();
+            throw new AccessDeniedException("address");
         }
     }
 }
