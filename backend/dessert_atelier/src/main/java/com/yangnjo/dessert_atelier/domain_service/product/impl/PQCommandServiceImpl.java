@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.yangnjo.dessert_atelier.domain_model.product.Option;
 import com.yangnjo.dessert_atelier.domain_model.product.Product;
@@ -20,6 +21,7 @@ import com.yangnjo.dessert_atelier.repository.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class PQCommandServiceImpl implements ProductQuantityCommandService {
 

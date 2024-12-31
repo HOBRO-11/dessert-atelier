@@ -1,5 +1,7 @@
 package com.yangnjo.dessert_atelier.service.product.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.yangnjo.dessert_atelier.domain_service.product.dto.ProductCreateDto;
 
 import lombok.AllArgsConstructor;
@@ -14,8 +16,9 @@ public class ProductCreateForm {
     Integer price;
     String thumb;
     Integer quantity;
+    MultipartFile image;
 
-    public ProductCreateDto toDto(){
+    public ProductCreateDto toDto(String thumb){
         return new ProductCreateDto(name, price, thumb, quantity);
     }
 }

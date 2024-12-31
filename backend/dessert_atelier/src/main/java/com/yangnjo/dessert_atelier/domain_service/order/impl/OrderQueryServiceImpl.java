@@ -30,12 +30,7 @@ public class OrderQueryServiceImpl implements OrderQueryService {
             PeriodOption periodOption) {
         List<OrderSimpleDto> dtos = orderQueryRepo.findAllSimpleByOrderStatus(orderStatus, pageOption, periodOption);
 
-        if (dtos.size() > pageOption.getSize()) {
-            dtos.remove(pageOption.getSize());
-        }
-
-        Long count = orderQueryRepo.countAllSimpleByOrderStatus(orderStatus);
-        return PageResponse.of(dtos, pageOption, count);
+        return PageResponse.of(dtos, pageOption, () -> orderQueryRepo.countAllSimpleByOrderStatus(orderStatus));
     }
 
     @Override
@@ -47,11 +42,6 @@ public class OrderQueryServiceImpl implements OrderQueryService {
     public Page<OrderSimpleDto> getSimpleByMemberId(Long memberId, PageOption pageOption, PeriodOption periodOption) {
         List<OrderSimpleDto> dtos = orderQueryRepo.findAllSimpleByMemberId(memberId, pageOption, periodOption);
 
-        if (dtos.size() > pageOption.getSize()) {
-            dtos.remove(pageOption.getSize());
-        }
-
-        Long count = orderQueryRepo.countAllSimpleByMemberId(memberId);
-        return PageResponse.of(dtos, pageOption, count);
+        return PageResponse.of(dtos, pageOption, () -> orderQueryRepo.countAllSimpleByMemberId(memberId));
     }
 }

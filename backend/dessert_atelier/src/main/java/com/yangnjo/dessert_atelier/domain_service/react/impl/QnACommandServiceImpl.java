@@ -1,5 +1,6 @@
 package com.yangnjo.dessert_atelier.domain_service.react.impl;
 
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,7 +12,6 @@ import com.yangnjo.dessert_atelier.domain_service.member.exception.MemberNotFoun
 import com.yangnjo.dessert_atelier.domain_service.product.exception.DisplayProductNotFountException;
 import com.yangnjo.dessert_atelier.domain_service.react.QnACommandService;
 import com.yangnjo.dessert_atelier.domain_service.react.dto.QnaCreateDto;
-import com.yangnjo.dessert_atelier.domain_service.react.exception.QnANonAuthException;
 import com.yangnjo.dessert_atelier.domain_service.react.exception.QnANotFoundException;
 import com.yangnjo.dessert_atelier.repository.member.MemberRepository;
 import com.yangnjo.dessert_atelier.repository.product.DisplayProductRepository;
@@ -122,7 +122,7 @@ public class QnACommandServiceImpl implements QnACommandService {
             throw new QnANotFoundException();
         }
         if (qna.getMember().getId() != memberId) {
-            throw new QnANonAuthException();
+            throw new AccessDeniedException("qna");
         }
     }
 

@@ -65,11 +65,10 @@ CREATE TABLE product (
 CREATE TABLE display_product (
     id BIGSERIAL PRIMARY KEY,
     title VARCHAR(30) NOT NULL UNIQUE,
-    thumb VARCHAR(100) NOT NULL,
+    thumb JSONB,
     option_layer INT NOT NULL,
-    description VARCHAR(100) NOT NULL,
+    description JSONB,
     display_product_status VARCHAR(20),
-    images JSONB,
     created_at TIMESTAMP,
     updated_at TIMESTAMP
 );

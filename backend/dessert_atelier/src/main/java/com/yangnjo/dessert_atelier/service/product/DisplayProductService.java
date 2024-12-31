@@ -15,7 +15,11 @@ public interface DisplayProductService {
 
     Long create(DisplayProductEntityCreateForm form);
 
-    void update(DisplayProductEntityUpdateForm form);
+    void updateThumbs(DisplayProductEntityUpdateForm form);
+
+    void updateDescription(DisplayProductEntityUpdateForm form);
+
+    void updateOptionLayer(DisplayProductEntityUpdateForm form);
 
     void updateDisplayProductStatus(Long dpId, DisplayProductStatus saleStatus);
 

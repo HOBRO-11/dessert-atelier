@@ -1,6 +1,7 @@
 package com.yangnjo.dessert_atelier.domain_service.total.impl;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.yangnjo.dessert_atelier.domain_service.total.TotalSaleOptionCommandService;
 import com.yangnjo.dessert_atelier.repository.total.TotalSaleOptionRepository;
@@ -10,12 +11,13 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class TsoCommandServiceImpl implements TotalSaleOptionCommandService {
 
-  private final TotalSaleOptionRepository totalSaleOptionRepository;
+    private final TotalSaleOptionRepository totalSaleOptionRepository;
 
-  @Override
-  public Integer upsertTotalSaleOption(final TotalSaleOptionDto dto) {
-    return totalSaleOptionRepository.upsert(dto.getCreatedAt(), dto.getOptionId(), dto.getSaleAmount());
-  }
+    @Override
+    public Integer upsertTotalSaleOption(final TotalSaleOptionDto dto) {
+        return totalSaleOptionRepository.upsert(dto.getCreatedAt(), dto.getOptionId(), dto.getSaleAmount());
+    }
 }

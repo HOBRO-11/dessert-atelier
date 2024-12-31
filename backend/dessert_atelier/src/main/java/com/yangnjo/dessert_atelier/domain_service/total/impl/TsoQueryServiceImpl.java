@@ -19,24 +19,19 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TsoQueryServiceImpl implements TotalSaleOptionQueryService {
 
-  private final TotalSaleOptionQueryRepo totalSaleOptionQueryRepo;
+    private final TotalSaleOptionQueryRepo totalSaleOptionQueryRepo;
 
-  @Override
-  public Page<TotalSaleOptionDto> findForPageByOptionId(Long optionId, PageOption pageOption,
-      PeriodOption periodOption) {
-    List<TotalSaleOptionDto> dtos = totalSaleOptionQueryRepo.findForPageByOptionId(optionId, pageOption, periodOption);
-    int size = dtos.size();
-    if (size <= pageOption.getSize()) {
-      return PageResponse.ofSizeLePageOptionSize(dtos, pageOption);
+    @Override
+    public Page<TotalSaleOptionDto> findForPageByOptionId(Long optionId, PageOption pageOption,
+            PeriodOption periodOption) {
+        List<TotalSaleOptionDto> dtos = totalSaleOptionQueryRepo.findForPageByOptionId(optionId, pageOption,
+                periodOption);
+        return PageResponse.of(dtos, pageOption,
+                () -> totalSaleOptionQueryRepo.countForPageByOptionId(optionId, periodOption));
     }
 
-    Long count = totalSaleOptionQueryRepo.countForPageByOptionId(optionId, periodOption);
-
-    return PageResponse.of(dtos, pageOption, count);
-  }
-
-  @Override
-  public List<TotalSaleOptionGraphDto> findForGraphByOptionId(Long optionId, PeriodOption periodOption) {
-    return totalSaleOptionQueryRepo.findForGraphByOptionId(optionId, periodOption);
-  }
+    @Override
+    public List<TotalSaleOptionGraphDto> findForGraphByOptionId(Long optionId, PeriodOption periodOption) {
+        return totalSaleOptionQueryRepo.findForGraphByOptionId(optionId, periodOption);
+    }
 }

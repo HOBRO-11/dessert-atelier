@@ -1,5 +1,7 @@
 package com.yangnjo.dessert_atelier.domain_service.react.impl;
 
+
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,7 +14,6 @@ import com.yangnjo.dessert_atelier.domain_service.product.exception.DisplayProdu
 import com.yangnjo.dessert_atelier.domain_service.react.ReviewCommandService;
 import com.yangnjo.dessert_atelier.domain_service.react.dto.ReviewCreateDto;
 import com.yangnjo.dessert_atelier.domain_service.react.dto.ReviewUpdateDto;
-import com.yangnjo.dessert_atelier.domain_service.react.exception.ReviewNonAuthException;
 import com.yangnjo.dessert_atelier.domain_service.react.exception.ReviewNotFoundException;
 import com.yangnjo.dessert_atelier.repository.member.MemberRepository;
 import com.yangnjo.dessert_atelier.repository.product.DisplayProductRepository;
@@ -100,7 +101,7 @@ public class ReviewCommandServiceImpl implements ReviewCommandService {
 
     private void checkAuthMember(Long memberId, Review review) {
         if (review.getMember().getId() != memberId) {
-            throw new ReviewNonAuthException();
+            throw new AccessDeniedException("review");
         }
     }
 }
