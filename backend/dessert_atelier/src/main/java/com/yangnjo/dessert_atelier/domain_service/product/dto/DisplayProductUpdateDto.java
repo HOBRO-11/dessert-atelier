@@ -9,8 +9,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public class DisplayProductUpdateDto {
     Long dpId;
-    String title;
+    // String title;
     List<String> thumb;
-    String desc;
+    List<String> desc;
     Integer optionLayer;
 }

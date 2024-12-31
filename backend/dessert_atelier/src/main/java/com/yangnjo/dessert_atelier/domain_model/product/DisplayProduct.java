@@ -31,7 +31,8 @@ public class DisplayProduct extends BaseEntity {
 
     @Setter
     @Column(nullable = false)
-    private String description;
+    @Type(JsonType.class)
+    private List<String> description;
 
     @Setter
     private Integer optionLayer;
@@ -51,7 +52,7 @@ public class DisplayProduct extends BaseEntity {
     @OneToMany(mappedBy = "displayProduct")
     private List<QnA> qnas = new ArrayList<>();
 
-    public DisplayProduct(String title, String desc, List<String> thumb, Integer optionLayer) {
+    public DisplayProduct(String title, List<String> desc, List<String> thumb, Integer optionLayer) {
         this.title = title;
         this.description = desc;
         this.thumb = thumb;

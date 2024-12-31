@@ -17,7 +17,7 @@ public class DpDto {
     private String title;
     private List<String> thumb;
     private Integer optionLayer;
-    private String description;
+    private List<String> description;
     private DisplayProductStatus dpStatus;
 
     public static Expression<DpDto> asDto() {

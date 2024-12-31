@@ -12,7 +12,7 @@ import lombok.Getter;
 public class DisplayProductCreateDto {
     String title;
     List<String> thumb;
-    String desc;
+    List<String> desc;
     Integer optionLayer;
 
     public DisplayProduct toEntity() {

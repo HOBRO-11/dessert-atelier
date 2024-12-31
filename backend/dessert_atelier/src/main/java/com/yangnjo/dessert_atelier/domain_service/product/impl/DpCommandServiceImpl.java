@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 import com.yangnjo.dessert_atelier.domain_model.product.DisplayProduct;
 import com.yangnjo.dessert_atelier.domain_model.product.DisplayProductStatus;
@@ -33,12 +32,12 @@ public class DpCommandServiceImpl implements DisplayProductCommandService {
     @Override
     public void update(final DisplayProductUpdateDto dto) {
         Long dpId = dto.getDpId();
-        String description = dto.getDesc();
+        List<String> description = dto.getDesc();
         List<String> thumb = dto.getThumb();
         Integer optionLayer = dto.getOptionLayer();
 
         DisplayProduct displayProduct = findDisplayProductById(dpId);
-        if (StringUtils.hasText(description)) {
+        if (description != null && description.isEmpty() == false) {
             displayProduct.setDescription(description);
             return;
         }
