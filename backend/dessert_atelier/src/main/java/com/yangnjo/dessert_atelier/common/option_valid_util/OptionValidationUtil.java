@@ -7,6 +7,7 @@ import com.yangnjo.dessert_atelier.domain_model.product.OptionStatus;
 import com.yangnjo.dessert_atelier.repository.product.dto.DpSimpleDto;
 import com.yangnjo.dessert_atelier.repository.product.dto.OptionSimpleDto;
 
+@Deprecated
 public class OptionValidationUtil {
 
     /*
@@ -151,7 +152,7 @@ public class OptionValidationUtil {
 
     private static Integer getDpOptionLayer(List<Long> optionIds, Map<Long, OptionSimpleDto> osds,
             Map<Long, DpSimpleDto> dsdMap) {
-        return dsdMap.get(osds.get(optionIds.get(0)).getDisplayProductId()).getOptionLayer();
+        return dsdMap.get(osds.get(optionIds.get(0)).getDisplayProductId()).getOptionStyle().size();
     }
 
 }
