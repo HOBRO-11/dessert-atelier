@@ -1,11 +1,11 @@
 package com.yangnjo.dessert_atelier.domain_service.product;
 
 import com.yangnjo.dessert_atelier.domain_model.product.OptionStatus;
-import com.yangnjo.dessert_atelier.domain_service.product.dto.OptionCreateDto;
+import com.yangnjo.dessert_atelier.domain_service.product.dto.ProductOptionCreateDto;
 
-public interface OptionCommandService {
+public interface ProductOptionCommandService {
 
-    Long create(OptionCreateDto dto);
+    Long create(ProductOptionCreateDto dto);
 
     void updateOptionStatus(Long optionId, OptionStatus status);
 

@@ -23,19 +23,16 @@ import lombok.Setter;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Option {
+public class ProductOption {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Setter(value = AccessLevel.PROTECTED)
-    @JoinColumn(name = "display_product_id", nullable = false)
+    @JoinColumn(name = "product_option_header_id", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private DisplayProduct displayProduct;
-
-    @Setter
-    private Integer optionLayer;
+    private ProductOptionHeader productOptionHeader;
 
     @Setter
     @Enumerated(value = EnumType.STRING)
@@ -47,15 +44,14 @@ public class Option {
     @Column(nullable = false)
     private Integer price;
 
-    @OneToMany(mappedBy = "option", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "productOption", cascade = CascadeType.REMOVE)
     private List<ProductQuantity> productQuantities = new ArrayList<>();
 
     /*
      * totalQuantity set infinitely, if totalQuantity is null
      */
-    public Option(DisplayProduct dp, String description, Integer price, Integer optionLayer) {
-        this.displayProduct = dp;
-        this.optionLayer = optionLayer;
+    public ProductOption(ProductOptionHeader optionHeader, String description, Integer price) {
+        this.productOptionHeader = optionHeader;
         this.description = description;
         this.price = price;
         this.optionStatus = OptionStatus.AVAILABLE;

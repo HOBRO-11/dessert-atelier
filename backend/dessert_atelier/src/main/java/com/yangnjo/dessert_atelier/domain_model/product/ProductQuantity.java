@@ -23,8 +23,8 @@ public class ProductQuantity {
 
     @Setter(value = AccessLevel.PROTECTED)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "option_id", nullable = false)
-    private Option option;
+    @JoinColumn(name = "product_option_id", nullable = false)
+    private ProductOption productOption;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "product_id", nullable = false)
@@ -32,9 +32,9 @@ public class ProductQuantity {
 
     private Integer quantity;
 
-    public ProductQuantity(Product product, Option option, Integer quantity) {
+    public ProductQuantity(Product product, ProductOption option, Integer quantity) {
         this.product = product;
-        this.option = option;
+        this.productOption = option;
         option.addProductQuantity(this);
         this.quantity = quantity;
     }

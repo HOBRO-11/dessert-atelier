@@ -31,26 +31,25 @@ public class DpCommandServiceImpl implements DisplayProductCommandService {
 
     @Override
     public void update(final DisplayProductUpdateDto dto) {
-        Long dpId = dto.getDpId();
+        Long dpId = dto.getDisplayProductId();
         List<String> description = dto.getDesc();
         List<String> thumb = dto.getThumb();
-        Integer optionLayer = dto.getOptionLayer();
+        List<Long> optionHeaderIds = dto.getOptionHeaderIds();
 
         DisplayProduct displayProduct = findDisplayProductById(dpId);
+
         if (description != null && description.isEmpty() == false) {
             displayProduct.setDescription(description);
             return;
         }
+
         if (thumb != null && thumb.isEmpty() == false) {
             displayProduct.setThumb(thumb);
             return;
         }
-        if (optionLayer != null) {
-            if(optionLayer < 1) {
-                throw new IllegalArgumentException("옵션 레이어는 1 이상이어야 합니다.");
-            }
-            displayProduct.setOptionLayer(optionLayer);
-            return;
+
+        if (optionHeaderIds != null && optionHeaderIds.isEmpty() == false) {
+            displayProduct.setOptionHeaderIds(optionHeaderIds);
         }
     }
 
@@ -61,8 +60,9 @@ public class DpCommandServiceImpl implements DisplayProductCommandService {
     }
 
     private DisplayProduct findDisplayProductById(Long dpId) {
-        DisplayProduct displayProduct = displayProductRepository.findById(dpId)
-                .orElseThrow(() -> new DisplayProductNotFountException());
-        return displayProduct;
+        if (dpId == null) {
+            throw new IllegalArgumentException("dpId를 입력해주세요.");
+        }
+        return displayProductRepository.findById(dpId).orElseThrow(DisplayProductNotFountException::new);
     }
 }

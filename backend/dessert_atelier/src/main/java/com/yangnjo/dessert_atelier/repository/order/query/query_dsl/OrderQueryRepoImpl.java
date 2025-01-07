@@ -17,7 +17,7 @@ import com.yangnjo.dessert_atelier.domain_model.order.OrderStatus;
 import com.yangnjo.dessert_atelier.domain_model.order.OrderedOption;
 import com.yangnjo.dessert_atelier.domain_model.order.OrderedOptionStatus;
 import com.yangnjo.dessert_atelier.domain_model.order.QOrders;
-import com.yangnjo.dessert_atelier.domain_model.product.QOption;
+import com.yangnjo.dessert_atelier.domain_model.product.QProductOption;
 import com.yangnjo.dessert_atelier.repository.order.dto.OrderDto;
 import com.yangnjo.dessert_atelier.repository.order.dto.OrderDto.OrderedOptionDto;
 import com.yangnjo.dessert_atelier.repository.order.dto.OrderSimpleDto;
@@ -30,7 +30,7 @@ import lombok.RequiredArgsConstructor;
 public class OrderQueryRepoImpl implements OrderQueryRepo {
     private final JPAQueryFactory queryFactory;
     QOrders orders = QOrders.orders;
-    QOption option = QOption.option;
+    QProductOption productOption = QProductOption.productOption;
 
     @Override
     public Optional<OrderDto> findByOrderCode(Long orderCode) {
@@ -114,13 +114,13 @@ public class OrderQueryRepoImpl implements OrderQueryRepo {
             return optionFirstId;
         }).collect(Collectors.toSet());
 
-        Map<Long, String> optionIdAndDpTitle = queryFactory.select(option.id, option.displayProduct.title)
-                .from(option)
-                .where(option.id.in(optionFirstIds))
+        Map<Long, String> optionIdAndDpTitle = queryFactory.select(productOption.id, productOption.productOptionHeader.displayProduct.title)
+                .from(productOption)
+                .where(productOption.id.in(optionFirstIds))
                 .fetch()
                 .stream()
-                .collect(Collectors.toMap(tuple -> tuple.get(option.id),
-                        tuple -> tuple.get(option.displayProduct.title)));
+                .collect(Collectors.toMap(tuple -> tuple.get(productOption.id),
+                        tuple -> tuple.get(productOption.productOptionHeader.displayProduct.title)));
 
         dtos.stream().forEach(dto -> {
             Long optionFirstId = dto.getOrderedOptions().get(0).getOptionIds().get(0);
@@ -141,17 +141,17 @@ public class OrderQueryRepoImpl implements OrderQueryRepo {
     }
 
     private List<String> getDesc(List<Long> optionIds) {
-        return queryFactory.select(option.description)
-                .from(option)
-                .where(option.id.in(optionIds))
+        return queryFactory.select(productOption.description)
+                .from(productOption)
+                .where(productOption.id.in(optionIds))
                 .fetch();
     }
 
     private String getTitle(List<Long> optionIds) {
         Long firstOptionId = optionIds.get(0);
-        return queryFactory.select(option.displayProduct.title)
-                .from(option)
-                .where(option.id.eq(firstOptionId))
+        return queryFactory.select(productOption.productOptionHeader.displayProduct.title)
+                .from(productOption)
+                .where(productOption.id.eq(firstOptionId))
                 .fetchOne();
     }
 

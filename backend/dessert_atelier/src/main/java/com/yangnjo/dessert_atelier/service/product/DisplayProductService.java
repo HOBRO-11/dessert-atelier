@@ -19,7 +19,7 @@ public interface DisplayProductService {
 
     void updateDescription(DisplayProductEntityUpdateForm form);
 
-    void updateOptionLayer(DisplayProductEntityUpdateForm form);
+    void updateOptionHeaderIds(DisplayProductEntityUpdateForm form);
 
     void updateDisplayProductStatus(Long dpId, DisplayProductStatus saleStatus);
 

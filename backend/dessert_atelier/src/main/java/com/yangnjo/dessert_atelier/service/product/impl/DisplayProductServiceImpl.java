@@ -65,7 +65,6 @@ public class DisplayProductServiceImpl implements DisplayProductService {
         List<String> formThumb = form.getThumb();
         List<String> formDesc = form.getDesc();
         List<String> formDescImageBaseName = getDescImage(formDesc);
-        Integer optionLayer = form.getOptionLayer();
         List<MultipartFile> formThumbImages = form.getThumbImages();
         List<MultipartFile> formDescImages = form.getDescImages();
 
@@ -75,10 +74,6 @@ public class DisplayProductServiceImpl implements DisplayProductService {
 
         if (formDesc == null || formDesc.isEmpty()) {
             throw new IllegalArgumentException("desc를 입력해주세요.");
-        }
-
-        if (optionLayer == null || optionLayer < 1) {
-            throw new IllegalArgumentException("옵션 레이어는 1 이상이어야 합니다.");
         }
 
         if (formThumb.size() != formThumbImages.size()) {
@@ -235,9 +230,19 @@ public class DisplayProductServiceImpl implements DisplayProductService {
 
     }
 
+    
+
     @Override
-    public void updateOptionLayer(DisplayProductEntityUpdateForm form) {
-        dpCommandService.update(form.toDto(null, null, form.getOptionLayer()));
+    public void updateOptionHeaderIds(DisplayProductEntityUpdateForm form) {
+        if(form.getDisplayProductId() == null) {
+            throw new IllegalArgumentException("dpId를 입력해주세요.");
+        }
+
+        if(form.getOptionHeaderIds() == null || form.getOptionHeaderIds().isEmpty()) {
+            throw new IllegalArgumentException("optionHeaderIds를 입력해주세요.");
+        }
+        dpCommandService.update(form.toDto(null, null, form.getOptionHeaderIds()));
+        
     }
 
     private List<String> getUuidFromFormDesc(List<String> formDesc, Map<String, String> baseNameAndUuidMap) {
@@ -310,7 +315,7 @@ public class DisplayProductServiceImpl implements DisplayProductService {
     }
 
     private DpDto getDpDto(DisplayProductEntityUpdateForm form) {
-        Long dpId = form.getDpId();
+        Long dpId = form.getDisplayProductId();
         if (dpId == null) {
             throw new IllegalArgumentException("dpId를 입력해주세요.");
         }

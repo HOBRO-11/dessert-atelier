@@ -5,7 +5,7 @@ import java.util.List;
 import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.Projections;
 import com.yangnjo.dessert_atelier.domain_model.product.OptionStatus;
-import com.yangnjo.dessert_atelier.domain_model.product.QOption;
+import com.yangnjo.dessert_atelier.domain_model.product.QProductOption;
 import com.yangnjo.dessert_atelier.domain_model.product.QProductQuantity;
 
 import lombok.AllArgsConstructor;
@@ -13,11 +13,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-public class OptionDto {
+public class ProductOptionDto {
 
     private Long id;
-    private Long displayProductId;
-    private Integer optionLayer;
+    private Long optionHeaderId;
     private OptionStatus optionStatus;
     private String description;
     private Integer price;
@@ -29,25 +28,22 @@ public class OptionDto {
      * 
      * @see productQuantityDtos
      */
-    public OptionDto(Long id, Long displayProductId, Integer optionLayer,
-            OptionStatus optionStatus, String description, Integer price) {
+    public ProductOptionDto(Long id, Long optionHeaderId, OptionStatus optionStatus, String description, Integer price) {
         this.id = id;
-        this.displayProductId = displayProductId;
-        this.optionLayer = optionLayer;
+        this.optionHeaderId = optionHeaderId;
         this.optionStatus = optionStatus;
         this.description = description;
         this.price = price;
     }
 
-    public static Expression<OptionDto> asIncompleteDto() {
-        QOption option = QOption.option;
-        return Projections.constructor(OptionDto.class,
-                option.id,
-                option.displayProduct.id,
-                option.optionLayer,
-                option.optionStatus,
-                option.description,
-                option.price);
+    public static Expression<ProductOptionDto> asIncompleteDto() {
+        QProductOption productOption = QProductOption.productOption;
+        return Projections.constructor(ProductOptionDto.class,
+                productOption.id,
+                productOption.productOptionHeader.id,
+                productOption.optionStatus,
+                productOption.description,
+                productOption.price);
     }
 
     @Getter
@@ -68,8 +64,7 @@ public class OptionDto {
                     productQuantity.product.price,
                     productQuantity.product.thumb,
                     productQuantity.quantity,
-                    productQuantity.product.quantity
-                    );
+                    productQuantity.product.quantity);
         }
     }
 }

@@ -14,16 +14,16 @@ import lombok.Setter;
 @AllArgsConstructor
 public class DisplayProductEntityUpdateForm {
     @Setter
-    Long dpId;
+    Long displayProductId;
     List<String> thumb;
     List<String> desc;
-    Integer optionLayer;
+    List<Long> optionHeaderIds;
     List<MultipartFile> images;
 
     /**
      * 변경하길 원하는 파라미터만 설정, 나머지는 반드시 null 입력
      */
-    public DisplayProductUpdateDto toDto(List<String> thumb, List<String> desc, Integer optionLayer) {
-        return new DisplayProductUpdateDto(dpId, thumb, desc, optionLayer);
+    public DisplayProductUpdateDto toDto(List<String> thumb, List<String> desc, List<Long> optionHeaderIds) {
+        return new DisplayProductUpdateDto(displayProductId, thumb, desc, optionHeaderIds);
     }
 }

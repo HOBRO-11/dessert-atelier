@@ -35,7 +35,8 @@ public class DisplayProduct extends BaseEntity {
     private List<String> description;
 
     @Setter
-    private Integer optionLayer;
+    @Type(JsonType.class)
+    private List<Long> optionHeaderIds;
 
     @Setter
     @Column(nullable = false)
@@ -52,11 +53,13 @@ public class DisplayProduct extends BaseEntity {
     @OneToMany(mappedBy = "displayProduct")
     private List<QnA> qnas = new ArrayList<>();
 
-    public DisplayProduct(String title, List<String> desc, List<String> thumb, Integer optionLayer) {
+    @OneToMany(mappedBy = "displayProduct")
+    private List<ProductOptionHeader> productOptionHeaders = new ArrayList<>();
+
+    public DisplayProduct(String title, List<String> desc, List<String> thumb) {
         this.title = title;
         this.description = desc;
         this.thumb = thumb;
-        this.optionLayer = optionLayer;
         this.displayProductStatus = DisplayProductStatus.PREPARE;
     }
 
@@ -66,5 +69,9 @@ public class DisplayProduct extends BaseEntity {
 
     public void addQna(QnA qnas) {
         this.qnas.add(qnas);
+    }
+
+    public void addOptionHeader(ProductOptionHeader optionHeader) {
+        this.productOptionHeaders.add(optionHeader);
     }
 }

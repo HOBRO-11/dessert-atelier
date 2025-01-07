@@ -15,11 +15,10 @@ public class DisplayProductEntityCreateForm {
     String title;
     List<String> thumb;
     List<String> desc;
-    Integer optionLayer;
     List<MultipartFile> thumbImages;
     List<MultipartFile> descImages;
 
     public DisplayProductCreateDto toDto(List<String> thumb, List<String> desc) {
-        return new DisplayProductCreateDto(title, thumb, desc, optionLayer);
+        return new DisplayProductCreateDto(title, thumb, desc);
     }
 }

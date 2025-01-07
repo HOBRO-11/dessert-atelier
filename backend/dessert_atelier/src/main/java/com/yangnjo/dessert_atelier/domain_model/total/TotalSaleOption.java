@@ -3,7 +3,7 @@ package com.yangnjo.dessert_atelier.domain_model.total;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import com.yangnjo.dessert_atelier.domain_model.product.Option;
+import com.yangnjo.dessert_atelier.domain_model.product.ProductOption;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -28,13 +28,13 @@ public class TotalSaleOption {
 
     @JoinColumn(name = "option_id")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Option option;
+    private ProductOption option;
 
     private Integer saleAmount;
 
     private LocalDate createdAt;
 
-    public TotalSaleOption(Option option, Integer saleAmount) {
+    public TotalSaleOption(ProductOption option, Integer saleAmount) {
         this.option = option;
         this.saleAmount = saleAmount;
     }

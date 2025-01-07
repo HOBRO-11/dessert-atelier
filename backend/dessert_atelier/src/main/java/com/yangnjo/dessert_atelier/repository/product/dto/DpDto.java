@@ -16,7 +16,7 @@ public class DpDto {
     private Long id;
     private String title;
     private List<String> thumb;
-    private Integer optionLayer;
+    private List<Long> optionHeaderIds;
     private List<String> description;
     private DisplayProductStatus dpStatus;
 
@@ -26,7 +26,7 @@ public class DpDto {
                 displayProduct.id,
                 displayProduct.title,
                 displayProduct.thumb,
-                displayProduct.optionLayer,
+                displayProduct.optionHeaderIds,
                 displayProduct.description,
                 displayProduct.displayProductStatus);
     }

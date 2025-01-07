@@ -16,7 +16,6 @@ public class DpSimpleDto {
     private Long id;
     private String title;
     private List<String> thumb;
-    private Integer optionLayer;
     private DisplayProductStatus dpStatus;
 
     public static Expression<DpSimpleDto> asDto() {
@@ -25,7 +24,6 @@ public class DpSimpleDto {
                 displayProduct.id,
                 displayProduct.title,
                 displayProduct.thumb,
-                displayProduct.optionLayer,
                 displayProduct.displayProductStatus);
     }
 }
