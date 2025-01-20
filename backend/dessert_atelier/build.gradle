@@ -27,7 +27,6 @@ dependencies {
 	// spring boot
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    // implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
@@ -66,6 +65,10 @@ dependencies {
     // poi
     implementation 'org.apache.poi:poi:5.2.3' // HSSF: Excel 97-2003 (.xls)
     implementation 'org.apache.poi:poi-ooxml:5.2.3' // XSSF: Excel 2007+ (.xlsx)
+
+    // crawling
+    implementation 'org.jsoup:jsoup:1.15.3'
+
 }
 
 tasks.named('test') {

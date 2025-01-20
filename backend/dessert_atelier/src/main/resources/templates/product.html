@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product List</title>
+    <style>
+        /* 이미지 가로 크기를 최대 500px로 제한 */
+        .product-image {
+            width: 50px !important;
+            height: auto; /* 비율 유지 */
+        }
+        .product-container {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="product-details">
+        <h1>Product Details</h1>
+        <div class="product">
+            <img th:src="@{${product.imgPath}/${product.thumb}}" alt="Product Image" class="product-image">
+            <h2 th:text="'Name: ' + ${product.name}">Product Name</h2>
+            <p th:text="'Price: ' + ${product.price} + ' 원'">Product Price</p>
+            <p th:if="${product.quantity != null}" th:text="'Quantity: ' + ${product.quantity}">Product Quantity</p>
+            <p th:if="${product.quantity == null}">Quantity: Not Available</p>
+        </div>
+    </div>
+</body>
+</html>

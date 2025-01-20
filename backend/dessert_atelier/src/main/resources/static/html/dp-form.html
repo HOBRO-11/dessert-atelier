@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상품 생성</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        form {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        form > div {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .thumbnail-container,
+        .description-container {
+            border: 1px dashed #ccc;
+            padding: 10px;
+            min-height: 100px;
+        }
+
+        .thumbnail-container div,
+        .description-container div {
+            margin-bottom: 8px;
+        }
+
+        .description-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .description-item img {
+            max-width: 100px;
+            margin-right: 8px;
+        }
+
+        .description-item button {
+            margin-left: 8px;
+            padding: 4px 8px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button {
+            display: inline-block;
+            padding: 8px 12px;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:disabled {
+            background-color: #ddd;
+        }
+
+        #submitBtn {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>상품 생성</h1>
+    <form id="createProductForm" enctype="multipart/form-data" action="/api/display" method="POST">
+        <!-- Title -->
+        <div>
+            <label for="title">상품 제목</label>
+            <input type="text" id="title" name="title" placeholder="상품 제목을 입력하세요" required>
+        </div>
+
+        <!-- Thumbnails -->
+        <div>
+            <label>썸네일</label>
+            <div class="thumbnail-container" id="thumbnailContainer">
+                <input type="file" id="thumbnailInput" accept="image/*" name="thumbnails" multiple>
+            </div>
+        </div>
+
+        <!-- Description -->
+        <div>
+            <label>설명</label>
+            <div class="description-container" id="descriptionContainer">
+                <!-- 설명 내용이 동적으로 추가됨 -->
+            </div>
+            <button type="button" id="addTextBtn">글 추가</button>
+            <button type="button" id="addImageBtn">이미지 추가</button>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" id="submitBtn">제출</button>
+    </form>
+
+    <script>
+        const descriptionContainer = document.getElementById('descriptionContainer');
+        const addTextBtn = document.getElementById('addTextBtn');
+        const addImageBtn = document.getElementById('addImageBtn');
+
+        // 글 추가 버튼 이벤트
+        addTextBtn.addEventListener('click', () => {
+            const textItem = document.createElement('div');
+            textItem.classList.add('description-item');
+
+            const textarea = document.createElement('textarea');
+            textarea.name = 'descriptionText';
+            textarea.placeholder = '내용을 입력하세요';
+            textItem.appendChild(textarea);
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.textContent = '삭제';
+            deleteBtn.addEventListener('click', () => {
+                textItem.remove();
+            });
+            textItem.appendChild(deleteBtn);
+
+            descriptionContainer.appendChild(textItem);
+        });
+
+        // 이미지 추가 버튼 이벤트
+        addImageBtn.addEventListener('click', () => {
+            const imageInput = document.createElement('input');
+            imageInput.type = 'file';
+            imageInput.accept = 'image/*';
+            imageInput.name = 'descriptionImages';
+
+            const imageItem = document.createElement('div');
+            imageItem.classList.add('description-item');
+
+            imageInput.addEventListener('change', () => {
+                const file = imageInput.files[0];
+                if (file) {
+                    const imgPreview = document.createElement('img');
+                    imgPreview.src = URL.createObjectURL(file);
+                    imgPreview.alt = file.name;
+                    imageItem.insertBefore(imgPreview, imageInput);
+                }
+            });
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.textContent = '삭제';
+            deleteBtn.addEventListener('click', () => {
+                imageItem.remove();
+            });
+
+            imageItem.appendChild(imageInput);
+            imageItem.appendChild(deleteBtn);
+
+            descriptionContainer.appendChild(imageItem);
+        });
+    </script>
+</body>
+</html>

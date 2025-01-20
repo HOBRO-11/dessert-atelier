@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- 기존 CSP 설정 -->
+    <meta http-equiv="Content-Security-Policy"
+        content="frame-src https://t1.daumcdn.net http://postcode.map.daum.net https://postcode.map.daum.net;">
+
+    <title>Document</title>
+    <style>
+        /* 클릭 불가능하게 만드는 스타일 */
+        #sample3_postcode, #sample3_address, #sample3_extraAddress {
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="/req/post" method="post">
+        <input type="text" id="sample3_postcode" placeholder="우편번호" readonly>
+        <input type="button" onclick="sample3_execDaumPostcode()" value="우편번호 찾기"><br>
+        <input type="text" id="sample3_address" placeholder="주소" readonly><br>
+        <input type="text" id="sample3_detailAddress" placeholder="상세주소">
+        <input type="text" id="sample3_extraAddress" placeholder="참고항목" readonly>
+        <input type="submit" value="제출">
+    </form>
+
+
+    <div id="wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 0;position:relative">
+        <img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnFoldWrap"
+            style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="foldDaumPostcode()"
+            alt="접기 버튼">
+    </div>
+
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="../js/postcode.js"></script>
+</body>
+
+</html>

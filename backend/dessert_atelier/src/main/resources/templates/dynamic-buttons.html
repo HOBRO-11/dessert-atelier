@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dynamic Button Example</title>
+</head>
+<body>
+    <div>
+        <button id="dynamicButton" 
+                th:attr="data-method=${method}, 
+                         data-uri=${uri}">
+            <!-- 버튼 텍스트는 JavaScript에서 동적으로 설정 -->
+        </button>
+    </div>
+
+    <script th:src="@{/js/dynamic-button.js}"></script>
+</body>
+</html>
