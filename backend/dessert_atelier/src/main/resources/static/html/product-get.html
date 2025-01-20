@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상품 목록</title>
+    <style>
+        #product-list {
+            border: 1px solid #ddd;
+            padding: 16px;
+            width: 300px;
+            margin: 16px auto;
+        }
+
+        .product-item {
+            border: 1px solid #ccc;
+            margin: 8px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .product-item img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .product-item h2 {
+            margin: 8px 0;
+            font-size: 18px;
+        }
+
+        .product-item p {
+            margin: 4px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>상품 목록</h1>
+    <div id="product-list">
+        <!-- 서버에서 받아온 상품 목록을 동적으로 채울 영역 -->
+    </div>
+
+    <script src="/js/product-get.js"></script>
+</body>
+
+</html>

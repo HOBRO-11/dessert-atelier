@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Form with Metadata</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Upload Form</h1>
+
+    <form id="uploadForm" method="POST" action="/reviews" enctype="multipart/form-data">
+        <!-- Product ID -->
+        <label for="dpId">Product ID:</label>
+        <input type="number" id="dpId" name="dpId" placeholder="Enter product ID" required><br><br>
+
+        <!-- Rating -->
+        <label for="rate">Rating:</label>
+        <input type="number" id="rate" name="rate" min="1" max="5" placeholder="Rate (1-5)" required><br><br>
+
+        <!-- Comment -->
+        <label for="comment">Comment:</label>
+        <textarea id="comment" name="comment" placeholder="Enter your comment" rows="5" cols="50" required></textarea><br><br>
+
+        <!-- Review Origin -->
+        <label for="origin">Review Origin:</label>
+        <input type="text" id="origin" name="origin" placeholder="Enter origin" required><br><br>
+
+        <!-- 이미지 추가 버튼 -->
+        <div id="imagesContainer">
+            <h3>Images:</h3>
+        </div>
+        <button type="button" id="addImageButton">Add Image</button><br><br>
+
+        <!-- 숨겨진 메타데이터 필드 -->
+        <input type="hidden" id="metadataField" name="metadata">
+        
+        <button type="submit">Submit</button>
+    </form>
+
+    <!-- JavaScript 파일 로드 -->
+    <script src="../js/button.js"></script>
+</body>
+</html>

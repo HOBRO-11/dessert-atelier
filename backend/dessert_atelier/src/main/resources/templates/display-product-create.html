@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Display Product Create Form</title>
+    <script defer>
+        let activeOptionIndex = null;
+
+        // 옵션 추가
+        function addOption() {
+            const optionsContainer = document.getElementById('options-container');
+            const optionIndex = optionsContainer.children.length; // 현재 옵션 개수
+
+            const optionDiv = document.createElement('div');
+            optionDiv.setAttribute('class', 'option');
+            optionDiv.setAttribute('data-index', optionIndex);
+            optionDiv.innerHTML = `
+                <div>
+                    <h4>옵션 ${optionIndex + 1}</h4>
+                    <input type="text" name="optionCreateForms[${optionIndex}].description" placeholder="옵션 설명" onfocus="setActiveOption(${optionIndex})">
+                    <input type="number" name="optionCreateForms[${optionIndex}].price" placeholder="옵션 가격" onfocus="setActiveOption(${optionIndex})">
+                    <input type="number" name="optionCreateForms[${optionIndex}].optionLayer" placeholder="옵션 레이어" onfocus="setActiveOption(${optionIndex})">
+                    <div class="product-quantities"></div>
+                    <button type="button" onclick="removeOption(${optionIndex})">삭제</button>
+                </div>
+            `;
+            optionsContainer.appendChild(optionDiv);
+        }
+
+        // 활성화된 옵션 설정
+        function setActiveOption(optionIndex) {
+            activeOptionIndex = optionIndex;
+            console.log(`옵션 ${optionIndex + 1}이(가) 활성화되었습니다.`);
+        }
+
+        // 옵션 삭제
+        function removeOption(optionIndex) {
+            const optionDiv = document.querySelector(`.option[data-index="${optionIndex}"]`);
+            if (optionDiv) optionDiv.remove();
+            if (activeOptionIndex === optionIndex) activeOptionIndex = null; // 활성화 상태 초기화
+        }
+
+        // 상품 추가
+        function addProduct(button) {
+            if (activeOptionIndex === null) {
+                alert("옵션을 먼저 선택하세요!");
+                return;
+            }
+
+            const productId = button.getAttribute('data-product-id');
+            const productName = button.getAttribute('data-product-name');
+            const optionDiv = document.querySelector(`.option[data-index="${activeOptionIndex}"]`);
+            const productQuantitiesDiv = optionDiv.querySelector('.product-quantities');
+
+            const quantityIndex = productQuantitiesDiv.children.length;
+            const productDiv = document.createElement('div');
+            productDiv.setAttribute('class', 'product');
+            productDiv.innerHTML = `
+                <span>${productName}</span>
+                <input type="hidden" name="optionCreateForms[${activeOptionIndex}].productQuantityForms[${quantityIndex}].productId" value="${productId}">
+                <input type="number" name="optionCreateForms[${activeOptionIndex}].productQuantityForms[${quantityIndex}].quantity" placeholder="수량">
+                <button type="button" onclick="removeProduct(this)">삭제</button>
+            `;
+            productQuantitiesDiv.appendChild(productDiv);
+        }
+
+        // 상품 삭제
+        function removeProduct(button) {
+            button.parentElement.remove();
+        }
+
+        // 썸네일 파일 추가
+        function addThumbnail(input) {
+            const thumbnailList = document.getElementById('thumbnail-list');
+            const fileName = input.files[0]?.name;
+            if (!fileName) return;
+
+            const thumbIndex = thumbnailList.children.length;
+            const thumbDiv = document.createElement('div');
+            thumbDiv.setAttribute('class', 'thumbnail');
+            thumbDiv.innerHTML = `
+                <span>${fileName}</span>
+                <input type="hidden" name="thumb[${thumbIndex}]" value="${fileName}">
+                <button type="button" onclick="removeThumbnail(this)">삭제</button>
+            `;
+            thumbnailList.appendChild(thumbDiv);
+        }
+
+        // 썸네일 삭제
+        function removeThumbnail(button) {
+            button.parentElement.remove();
+        }
+    </script>
+</head>
+<body>
+    <form th:action="@{/display-product}" method="post" enctype="multipart/form-data">
+        <div>
+            <label>제목</label>
+            <input type="text" name="title">
+        </div>
+        <div>
+            <label>썸네일</label>
+            <input type="file" name="files" accept="image/*" multiple onchange="addThumbnail(this)">
+            <div id="thumbnail-list"></div>
+        </div>
+        <div>
+            <label>설명</label>
+            <textarea name="description"></textarea>
+        </div>
+        <div>
+            <label>옵션 수</label>
+            <input type="number" name="option_layer">
+        </div>
+        <div>
+            <button type="button" onclick="addOption()">옵션 추가</button>
+        </div>
+        <div id="options-container"></div>
+        <button type="submit">저장</button>
+    </form>
+
+    <!-- 상품 리스트 -->
+    <div id="product-list">
+        <h3>상품</h3>
+        <ul>
+            <li th:each="product : ${productList}">
+                <button type="button" 
+                        th:data-product-id="${product.id}" 
+                        th:data-product-name="${product.name}" 
+                        th:text="${product.name}" 
+                        onclick="addProduct(this)">
+                    <!-- Product Name -->
+                </button>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

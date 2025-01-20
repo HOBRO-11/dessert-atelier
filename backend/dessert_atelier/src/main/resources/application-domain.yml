@@ -1,0 +1,10 @@
+domain:
+  member:
+    member_address:
+      max_count: 20
+  order:
+    cart_option: 
+      max_count: 20
+    order_detail:
+      subfix_length: 6
+      try_count: 3

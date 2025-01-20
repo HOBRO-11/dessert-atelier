@@ -21,6 +21,6 @@ spring:
   sql:
     init:
       mode: 
-        never
-        # always
+        # never
+        always
       data-locations: classpath:sql/test-data-postgresql.sql
